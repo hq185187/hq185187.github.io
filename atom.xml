@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://example.com</id>
+    <id>https://hq185187.github.io</id>
     <title>welcome to my blog</title>
-    <link href="http://example.com" />
+    <link href="https://hq185187.github.io" />
     <updated>2023-04-25T16:51:04.501Z</updated>
     <entry>
-        <id>http://example.com/2023/04/26/nessctf/</id>
-        <title></title>
-        <link rel="alternate" href="http://example.com/2023/04/26/nessctf/"/>
+        <id>https://hq185187.github.io/2023/04/26/nessctf/</id>
+        <title>NSSCTF精选</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/04/26/nessctf/"/>
         <content type="html">&lt;h3 id=&#34;1easy_md5&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1easy_md5&#34;&gt;#&lt;/a&gt; 1.easy_md5&lt;/h3&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;`&amp;lt;?php     highlight_file(__FILE__);    include &amp;#x27;flag2.php&amp;#x27;;       if (isset($_GET[&amp;#x27;name&amp;#x27;]) &amp;amp;&amp;amp; isset($_POST[&amp;#x27;password&amp;#x27;]))&amp;#123;    $name = $_GET[&amp;#x27;name&amp;#x27;];    $password = $_POST[&amp;#x27;password&amp;#x27;];       if ($name != $password &amp;amp;&amp;amp; md5($name) == md5($password))&amp;#123;           echo $flag;       &amp;#125;       else &amp;#123;           echo &amp;quot;wrong!&amp;quot;;       &amp;#125;       &amp;#125;   else &amp;#123;       echo &amp;#x27;wrong!&amp;#x27;;   &amp;#125;   ?&amp;gt;`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;md5 弱类型比较&lt;br&gt;
@@ -138,9 +138,9 @@ post 传参: &lt;code&gt;welcome to the zjctf&lt;/code&gt; &lt;br&gt;
         <updated>2023-04-25T16:51:04.501Z</updated>
     </entry>
     <entry>
-        <id>http://example.com/2023/04/24/sqli-labs/</id>
-        <title></title>
-        <link rel="alternate" href="http://example.com/2023/04/24/sqli-labs/"/>
+        <id>https://hq185187.github.io/2023/04/24/sqli-labs/</id>
+        <title>Sqli-labs靶场通关</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/04/24/sqli-labs/"/>
         <content type="html">&lt;h3 id=&#34;怎么判断字符型或者数字型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#怎么判断字符型或者数字型&#34;&gt;#&lt;/a&gt; 怎么判断字符型或者数字型？&lt;/h3&gt;
 &lt;p&gt;数字型:id=2 和 id=3-1 返回界面相同&lt;br&gt;
 原理：说明 2-1 被解析了，旁边没有引号&lt;br&gt;
@@ -245,9 +245,9 @@ less16&lt;br&gt;
         <updated>2023-04-23T16:32:55.178Z</updated>
     </entry>
     <entry>
-        <id>http://example.com/2023/04/23/hello-world/</id>
+        <id>https://hq185187.github.io/2023/04/23/hello-world/</id>
         <title>Hello World</title>
-        <link rel="alternate" href="http://example.com/2023/04/23/hello-world/"/>
+        <link rel="alternate" href="https://hq185187.github.io/2023/04/23/hello-world/"/>
         <content type="html">&lt;p&gt;Welcome to &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvLw==&#34;&gt;Hexo&lt;/span&gt;! This is your very first post. Check &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvL2RvY3Mv&#34;&gt;documentation&lt;/span&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlvL2RvY3MvdHJvdWJsZXNob290aW5nLmh0bWw=&#34;&gt;troubleshooting&lt;/span&gt; or you can ask me on &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcw==&#34;&gt;GitHub&lt;/span&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;quick-start&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#quick-start&#34;&gt;#&lt;/a&gt; Quick Start&lt;/h2&gt;
 &lt;h3 id=&#34;create-a-new-post&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#create-a-new-post&#34;&gt;#&lt;/a&gt; Create a new post&lt;/h3&gt;
