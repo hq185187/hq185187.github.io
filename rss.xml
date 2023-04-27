@@ -5,8 +5,50 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Thu, 27 Apr 2023 17:53:21 +0800</pubDate>
-        <lastBuildDate>Thu, 27 Apr 2023 17:53:21 +0800</lastBuildDate>
+        <pubDate>Thu, 27 Apr 2023 18:41:31 +0800</pubDate>
+        <lastBuildDate>Thu, 27 Apr 2023 18:41:31 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+            <title>正则表达式</title>
+            <link>https://hq185187.github.io/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+            <pubDate>Thu, 27 Apr 2023 18:41:31 +0800</pubDate>
+            <description><![CDATA[ &lt;h2&gt;语法&lt;/h2&gt;
+&lt;p&gt;runoo+b,可以匹配runoob,runooob,runoooooob等,+号代表前面的字符至少出现一次(一次或者多次)&lt;/p&gt;
+&lt;p&gt;runoob*b,可以匹配runob,runoob,runooooob,*号代表*前面的字符可以不出现,也可以出现一次或者多次&lt;/p&gt;
+&lt;p&gt;colou?r可以匹配color,colour,?代表前面的字符最多可以出现一次(&lt;strong&gt;0次或者一次&lt;/strong&gt;)&lt;/p&gt;
+&lt;h2&gt;普通字符&lt;/h2&gt;
+&lt;li&gt;[ABC],会匹配[...]中的所有字符&lt;/li&gt;
+&lt;li&gt;[^ABC],会匹配除了[...]中的所有字符&lt;/li&gt;
+&lt;li&gt;[A-Z],表示一个区间会匹配所有大写字母&lt;/li&gt;
+&lt;li&gt;/./匹配除换行符之外的任何单个字符&lt;/li&gt;
+&lt;li&gt;[\s\S]匹配所有,\s匹配所有空白符,包括换行,\S非空白符,不包括换行&lt;/li&gt;
+&lt;li&gt;\w匹配字符数字下划线,等价于[A-Za-z0-9_]&lt;/li&gt;
+&lt;li&gt;$匹配输入字符串的结尾位置&lt;/li&gt;
+&lt;li&gt;{n},n是一个非负整数,匹配确定的n次,eg.o{2}不能匹配&#34;Bob&#34;中的o,但是能匹配&#34;food&#34;中的两个o&lt;/li&gt;
+&lt;li&gt;{n,},至少匹配n次,o{2,}不能匹配&#34;Bob&#34;中的o,但能匹配&#34;fooood&#34;中的所有的o,o{1,}等价o+,o{0,}等价o*&lt;/li&gt;
+&lt;h3&gt;定位符&lt;/h3&gt;
+&lt;li&gt;^匹配输入字符串开始的地方&lt;/li&gt;
+&lt;li&gt;$匹配输入字符串结尾的地方&lt;/li&gt;
+&lt;li&gt;\b匹配一个单词边界&lt;/li&gt;
+&lt;li&gt;\B匹配非单词边界&lt;/li&gt;
+&lt;li&gt;\d匹配一个数字字符&lt;/li&gt;
+&lt;li&gt;\D匹配一个非数字字符&lt;/li&gt;
+&lt;li&gt;\f匹配一个换页符&lt;/li&gt;
+&lt;h3&gt;修饰符&lt;/h3&gt;
+/pattern/i 不区分大小写
+/pattern/g 全局匹配,查找所有的匹配项
+/pattern/m 多行匹配,使边界字符^和$匹配每一行的开头和结尾
+/pattern/s 使特殊字符圆点.中包含换行符&lt;code&gt;\n&lt;/code&gt;
+&lt;p&gt;正则表达式的开始和结束除了 /…/ 还可以用 @…@&lt;/p&gt;
+&lt;h2&gt;1.preg_match()&lt;/h2&gt;
+执行一个正则表达式匹配
+&lt;code&gt;int preg_match(string $pattern,string $subject[, array &amp;$matches [, int $flags = 0 [, int $offset = 0 ]]])&lt;/code&gt;
+$pattern是要搜索的模式,字符串形式
+$subject是输入字符串
+$match:如果提供此参数,它将被填充为搜索结果,$matchs[0]将包含完整模式匹配的文本,$match[1]将包含第一个捕获子组匹配到的文本
+返回值将是0或者1,因为preg_match在匹配一次后将会自动停止搜索
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/</guid>
             <title>upload-labs靶场</title>
