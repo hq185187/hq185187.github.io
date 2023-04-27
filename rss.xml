@@ -279,7 +279,8 @@ GIF89a&lt;br&gt;
 &lt;p&gt;结果&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;__construct&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;__sleep&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Serialized:O:4:&amp;quot;test&amp;quot;:2:&amp;#123;s:8:&amp;quot;variable&amp;quot;;s:33:&amp;quot;变量反序列化后都要销毁&amp;quot;;s:9:&amp;quot;variable2&amp;quot;;s:5:&amp;quot;OTHER&amp;quot;;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;__wakeup&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;变量反序列化后都要销毁&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;__destruct&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;__destruct&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;想学习更多关于 php 反序列化漏洞的题目的看这里哦&lt;br&gt;
-&lt;a href=&#34;&#34;&gt; php 反序列化刷题&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://hq185187.github.io/2023/04/27/unserialize-labs/&#34;&gt;靶场入门&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;&#34;&gt;进阶刷题&lt;/a&gt;&lt;/p&gt;
  ]]></description>
         </item>
         <item>
