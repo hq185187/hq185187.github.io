@@ -3,7 +3,122 @@
     <id>https://hq185187.github.io</id>
     <title>welcome to my blog</title>
     <link href="https://hq185187.github.io" />
-    <updated>2023-04-27T08:33:14.709Z</updated>
+    <updated>2023-04-27T09:53:21.634Z</updated>
+    <entry>
+        <id>https://hq185187.github.io/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/</id>
+        <title>upload-labs靶场</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/"/>
+        <content type="html">&lt;h3 id=&#34;第一题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第一题&#34;&gt;#&lt;/a&gt; 第一题&lt;/h3&gt;
+&lt;p&gt;一句话木马&lt;/p&gt;
+&lt;p&gt;phpinfo();&lt;br&gt;
+@eval($_POST[‘zoe’]);&lt;br&gt;
+?&amp;gt;&lt;/p&gt;
+&lt;p&gt;1. 将 php 后缀改成 png/gif 等符合条件的后缀上传抓包，将后缀改成 php 放包即可成功上传&lt;br&gt;
+用蚁剑添加数据&lt;br&gt;
+ 2.F12-&amp;gt; 调试器 -&amp;gt; 设置里禁用 js&lt;br&gt;
+3. 复制网页源代码保存到文件中，删掉里面的 js 部分，添加 action 部分，打开即可&lt;/p&gt;
+&lt;h3 id=&#34;第二题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第二题&#34;&gt;#&lt;/a&gt; 第二题&lt;/h3&gt;
+&lt;p&gt;MIME 类型&lt;br&gt;
+抓包改 content-type 为符合条件的就行&lt;br&gt;
+ eg.image-png&lt;/p&gt;
+&lt;h3 id=&#34;第三题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第三题&#34;&gt;#&lt;/a&gt; 第三题&lt;/h3&gt;
+&lt;p&gt;黑名单类型 - 修改后缀绕过&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用黑名单不允许上传 &lt;code&gt;.asp,.aspx,.php,.jsp&lt;/code&gt;  后缀的文件&lt;/li&gt;
+&lt;li&gt;但可以上传 &lt;code&gt;.phtml .phps .php5 .pht&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;首选 phtml&lt;/mark&gt;&lt;/li&gt;
+&lt;li&gt;前提是 apache 的 httpd.conf 中有如下配置代码&lt;/li&gt;
+&lt;li&gt;AddType application/x-httpd-php .php .phtml .phps .php5 .pht&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第四题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第四题&#34;&gt;#&lt;/a&gt; 第四题&lt;/h3&gt;
+&lt;p&gt;.htaccess&lt;br&gt;
+ 先将 httpd.conf 的文件中的 AllowOverride none 改为 ALL&lt;br&gt;
+1 &lt;code&gt;AddType application/x-httpd-php .jpg&lt;/code&gt;  这个指令代表着 &lt;code&gt;.jpg&lt;/code&gt;  文件会当做 &lt;code&gt;php&lt;/code&gt;  来解析&lt;br&gt;
+传个 zoe.jpg&lt;/p&gt;
+&lt;p&gt;2 &lt;code&gt;SetHandler application/x-httpd-php&lt;/code&gt; ，意思是把所有文件都解析为 &lt;code&gt;php&lt;/code&gt;  文件来执行。&lt;br&gt;
+写第二个命名为.htaccess 传上去&lt;br&gt;
+&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3huLS16b2UtaTY4ZHo3Yi54eHg=&#34;&gt;传个 zoe.xxx&lt;/span&gt;, 随便什么后缀符合要求就行&lt;/p&gt;
+&lt;p&gt;3. 可以用第十题的解法，利用 deldot 的漏洞&lt;/p&gt;
+&lt;p&gt;补充：(原本多出的第五题)&lt;br&gt;
+ 在 Windows 操作系统中，xx.jpg. 和 xx.jpg 空格都相当于 xx.jpg, 自动去掉了末尾的。和空格&lt;br&gt;
+后缀名可以是 zoe.php. .&lt;/p&gt;
+&lt;h3 id=&#34;第六题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第六题&#34;&gt;#&lt;/a&gt; 第六题&lt;/h3&gt;
+&lt;p&gt;此题的源码可以发现少了 strtolower 函数&lt;br&gt;
+黑名单之大小写绕过&lt;br&gt;
+将后缀改成 Php 即可&lt;/p&gt;
+&lt;h3 id=&#34;第七题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第七题&#34;&gt;#&lt;/a&gt; 第七题&lt;/h3&gt;
+&lt;p&gt;黑名单验证之空格绕过&lt;br&gt;
+这一关黑名单，没有使用 trim () 去除空格，可以使用空格绕过黑名单&lt;br&gt;
+ bp 抓包在 content-disposition 中 php 后加个空格&lt;/p&gt;
+&lt;h3 id=&#34;第八题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第八题&#34;&gt;#&lt;/a&gt; 第八题&lt;/h3&gt;
+&lt;p&gt;这一关黑名单，没有使用 deldot () 过滤文件名末尾的 &lt;code&gt;点&lt;/code&gt; ，可以使用文件名后加。进行绕过&lt;br&gt;
+抓包修改    .php. 注意这里有个.&lt;/p&gt;
+&lt;h3 id=&#34;第九题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第九题&#34;&gt;#&lt;/a&gt; 第九题&lt;/h3&gt;
+&lt;p&gt;特殊字符::&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mtext&gt;绕过补充知识：&lt;/mtext&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mtext&gt;在&lt;/mtext&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mtext&gt;的时候如果文件名&lt;/mtext&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;&amp;quot;&lt;/mi&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;DATA绕过
+补充知识：php在window的时候如果文件名+&amp;quot;::&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;绕&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;过&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;补&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;充&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;知&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;识&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;在&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;时&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;候&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;如&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;果&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;文&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;件&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;名&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;DATA&amp;quot; 会把::&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mtext&gt;之后的数据当成文件流处理&lt;/mtext&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;mtext&gt;不会检测后缀名，且保持&lt;/mtext&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;&amp;quot;&lt;/mi&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;DATA之后的数据当成文件流处理,不会检测后缀名，且保持&amp;quot;::&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;之&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;后&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;数&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;据&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;当&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;成&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;文&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;件&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;流&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;处&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;理&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.16666666666666666em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;不&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;会&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;检&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;测&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;后&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;缀&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;名&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;且&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;保&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;持&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;DATA&amp;quot; 之前的文件名 他的目的就是不检查后缀名。&lt;br&gt;
+抓包改后缀，php::&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mtext&gt;浏览器地址去掉&lt;/mtext&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;mo&gt;:&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;DATA
+浏览器地址去掉::&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;浏&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;览&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;器&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;地&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;址&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;去&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;掉&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;data 就可以正常连接&lt;/p&gt;
+&lt;h3 id=&#34;第十题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第十题&#34;&gt;#&lt;/a&gt; 第十题&lt;/h3&gt;
+&lt;p&gt;这一关黑名单，最后上传路径直接使用文件名进行拼接，而且只对文件名进行&lt;br&gt;
+ f i l e n a m e = d e l d o t (file_name) 操作去除文件名末尾的点，构造后缀绕过黑名单&lt;br&gt;
+补充知识：deldot () 函数从后向前检测，当检测到末尾的第一个点时会继续它的检测，但是遇到空格会停下来&lt;br&gt;
+上传 zoe.php 然后用 bp 改后缀加点 == &lt;code&gt;空格点&lt;/code&gt;  ==（即文件名为 &lt;code&gt;zoe.php. .&lt;/code&gt; ）&lt;/p&gt;
+&lt;p&gt;使用 antsword 连接   &lt;mark&gt;.php.&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;十一.&lt;br&gt;
+ 双写绕过&lt;br&gt;
+这一关黑名单，使用 str_ireplace () 函数寻找文件名中存在的黑名单字符串，将它替换成空（即将它删掉），可以使用双写绕过黑名单&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;补充知识：str_ireplace (find,replace,string,count) 函数替换字符串中的一些字符&lt;br&gt;
+传 &lt;code&gt;zoe.php&lt;/code&gt;  然后用 bp 改后缀为 &lt;code&gt;.pphphp&lt;/code&gt;  使用蚁剑连接 &lt;code&gt;zoe.php&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;十二.get00 截断&lt;br&gt;
+这一关白名单，最终文件的存放位置是以拼接的方式，可以使用 %00 截断，但需要 &lt;code&gt;php版本&amp;lt;5.3.4&lt;/code&gt; ，并且 &lt;code&gt;magic_quotes_gpc&lt;/code&gt;  关闭。&lt;br&gt;
+原理：php 的一些函数的底层是 C 语言，而 move_uploaded_file 就是其中之一，遇到 0x00 会截断，0x 表示 16 进制，URL 中 %00 解码成 16 进制就是 0x00。&lt;/p&gt;
+&lt;p&gt;上传 &lt;code&gt;zoe.php&lt;/code&gt;  用 BP 抓包修改参数，把 upload / 后面加上 &lt;code&gt;zoe.php%00&lt;/code&gt; ，下面的 &lt;code&gt;filename=”zoe.php”&lt;/code&gt;  改为 &lt;code&gt;zoe.png&lt;/code&gt; &lt;br&gt;
+ 用 antsword 连接时要删掉后面的注释&lt;/p&gt;
+&lt;p&gt;十三.post00 截断&lt;br&gt;
+这一关白名单，文件上传路径拼接生成，而且使用了 post 发送的数据进行拼接，我们可以控制 post 数据进行 0x00 截断绕过白名&lt;br&gt;
+一句话木马抓包 zoe.php&lt;br&gt;
+ 在 &lt;code&gt;../upload/&lt;/code&gt;  路径下加上 &lt;code&gt;zoe.php+&lt;/code&gt;   &lt;code&gt;+号&lt;/code&gt; 是为了方便后面修改 &lt;code&gt;Hex&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;+号&lt;/code&gt; 的 Hex 是 &lt;code&gt;2b&lt;/code&gt; ，这里我们要把它改为 &lt;code&gt;00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;十四：图片马 unpack&lt;br&gt;
+ 可以先传一个 14.php (文件包含) 到服务器，可以选择别的题目传到服务器，&lt;mark&gt; 目的是解析传入的图片为 PHP&lt;/mark&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;header(&amp;quot;Content-Type:text/html;charset=utf-8&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;$file=$_GET[&amp;#x27;file&amp;#x27;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;if(isset($file))&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    include $file;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    show_source(__FILE__);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;再传一个图片马，14.jpg&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;GIF89a&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;phpinfo();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;打开 14.php 的路径，url 输入？file = 图片马的路径&lt;/p&gt;
+&lt;p&gt;补充：图片马制作&lt;br&gt;
+&lt;strong&gt;制作图片马命令&lt;/strong&gt;：copy 图片文件名称 /b + 脚本文件名称 /a  新生成的文件名称，例如：copy 222.jpg/b+111.php/a 333.jpg&lt;br&gt;
+1. 先写 jpg 文件:&lt;br&gt;
+GIF89a&lt;br&gt;
+?&amp;lt;php&lt;br&gt;
+@eval($_POST[‘shell’]);&lt;br&gt;
+?&amp;gt;&lt;br&gt;
+2. 再写 php 文件&lt;br&gt;
+直接复制粘贴给我文件包含&lt;br&gt;
+ 3. 制作图片马&lt;br&gt;
+ cmd 命令：13.jpg/b+13.php/a pass13.jpg&lt;br&gt;
+ 之间上传 pass13.jpg 将图片地址给 antsword 连接&lt;/p&gt;
+&lt;h1 id=&#34;十五getimagesize图片马&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#十五getimagesize图片马&#34;&gt;#&lt;/a&gt; 十五 getimagesize 图片马&lt;/h1&gt;
+&lt;p&gt;与上一题一样&lt;br&gt;
+补充:getimagesize () 函数的作用是获取图片文件的相关信息&lt;/p&gt;
+&lt;p&gt;十六。跟 14,15 一样，通过文件包含和图片马 getshell&lt;/p&gt;
+&lt;p&gt;十七。二次渲染绕过&lt;/p&gt;
+&lt;p&gt;上传正常的 &lt;code&gt;GIF&lt;/code&gt;  图片下载回显的图片，用 notepad++ 编辑器进行对比两个 GIF 图片内容，插入一句话木马，需要 python 脚本实现&lt;/p&gt;
+&lt;p&gt;十八。条件竞争&lt;br&gt;
+看代码，它是先把图片上传上去，才开始进行判断后缀名。如果我们在上传上去的一瞬间访问这个文件，那他就不能对这个文件删除，二次渲染等等。就相当于我们打开了一个文件，然后再去删除这个文件，就会提示这个文件在另一程序已经打开无法删除&lt;br&gt;
+用 burp 抓包 -&amp;gt; 导入到 intruder 模块 -&amp;gt; 设置类型为 null payloads,payload options 设置为 conntinue indefinitely-&amp;gt; 在另一浏览器打开上传文件位置&lt;/p&gt;
+&lt;p&gt;十九。操作与上一关差不多，配合包含漏洞&lt;/p&gt;
+&lt;p&gt;二十.move_upload_file 的漏洞，会忽略 /.&lt;br&gt;
+1. 加 /.&lt;br&gt;
+2.save_name 用 %00 阶段 (PHP 版本小于 5.3)&lt;/p&gt;
+&lt;p&gt;二十一&lt;br&gt;
+数组验证&lt;/p&gt;
+&lt;p&gt;大佬的图片 https://wwe.lanzoui.com/iFSwwn53jaf&lt;br&gt;
+ 构造的 URL 为 &lt;code&gt;include.php?file=upload/31608.gif&lt;/code&gt;&lt;/p&gt;
+</content>
+        <updated>2023-04-27T09:53:21.634Z</updated>
+    </entry>
     <entry>
         <id>https://hq185187.github.io/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</id>
         <title>php反序列化漏洞学习</title>
