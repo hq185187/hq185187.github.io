@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
         </ul>
       </div>
     </header>
@@ -123,7 +123,40 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/27/unserialize-labs/" itemprop="url" title="Unserialize-labs"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeun65urj20zk0m81ii.jpg"></a>
+    <a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" itemprop="url" title="命令执行漏洞及绕过方法"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-28 19:14:02">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-28T19:14:02+08:00">2023-04-28</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" itemprop="url" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></h3>
+    <div class="excerpt">
+        # 代码执行
+代码执行：未严格过滤用户输入的参数，导致用户可以通过传参在 web 服务器上执行恶意代码.
+可变函数：一个变量名后面如果有圆括号，php 将寻找同名函数调用
+eval: 将一个字符串作为 php 代码执行
+1eval($_POST[&amp;#x27;123&amp;#x27;])
+eval 是一个语言构造器，不是函数，不能当可变函数
+assert (): 执行一个有返回值的 php 表达式
+1assert($_POST[&amp;#x27;123&amp;#x27;])
+php7.2 以后与 eval 一样是语言构造器不是函数
+call_user_func ():...
+    </div>
+    <a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" itemprop="url" title="命令执行漏洞及绕过方法" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/04/27/unserialize-labs/" itemprop="url" title="Unserialize-labs"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclxp31goj20zk0m8qv5.jpg"></a>
   </div>
   <div class="info">
     
@@ -149,7 +182,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url" title="正则表达式"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+    <a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url" title="正则表达式"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
   </div>
   <div class="info">
     
@@ -182,7 +215,7 @@ colou?r可以匹配color,colour,?代表前面的字符最多可以出现一次(0
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" title="upload-labs靶场"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+    <a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" title="upload-labs靶场"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></a>
   </div>
   <div class="info">
     
@@ -222,7 +255,7 @@ eg.image-png
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" itemprop="url" title="php反序列化漏洞学习"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></a>
+    <a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" itemprop="url" title="php反序列化漏洞学习"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></a>
   </div>
   <div class="info">
     
@@ -258,7 +291,7 @@ eg.image-png
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" itemprop="url" title="无字母数字rce"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
+    <a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" itemprop="url" title="无字母数字rce"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></a>
   </div>
   <div class="info">
     
@@ -300,7 +333,7 @@ eg1.
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" itemprop="url" title="文件包含及伪协议的使用"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></a>
+    <a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" itemprop="url" title="文件包含及伪协议的使用"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></a>
   </div>
   <div class="info">
     
@@ -330,7 +363,7 @@ eg1.
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/26/nessctf/" itemprop="url" title="NSSCTF精选"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
+    <a href="/2023/04/26/nessctf/" itemprop="url" title="NSSCTF精选"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -355,7 +388,7 @@ eg1.
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/24/sqli-labs/" itemprop="url" title="Sqli-labs靶场通关"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
+    <a href="/2023/04/24/sqli-labs/" itemprop="url" title="Sqli-labs靶场通关"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -391,7 +424,7 @@ less1
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/23/hello-world/" itemprop="url" title="Hello World"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></a>
+    <a href="/2023/04/23/hello-world/" itemprop="url" title="Hello World"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclj61ylzj20zk0m8b29.jpg"></a>
   </div>
   <div class="info">
     
@@ -447,7 +480,7 @@ More info: Writing
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">9</span>
+        <span class="count">10</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -534,6 +567,15 @@ More info: Writing
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
   </li>
 
@@ -543,7 +585,16 @@ More info: Writing
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
   </li>
 
       
@@ -570,6 +621,15 @@ More info: Writing
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/04/24/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
   </li>
 
@@ -579,25 +639,7 @@ More info: Writing
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
   </li>
 
   </ul>

