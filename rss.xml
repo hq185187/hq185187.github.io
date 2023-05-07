@@ -5,8 +5,86 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Wed, 03 May 2023 14:54:19 +0800</pubDate>
-        <lastBuildDate>Wed, 03 May 2023 14:54:19 +0800</lastBuildDate>
+        <pubDate>Sun, 07 May 2023 15:33:27 +0800</pubDate>
+        <lastBuildDate>Sun, 07 May 2023 15:33:27 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/</guid>
+            <title>时间盲注</title>
+            <link>https://hq185187.github.io/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/</link>
+            <pubDate>Sun, 07 May 2023 15:33:27 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;例子的表:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;name&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;url&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;alexa&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;country&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Google&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuZ29vZ2xlLmNtLw==&#34;&gt;https://www.google.cm/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;USA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;淘宝&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudGFvYmFvLmNvbS8=&#34;&gt;https://www.taobao.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;13&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;菜鸟教程&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3d3dy5ydW5vb2IuY29tLw==&#34;&gt;http://www.runoob.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;微博&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3dlaWJvLmNvbS8=&#34;&gt;http://weibo.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;20&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Facebook&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tLw==&#34;&gt;https://www.facebook.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;USA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;stackoverflow&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tLw==&#34;&gt;http://stackoverflow.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;IND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;基本延时的盲注sleep&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#基本延时的盲注sleep&#34;&gt;#&lt;/a&gt; 基本延时的盲注:sleep&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select * from 表名 where id=1 and sleep(2);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;配合 if 语句&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;if(expr1,expr2,expr3)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;expr1是真,返回expr2,否则expr3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;select * from websites where name=&amp;#x27;1&amp;#x27; or if(name=&amp;#x27;Facebook&amp;#x27;,sleep(2),null);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;判断是否有网站名字为Facebook&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;配合截取函数&lt;br&gt;
+ substr (string,start,length)&lt;br&gt;
+mid(string,start,length)&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select * from websites where name=&amp;#x27;2&amp;#x27; or if(substr((select name from websites where id=1),0,1)=&amp;#x27;G&amp;#x27;,sleep(2),0);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;1benchmark&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1benchmark&#34;&gt;#&lt;/a&gt; 1.benchmark()&lt;/h3&gt;
+&lt;p&gt;benchmark 是 MySQL 的一个内置函数，作用是测试一些函数的执行速度.benchmark 中有两个参数，第一个是执行的次数，第二个是要执行的函数或者表达式&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mysql&amp;gt; select benchmark(10000,md5(&amp;#x27;a&amp;#x27;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;| benchmark(10000,md5(&amp;#x27;a&amp;#x27;)) |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;|                         0 |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 row in set (0.01 sec)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mysql&amp;gt; select benchmark(100000000,md5(&amp;#x27;a&amp;#x27;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;| benchmark(100000000,md5(&amp;#x27;a&amp;#x27;)) |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;|                             0 |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 row in set (14.29 sec)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到执行次数不同，时间也不同，我们接下来用它来达到 sleep 的延时目的&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select 1 and if((substr(user(),1,1)=&amp;#x27;r&amp;#x27;),BENCHMARK(10000000,md5(&amp;#x27;a&amp;#x27;)),1);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;2heavy-query&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2heavy-query&#34;&gt;#&lt;/a&gt; 2.heavy query&lt;/h3&gt;
+&lt;p&gt;通过大量的查询导致查询时间变长来达到延时目的&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select count(*) from information_schema.tables A,information_schema.tables B;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;select 1 and if((substr(user(),1,1)=&amp;#x27;r&amp;#x27;),(select count(*) from information_schema.tables A,information_schema.tables B;),1);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt; ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/05/03/request%E5%BA%93/</guid>
             <title>requests学习</title>
