@@ -1,0 +1,546 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">
+
+
+
+  <title>
+沙箱逃逸初学习 |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">沙箱逃逸初学习
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-12 16:09:54">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-12T16:09:54+08:00">2023-05-12</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/rjdhcSgEN8COBPA.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="初识"><a class="markdownIt-Anchor" href="#初识">#</a> 初识</h2>
+<ul>
+<li>JavaScript 和 nodejs 的区别：JavaScript 是前端语言，后来将 Chrome 中的 v8 引擎单独拿出来为 JavaScript 单独开发了一个运行环境，因此 JavaScript 也可以作为一门后端语言，写在后端（服务端）的 JavaScript 就叫叫做 Nodejs。</li>
+<li>沙箱：单独开辟一个运行代码的环境，与主机隔离，可用来运行危险代码且不影响主机，依靠重定向将代码重定向到沙箱内部</li>
+<li>沙箱（sandbox）和 虚拟机（VM）和 容器（Docker）之间的区别：sandbox 和 VM 使用的都是虚拟化技术，但二者间使用的目的不一样。沙箱用来隔离有害程序，而虚拟机则实现了我们在一台电脑上使用多个操作系统的功能。Docker 属于 sandbox 的一种，通过创造一个有边界的运行环境将程序放在里面，使程序被边界困住，从而使程序与程序，程序与主机之间相互隔离开。</li>
+<li>在 nodejs 中可以通过 vm 模块创建一个沙箱但有缺陷</li>
+</ul>
+<h2 id="node将字符串执行为代码"><a class="markdownIt-Anchor" href="#node将字符串执行为代码">#</a> node 将字符串执行为代码</h2>
+<h3 id="方法1eval"><a class="markdownIt-Anchor" href="#方法1eval">#</a> 方法 1：eval</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//1.txt</span><br><span class="line">var name=&#x27;web&#x27;;</span><br><span class="line"></span><br><span class="line">//1.js</span><br><span class="line">const fs=require(&#x27;fs&#x27;);//通过require引入fs模块(内置文件操作函数)</span><br><span class="line">let content=fs.readFileSync(&#x27;1.txt&#x27;,&#x27;utf-8&#x27;);</span><br><span class="line">console.log(content);//var name=&#x27;web&#x27;</span><br><span class="line">eval(content);</span><br><span class="line">console.log(name);//web</span><br></pre></td></tr></table></figure>
+<p>此方法可能因为作用域原因报错</p>
+<h3 id="方法2new-function"><a class="markdownIt-Anchor" href="#方法2new-function">#</a> 方法 2：new function ()</h3>
+<p>第一个参数是形参名，第二个参数是函数体</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var name=&#x27;web&#x27;;</span><br><span class="line">var a=new function(&#x27;name&#x27;,&#x27;return &quot;hello &quot;+name&#x27;);</span><br><span class="line">console.log(a(namme));</span><br><span class="line">//hello web</span><br></pre></td></tr></table></figure>
+<h2 id="nodejs作用域"><a class="markdownIt-Anchor" href="#nodejs作用域">#</a> nodejs 作用域</h2>
+<p>nodejs 中作用域 1 叫上下文<br>
+ node 项目中导入的包是不互通的<br>
+ eg, 假设 1.js 和 2.js 在同一级目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.js</span><br><span class="line">var age=19;</span><br><span class="line">//2.js</span><br><span class="line">const a=require(&#x27;./1.js&#x27;);</span><br><span class="line">console.log(age);</span><br><span class="line">//此时age值为undefined</span><br></pre></td></tr></table></figure>
+<ol>
+<li>exports: 将 js 文件中的属性输出的接口</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//1.js</span><br><span class="line">var age=19;</span><br><span class="line">exports.age=age;</span><br></pre></td></tr></table></figure>
+<p>此时可以输出 age，值为 19<br>
+2. 定义全局对象 global</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//1.js</span><br><span class="line">global age=19;</span><br></pre></td></tr></table></figure>
+<p>此时不管在哪里 console.log (age) 就是 19</p>
+<h2 id="vm沙箱逃逸"><a class="markdownIt-Anchor" href="#vm沙箱逃逸">#</a> vm 沙箱逃逸</h2>
+<p>实现沙箱的隔离效果，要创建一个隔离的环境，此时需要用到 vm 模块</p>
+<h3 id="常见api"><a class="markdownIt-Anchor" href="#常见api">#</a> 常见 api：</h3>
+<p>官方文档：<span class="exturl" data-url="aHR0cHM6Ly93d3cubm9kZWFwcC5jbi92bS5odG1sI3ZtX3ZtX2NyZWF0ZWNvbnRleHRfc2FuZGJveA==">vm</span><br>
+vm.Script 类：</p>
+<ol>
+<li>new  vm.Script (code,options): 创建一个新的 vm.Script 对象，将接受的代码预编译不执行，此<br>
+后可被多次执行</li>
+<li>script.runInContext (contextifiedSandbox,options), 在指定的 <code>contextifiedSandbox</code>  中执行 <code>vm.Script</code>  对象中被编译后的代码并返回其结果，其中 contextifiedSanbox 是由 vm.createContext 返回的对象</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&#x27;util&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> vm = <span class="built_in">require</span>(<span class="string">&#x27;vm&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sandbox = &#123;</span><br><span class="line">  <span class="attr">animal</span>: <span class="string">&#x27;cat&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> script = <span class="keyword">new</span> vm.<span class="title class_">Script</span>(<span class="string">&#x27;count += 1; name = &quot;kitty&quot;;&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> context = vm.<span class="title function_">createContext</span>(sandbox);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;</span><br><span class="line">  script.<span class="title function_">runInContext</span>(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(util.<span class="title function_">inspect</span>(sandbox));</span><br><span class="line"><span class="comment">//&#123;&#x27;animal&#x27;:&#x27;cat&#x27;,&#x27;count&#x27;:12,&#x27;name&#x27;:&#x27;kitty&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>vm.runinThisContext(code)</code> : 在当前 global 下创建一个作用域 (sandbox), 将接收的参数当做代码执行，sanbox 里可以访问外面 global 的属性，不能访问其他包的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vm=<span class="built_in">require</span>(<span class="string">&#x27;vm&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> test=<span class="string">&#x27;local&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> vmresult=vm.<span class="title function_">runinThisContext</span>(<span class="string">&#x27;test=&#x27;</span>vm<span class="string">&#x27;;&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vmresult);<span class="comment">//vm</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);<span class="comment">//local</span></span><br></pre></td></tr></table></figure>
+<p><code>vm.createContext([sandbox])</code> ： 给定一个 <code>sandbox</code>  对象，  <code>vm.createContext()</code>  会设置此 <code>sandbox</code> ，从而让它具备在 <code>vm.runInContext()</code>  或者 <code>script.runInContext()</code>  中被使用的能力。</p>
+<p><code>vm.runInContext()</code> : 在指定的 <code>contextifiedSandbox</code>  的上下文里执行 vm.Script 对象中被编译后的代码并返回其结果。被执行的代码无法获取本地作用域。</p>
+<h2 id="process实现rce"><a class="markdownIt-Anchor" href="#process实现rce">#</a> process 实现 rce</h2>
+<p>在获取到 process 对象后我们就可以用 require 来导入 child_process，再利用 child_process 执行命令。但 process 挂载在 global 上，但是我们上面说了在 <code>creatContext</code>  后是不能访问到 global 的，所以我们最终的目标是通过各种办法将 global 上的 process 引入到沙箱中。</p>
+<p>vm.runInNewContext( <code>this.constructor.constructor('return process.env')()</code> );</p>
+<p>那么我们是怎么实现逃逸的呢，首先这里面的 this 指向的是当前传递给 <code>runInNewContext</code>  的对象，这个对象是不属于沙箱环境的，我们通过这个对象获取到它的构造器，再获得一个构造器对象的构造器（此时为 Function 的 constructor），最后的 <code>()</code>  是调用这个用 Function 的 constructor 生成的函数，最终返回了一个 process 对象</p>
+<p>下面这行代码也可以达到相同的效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const y1 = vm.runInNewContext(this.toString.constructor(&#x27;return process&#x27;)());</span><br></pre></td></tr></table></figure>
+<p>然后我们就可以通过返回的 process 对象来 rce 了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y1.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;).toString()</span><br></pre></td></tr></table></figure>
+<p>参考:<br>
+<span class="exturl" data-url="aHR0cHM6Ly94ei5hbGl5dW4uY29tL3QvMTE4NTkjdG9jLTk=">1.</span></p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-05-12 16:10:22" itemprop="dateModified" datetime="2023-05-12T16:10:22+08:00">2023-05-12</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">https://hq185187.github.io/2023/05/12/沙箱逃逸/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;10&#x2F;30&#x2F;Z5W6r2BSoiThHG1.jpg" title="原型链污染">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>原型链污染</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text"> 初识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A7%E8%A1%8C%E4%B8%BA%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text"> node 将字符串执行为代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%951eval"><span class="toc-number">2.1.</span> <span class="toc-text"> 方法 1：eval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%952new-function"><span class="toc-number">2.2.</span> <span class="toc-text"> 方法 2：new function ()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nodejs%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">3.</span> <span class="toc-text"> nodejs 作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8"><span class="toc-number">4.</span> <span class="toc-text"> vm 沙箱逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81api"><span class="toc-number">4.1.</span> <span class="toc-text"> 常见 api：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#process%E5%AE%9E%E7%8E%B0rce"><span class="toc-number">5.</span> <span class="toc-text"> process 实现 rce</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">19</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">88k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:20</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/12/沙箱逃逸/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
