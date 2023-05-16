@@ -73,8 +73,8 @@
 &lt;p&gt;链子很好找，主要是 &lt;code&gt; echo new $_POST[&#39;a&#39;]($_POST[&#39;b&#39;]);&lt;/code&gt;  怎么利用？&lt;br&gt;
 a=SplFileObject&amp;amp;b=php://filter/read=convert.base64-encode/resource=flag.php&lt;/p&gt;
 &lt;h3 id=&#34;23hznuctf-2023-preliminaryflask&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#23hznuctf-2023-preliminaryflask&#34;&gt;#&lt;/a&gt; 23.[HZNUCTF 2023 preliminary]flask&lt;/h3&gt;
-&lt;p&gt;此题将输入的内容倒置了&lt;br&gt;
- ``49不行，}} 7*7&lt;/p&gt;
+&lt;p&gt;此题将输入的内容倒置了&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-49不行,}}7*7&#34;&gt;&lt;/code&gt;&lt;/pre&gt;
  ]]></description>
         </item>
         <item>
