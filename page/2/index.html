@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EdPaOkDJZVbLKt9.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/8Bsc2eZMCNpEiHn.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
         </ul>
       </div>
     </header>
@@ -119,6 +119,46 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/03/request%E5%BA%93/" itemprop="url" title="requests学习"><img data-src="/assets/7.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-03 14:54:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-03T14:54:19+08:00">2023-05-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/03/request%E5%BA%93/" itemprop="url" title="requests学习">requests学习</a></h3>
+    <div class="excerpt">
+        # 基本用法
+123456789101112131415#导入requests库import requests#发送一个get请求并得到响应r = requests.get(&amp;#x27;https://www.baidu.com&amp;#x27;)#查看响应对象的类型print(type(r))#查看响应状态码print(r.status_code)#查看响应内容的类型print(type(r.text))#查看响应的内容print(r.text)#查看cookiesprint(r.cookies)
+# get
+12345678import requestsdata =...
+    </div>
+    <a href="/2023/05/03/request%E5%BA%93/" itemprop="url" title="requests学习" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -531,59 +571,6 @@ colou?r可以匹配color,colour,?代表前面的字符最多可以出现一次(0
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" title="upload-labs靶场"><img data-src="/assets/16.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-04-27 17:53:21">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-04-27T17:53:21+08:00">2023-04-27</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.1k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" title="upload-labs靶场">upload-labs靶场</a></h3>
-    <div class="excerpt">
-        # 第一题
-一句话木马
-phpinfo();
-@eval($_POST[‘zoe’]);
-?&amp;gt;
-1. 将 php 后缀改成 png/gif 等符合条件的后缀上传抓包，将后缀改成 php 放包即可成功上传
-用蚁剑添加数据
-2.F12-&amp;gt; 调试器 -&amp;gt; 设置里禁用 js
-3. 复制网页源代码保存到文件中，删掉里面的 js 部分，添加 action 部分，打开即可
-# 第二题
-MIME 类型
-抓包改 content-type 为符合条件的就行
-eg.image-png
-# 第三题
-黑名单类型 - 修改后缀绕过
-
-用黑名单不允许上传...
-    </div>
-    <a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" title="upload-labs靶场" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -619,7 +606,7 @@ eg.image-png
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">25</span>
+        <span class="count">26</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -704,7 +691,63 @@ eg.image-png
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="原生类反序列化学习">原生类反序列化学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
   </li>
 
       
@@ -714,7 +757,7 @@ eg.image-png
 <a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
+    <span><a href="/2023/04/28/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
   </li>
 
       
@@ -732,61 +775,7 @@ eg.image-png
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
   </li>
 
   </ul>
@@ -811,13 +800,13 @@ eg.image-png
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">145k 字</span>
+    <span title="站点总字数">149k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:12</span>
+    <span title="站点阅读时长">2:16</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

