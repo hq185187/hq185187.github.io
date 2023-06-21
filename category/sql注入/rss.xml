@@ -5,8 +5,79 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 07 May 2023 15:33:27 +0800</pubDate>
-        <lastBuildDate>Sun, 07 May 2023 15:33:27 +0800</lastBuildDate>
+        <pubDate>Wed, 21 Jun 2023 11:09:09 +0800</pubDate>
+        <lastBuildDate>Wed, 21 Jun 2023 11:09:09 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</guid>
+            <title>Mysql主从复制</title>
+            <link>https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</link>
+            <pubDate>Wed, 21 Jun 2023 11:09:09 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;原理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原理&#34;&gt;#&lt;/a&gt; 原理&lt;/h2&gt;
+&lt;p&gt;简单说就是主服务器上执行的语句，从服务器也执行了相同的语句，主服务器的操作在从服务器上产生了相同的效果&lt;/p&gt;
+&lt;p&gt;过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;master（主数据库）将用户对数据库的更新操作以二进制格式保存进 BinaryLog 日志文件中&lt;/li&gt;
+&lt;li&gt;slave (从数据库) 的 I/O 进程读取主数据库的二进制日志文件&lt;/li&gt;
+&lt;li&gt;slave 将接收到的日志内容添加到 relay-kog，从数据库的 SQL 进程检测新的日志内容解析并执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://img-blog.csdnimg.cn/20201102143527123.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzg2Mjg1,size_16,color_FFFFFF,t_70#pic_center&#34; alt=&#34;图片&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#配置&#34;&gt;#&lt;/a&gt; 配置&lt;/h2&gt;
+&lt;p&gt;master：192.168.81.122(kali)&lt;br&gt;
+slave：192.168.81.113(ubuntu)&lt;/p&gt;
+&lt;h3 id=&#34;master配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#master配置&#34;&gt;#&lt;/a&gt; Master 配置：&lt;/h3&gt;
+&lt;p&gt;命令行进入 MySQL:&lt;br&gt;
+ &lt;code&gt; mysql -u root -p&lt;/code&gt; &lt;br&gt;
+ 接着输入密码，然后创建用户：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;//root和root是从服务器器(slave)的数据库用户名和密码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;GRANT REPLICATION SLAVE ON *.* to &amp;#x27;root&amp;#x27;@&amp;#x27;192.168.81.113&amp;#x27; identified by &amp;#x27;root&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;//刷新系统权限表的配置&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;flush privileges;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;找到 mysql 的配置文件 /etc/my.conf, 增加以下配置&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;#开启binlog&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log-bin=mysql-bin&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;server-id=1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;#需要同步的数据库,如果不配置则同步所以数据库&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;binlog-do-db=mysql_test&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;#binlog日志保留的天数&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;expire-logs-days=10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;配置完成后重启 mysql:&lt;br&gt;
+service mysql restart&lt;br&gt;
+ 查看当前 binlog 日志的信息&lt;br&gt;
+ &lt;code&gt;show master status\G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;mysql-bin.000002&lt;/p&gt;
+&lt;h3 id=&#34;slave配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#slave配置&#34;&gt;#&lt;/a&gt; slave 配置&lt;/h3&gt;
+&lt;p&gt;找到 /etc/my.cnf 配置文件，增加以下配置:&lt;br&gt;
+ &lt;code&gt;server-id=2&lt;/code&gt; &lt;br&gt;
+ 接着用命令行登录到 mysql 服务器:&lt;br&gt;
+ &lt;code&gt;mysql -u root -p&lt;/code&gt; &lt;br&gt;
+ 进入 MySQL 后输入以下命令:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;CHANGE MASTER TO &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;MASTER_HOST=&amp;#x27;192.168.81.122&amp;#x27;,//主机IP&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;MASTER_USER=&amp;#x27;root&amp;#x27;,//之前创建的用户账号&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;MASTER_PASSWORD=&amp;#x27;root&amp;#x27;,//之前创建的用户密码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;MASTER_LOG_FILE=&amp;#x27;mysql-bin.000002&amp;#x27;,//master主机的binlog日志名称&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;MASTER_LOG_POS=862,//binlog日志偏移量&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;master_port=3306;//端口&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;启动 slave 服务:&lt;br&gt;
+ &lt;code&gt;start slave;&lt;/code&gt; &lt;br&gt;
+ 查看是否启动成功:&lt;br&gt;
+ &lt;code&gt;show slave status\G&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;测试主从复制&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#测试主从复制&#34;&gt;#&lt;/a&gt; 测试主从复制&lt;/h2&gt;
+&lt;p&gt;在 maser 主机执行:&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;CREATE TABLE `tb_commodity_info` (&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `id` varchar(32) NOT NULL,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `commodity_name` varchar(512) DEFAULT NULL COMMENT &amp;#x27;商品名称&amp;#x27;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `commodity_price` varchar(36) DEFAULT &amp;#x27;0&amp;#x27; COMMENT &amp;#x27;商品价格&amp;#x27;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `number` int(10) DEFAULT &amp;#x27;0&amp;#x27; COMMENT &amp;#x27;商品数量&amp;#x27;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `description` varchar(2048) DEFAULT &amp;#x27;&amp;#x27; COMMENT &amp;#x27;商品描述&amp;#x27;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  PRIMARY KEY (`id`)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&amp;#x27;商品信息表&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时看从数据库的结构&lt;/p&gt;
+&lt;h2 id=&#34;例题2023安洵杯-confronting-robots&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#例题2023安洵杯-confronting-robots&#34;&gt;#&lt;/a&gt; 例题：2023 安洵杯 Confronting robots&lt;/h2&gt;
+&lt;p&gt;前面都能用 sqlmap 扫出来直接到最后一步主从复制&lt;br&gt;
+查看数据库版本：&lt;br&gt;
+select version();&lt;br&gt;
+ 在自己 vps 上起一个相同版本的 mariadb，修改默认配置文件 vim /etc/mysql/my.cnf 允许远程访问并启用二进制日志&lt;br&gt;
+ server-id = 1 log_bin = /var/log/mysql/mariadb-bin&lt;br&gt;
+service mysql restart&lt;br&gt;
+ 自己的 vps 作为主，题目环境作为从&lt;br&gt;
+主服务器执行&lt;br&gt;
+ CREATE USER ‘atest’@’%’ IDENTIFIED BY ‘testtest’;&lt;br&gt;
+grant replication slave on . to ‘atest’@’%’;&lt;br&gt;
+flush privileges; 使用 select database (); show tables; desc game; 等查询命令将从服务器上的数据库结构一比一复刻到&lt;br&gt;
+主服务器上 CREATE DATABASE IF NOT EXISTS game_data;&lt;br&gt;
+use game_data&lt;br&gt;
+CREATE TABLE IF NOT EXISTS game ( round int(20) , choice varchar(256) ) ;&lt;br&gt;
+ 在主服务器 mysql 中执行 show master status; 记录下来 File 和 Position mysql-bin.000001 1376&lt;br&gt;
+ 在从服务器 (题目环境) 命令框中输入&lt;br&gt;
+ CHANGE MASTER TO MASTER_HOST=‘主服务器 ip’, MASTER_USER=‘atest’,&lt;br&gt;
+MASTER_PASSWORD=‘testtest’, MASTER_LOG_FILE=‘mariadb-bin.000001 (记录的值)’,MASTER_LOG_POS=1365 (记录的值);&lt;br&gt;
+start slave;&lt;br&gt;
+show slave status;&lt;br&gt;
+ 显示这个表示成功连接上&lt;br&gt;
+主服务器中执行&lt;br&gt;
+ INSERT INTO game (round , choice) VALUES (‘1’, ‘R’), (‘2’, ‘R’),(‘3’, ‘R’), (‘4’, ‘R’),(‘5’, ‘R’), (‘6’, ‘R’),(‘7’,‘R’), (‘8’, ‘R’),(‘9’, ‘R’), (‘10’, ‘R’);&lt;/p&gt;
+&lt;p&gt;在开始挑战处输入对应的答案得到 flag&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/</guid>
             <title>时间盲注</title>

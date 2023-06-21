@@ -32,7 +32,7 @@
 
 
   <title>
-Mysql主从复制 |
+Mysql主从复制 - SQL注入 |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -140,7 +140,9 @@ Mysql主从复制 |
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">首页</a></span>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/sql/" itemprop="item" rel="index" title="分类于 SQL注入"><span itemprop="name">SQL注入</span></a>
+<meta itemprop="position" content="1" /></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
@@ -234,7 +236,7 @@ show slave status;<br>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-06-21 11:12:58" itemprop="dateModified" datetime="2023-06-21T11:12:58+08:00">2023-06-21</time>
+    <time title="修改时间：2023-06-21 11:21:13" itemprop="dateModified" datetime="2023-06-21T11:21:13+08:00">2023-06-21</time>
   </span>
 </div>
 
@@ -293,6 +295,9 @@ show slave status;<br>
           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> 原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text"> 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master%E9%85%8D%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text"> Master 配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slave%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text"> slave 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text"> 测试主从复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%982023%E5%AE%89%E6%B4%B5%E6%9D%AF-confronting-robots"><span class="toc-number">4.</span> <span class="toc-text"> 例题：2023 安洵杯 Confronting robots</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/04/28/sqli-labs/" rel="bookmark" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></li><li><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" rel="bookmark" title="SQL注入绕过">SQL注入绕过</a></li><li><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" rel="bookmark" title="时间盲注">时间盲注</a></li><li class="active"><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" rel="bookmark" title="Mysql主从复制">Mysql主从复制</a></li>
+        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,7 +395,25 @@ show slave status;<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
   </li>
 
       
@@ -400,7 +423,17 @@ show slave status;<br>
 <a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/04/28/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
+    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
   </li>
 
       
@@ -409,7 +442,7 @@ show slave status;<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
   </li>
 
       
@@ -427,7 +460,7 @@ show slave status;<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
   </li>
 
       
@@ -436,7 +469,7 @@ show slave status;<br>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
   </li>
 
       
@@ -446,35 +479,7 @@ show slave status;<br>
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
   </li>
 
   </ul>
