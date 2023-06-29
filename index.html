@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/8Bsc2eZMCNpEiHn.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
         </ul>
       </div>
     </header>
@@ -172,6 +172,58 @@
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" itemprop="url" title="宽字节注入学习"><img data-src="/assets/8.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-29 18:06:07">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-29T18:06:07+08:00">2023-06-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>803</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" itemprop="url" title="宽字节注入学习">宽字节注入学习</a></h3>
+    <div class="excerpt">
+        # 先介绍几个函数
+
+addslashes：在预定义字符（单引号，双引号，反斜杠，NULL）前加反斜杠
+mysql_real_escape_string：转义 SQL 语句中使用的字符串中的特殊字符 ( &#92;x00,&#92;n,&#92;r,&#92;,&#39;,&amp;quot;,&#92;x1a )
+
+# 原理
+窄字节：字符大小为一个一个字节
+宽字节：字符大小为两个字节
+所有英文默认占一个字节，汉字占两个字节
+常见的宽字节编码：GB2312,GBK,GB18030,BIG5,Shift_JIS
+当数据库用 GBK 编码而 PHP 用 UTF-8 编码，当防止 SQL...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/sql/" itemprop="url" title="SQL注入"><i class="ic i-flag"></i>SQL注入</a>
+      </span>
+    </div>
+    <a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" itemprop="url" title="宽字节注入学习" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -598,51 +650,6 @@ manifest, 压缩文件信息，存储文件的属性，权限等信息
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/05/14/LitCTF2023/" itemprop="url" title="LitCTF2023"><img data-src="/assets/18.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-05-14 20:20:25">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-14T20:20:25+08:00">2023-05-14</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.8k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/05/14/LitCTF2023/" itemprop="url" title="LitCTF2023">LitCTF2023</a></h3>
-    <div class="excerpt">
-        # 1. 我 Flag 呢？
-F12 查看源代码
-# 2. 导弹迷踪
-查看源代码找到 game.js 文件，找到 {return ‘GOT F|L|A|G {y0u_w1n_th1s_!!!}’;}, 以 NSSCTF 形式交就可以
-！[[Pasted image 20230514194556.png]]
-# 3.PHP 是世界上最好的语言！！
-可以之间运行 php 代码
-1234&amp;lt;?phpeval(system(&amp;#x27;ls /&amp;#x27;));eval(system(&amp;#x27;cat /flag&amp;#x27;));?&amp;gt;
-#...
-    </div>
-    <a href="/2023/05/14/LitCTF2023/" itemprop="url" title="LitCTF2023" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -678,7 +685,7 @@ F12 查看源代码
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">30</span>
+        <span class="count">31</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -763,7 +770,7 @@ F12 查看源代码
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
   </li>
 
       
@@ -772,7 +779,7 @@ F12 查看源代码
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
+    <span><a href="/2023/06/29/CRLF/" title="CRLF学习">CRLF学习</a></span>
   </li>
 
       
@@ -782,7 +789,44 @@ F12 查看源代码
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
   </li>
 
       
@@ -792,16 +836,6 @@ F12 查看源代码
 </div>
 
     <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
   </li>
 
       
@@ -820,35 +854,7 @@ F12 查看源代码
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
   </li>
 
   </ul>
@@ -873,13 +879,13 @@ F12 查看源代码
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">156k 字</span>
+    <span title="站点总字数">157k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:22</span>
+    <span title="站点阅读时长">2:23</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

