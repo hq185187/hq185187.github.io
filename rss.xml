@@ -5,8 +5,31 @@
         <link>https://hq185187.github.io</link>
         <description>不定时更新web安全相关知识</description>
         <language>zh-CN</language>
-        <pubDate>Tue, 27 Jun 2023 11:12:36 +0800</pubDate>
-        <lastBuildDate>Tue, 27 Jun 2023 11:12:36 +0800</lastBuildDate>
+        <pubDate>Thu, 29 Jun 2023 12:23:15 +0800</pubDate>
+        <lastBuildDate>Thu, 29 Jun 2023 12:23:15 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">https://hq185187.github.io/2023/06/29/CRLF/</guid>
+            <title>CRLF学习</title>
+            <link>https://hq185187.github.io/2023/06/29/CRLF/</link>
+            <pubDate>Thu, 29 Jun 2023 12:23:15 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;CRLF 是回车＋换行（ &lt;code&gt;\&lt;/code&gt; r &lt;code&gt;\&lt;/code&gt; n）的简称，HTTP 的 Header 和 Body 是用两个 &lt;code&gt;\&lt;/code&gt; r &lt;code&gt;\&lt;/code&gt; n 分离的，可以利用它来构造 HTTP 数据包来完成注入（比如 Cookie），所以它又叫 HTTP Response Splitting&lt;/p&gt;
+&lt;h3 id=&#34;例子&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#例子&#34;&gt;#&lt;/a&gt; 例子&lt;/h3&gt;
+&lt;p&gt;比如一般网站 302 跳转的页面如下&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;HTTP/1.1 302 Moved Temporarily &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Date: Fri, 27 Jun 2014 17:52:17 GMT &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Content-Type: text/html &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Content-Length: 154 &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Connection: close &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Location: http://www.sina.com.cn&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果我们输入的是&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;http://www.sina.com.cn%0aSet-cookie:test&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Location 下面就多了一个&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Set-cookie:test&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;我们也可以通过两个 CRLF（第一个来分离 HTTP 的头和体）来造成一个无视浏览器 filter 的反射型 xss&lt;/p&gt;
+&lt;p&gt;浏览器的 filter 是在 url 中含有相关特征的 xss 代码时就会过滤掉不显示在页面上，可以通过设置 X-XSS-Protection:0 来关闭它&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;?url=%0aX-XSS-Protection: 0%0a%0d%0a%0d&amp;lt;img src=1 onerror=alert(1)&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;一款功能强大的crlf注入扫描工具&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一款功能强大的crlf注入扫描工具&#34;&gt;#&lt;/a&gt; 一款功能强大的 CRLF 注入扫描工具&lt;/h3&gt;
+&lt;p&gt;CRLFsuite:&lt;br&gt;
+ 地址：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;$ git clone https://github.com/Nefcore/CRLFsuite.git&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;$ cd CRLFsuite&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;$ sudo python3 setup.py install&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;$ crlfsuite -h&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93b295dW4uanMub3JnL2Ryb3BzL0NSTEYlMjBJbmplY3Rpb24lRTYlQkMlOEYlRTYlQjQlOUUlRTclOUElODQlRTUlODglQTklRTclOTQlQTglRTQlQjglOEUlRTUlQUUlOUUlRTQlQkUlOEIlRTUlODglODYlRTYlOUUlOTAuaHRtbA==&#34;&gt;参考&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://hq185187.github.io/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/</guid>
             <title>XSS初学习2</title>

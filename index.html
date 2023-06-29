@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
         </ul>
       </div>
     </header>
@@ -172,6 +172,46 @@
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/29/CRLF/" itemprop="url" title="CRLF学习"><img data-src="/assets/26.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-29 12:23:15">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-29T12:23:15+08:00">2023-06-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>686</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/06/29/CRLF/" itemprop="url" title="CRLF学习">CRLF学习</a></h3>
+    <div class="excerpt">
+        CRLF 是回车＋换行（ &#92; r &#92; n）的简称，HTTP 的 Header 和 Body 是用两个 &#92; r &#92; n 分离的，可以利用它来构造 HTTP 数据包来完成注入（比如 Cookie），所以它又叫 HTTP Response Splitting
+# 例子
+比如一般网站 302 跳转的页面如下
+123456HTTP/1.1 302 Moved Temporarily Date: Fri, 27 Jun 2014 17:52:17 GMT Content-Type: text/html Content-Length: 154 Connection:...
+    </div>
+    <a href="/2023/06/29/CRLF/" itemprop="url" title="CRLF学习" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -603,54 +643,6 @@ F12 查看源代码
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/05/12/nssctf2/" itemprop="url" title="NSSCTF2"><img data-src="/assets/6.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-05-12 16:31:39">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-12T16:31:39+08:00">2023-05-12</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>22k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>20 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/05/12/nssctf2/" itemprop="url" title="NSSCTF2">NSSCTF2</a></h3>
-    <div class="excerpt">
-        # 15.[CISCN 2019 华北 Day2] Web1
-题目过滤了很多东西，包括空格
-输入 1’%0a 回显 bool (flase)
-说明这是一个有过滤的布尔盲注类型的题
-告诉了表名字段名都是 flag,sql 语句就是:select (flag) from (flag) 因为过滤了空格
-写 python 脚本
-123456789101112131415import string import requests res=&amp;quot;&amp;quot; url=input(&amp;quot;请输入链接: &amp;quot;) for i in range(1,60):...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/NSSCTF/" itemprop="url" title="NSSCTF精选"><i class="ic i-flag"></i>NSSCTF精选</a>
-      </span>
-    </div>
-    <a href="/2023/05/12/nssctf2/" itemprop="url" title="NSSCTF2" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -686,7 +678,7 @@ F12 查看源代码
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">29</span>
+        <span class="count">30</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -769,66 +761,9 @@ F12 查看源代码
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
-</div>
-
-    <span><a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" title="XSS初学习2">XSS初学习2</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
   </li>
 
       
@@ -856,7 +791,64 @@ F12 查看源代码
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/04/28/sqli-labs/" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
   </li>
 
   </ul>
@@ -881,13 +873,13 @@ F12 查看源代码
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">155k 字</span>
+    <span title="站点总字数">156k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:21</span>
+    <span title="站点阅读时长">2:22</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

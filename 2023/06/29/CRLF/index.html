@@ -27,14 +27,12 @@
   <meta name="keywords" content="java,git,springcloud" />
 
 
-<link rel="canonical" href="https://hq185187.github.io/archives/2023/04/page/2/">
+<link rel="canonical" href="https://hq185187.github.io/2023/06/29/CRLF/">
 
 
 
   <title>
-2023 年 / 04 月 -
-
-归档 |
+CRLF学习 |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -62,9 +60,34 @@
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">
-      发表于"2023年04月"的文章
+  <h1 itemprop="name headline">CRLF学习
   </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-29 12:23:15">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-29T12:23:15+08:00">2023-06-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>686</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
 
           </div>
         </div>
@@ -93,14 +116,7 @@
 
       </div>
       <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
-        </ul>
+          <img src="/assets/26.jpg">
       </div>
     </header>
     <div id="waves">
@@ -120,79 +136,113 @@
       <div class="inner">
         <div id="main" class="pjax">
           
-  <div class="collapse wrap">
-    <h2 class="item header">
-          <a href="/archives">全部</a> <small>/</small> <a href="/archives/2023">2023 年</a> <small>/</small> 04 月<small>归档</small>
-        
-    </h2>
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-26T18:30:05+08:00"
-                  content="2023-04-26">
-              04-26
-            </time>
-          </div>
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/06/29/CRLF/">
 
-          <div class="title">
-              <a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" itemprop="url">
-                <span itemprop="name">文件包含及伪协议的使用</span>
-              </a>
-          </div>
-        </article>
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-26T00:51:04+08:00"
-                  content="2023-04-26">
-              04-26
-            </time>
-                <span><a href="/categories/NSSCTF/">NSSCTF精选</a></span>
-          </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
 
-          <div class="title">
-              <a href="/2023/04/26/nessctf/" itemprop="url">
-                <span itemprop="name">NSSCTF1</span>
-              </a>
-          </div>
-        </article>
+  <div class="body md" itemprop="articleBody">
+    
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-04-23T23:55:29+08:00"
-                  content="2023-04-23">
-              04-23
-            </time>
-          </div>
+    <p>CRLF 是回车＋换行（ <code>\</code> r <code>\</code> n）的简称，HTTP 的 Header 和 Body 是用两个 <code>\</code> r <code>\</code> n 分离的，可以利用它来构造 HTTP 数据包来完成注入（比如 Cookie），所以它又叫 HTTP Response Splitting</p>
+<h3 id="例子"><a class="markdownIt-Anchor" href="#例子">#</a> 例子</h3>
+<p>比如一般网站 302 跳转的页面如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Moved Temporarily </span><br><span class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </span><br><span class="line">Content-Type: text/html </span><br><span class="line">Content-Length: 154 </span><br><span class="line">Connection: close </span><br><span class="line">Location: http://www.sina.com.cn</span><br></pre></td></tr></table></figure>
+<p>如果我们输入的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.sina.com.cn%0aSet-cookie:test</span><br></pre></td></tr></table></figure>
+<p>Location 下面就多了一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-cookie:test</span><br></pre></td></tr></table></figure>
+<p>我们也可以通过两个 CRLF（第一个来分离 HTTP 的头和体）来造成一个无视浏览器 filter 的反射型 xss</p>
+<p>浏览器的 filter 是在 url 中含有相关特征的 xss 代码时就会过滤掉不显示在页面上，可以通过设置 X-XSS-Protection:0 来关闭它</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=%0aX-XSS-Protection: 0%0a%0d%0a%0d&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="一款功能强大的crlf注入扫描工具"><a class="markdownIt-Anchor" href="#一款功能强大的crlf注入扫描工具">#</a> 一款功能强大的 CRLF 注入扫描工具</h3>
+<p>CRLFsuite:<br>
+ 地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/Nefcore/CRLFsuite.git</span><br><span class="line"></span><br><span class="line">$ cd CRLFsuite</span><br><span class="line"></span><br><span class="line">$ sudo python3 setup.py install</span><br><span class="line"></span><br><span class="line">$ crlfsuite -h</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly93b295dW4uanMub3JnL2Ryb3BzL0NSTEYlMjBJbmplY3Rpb24lRTYlQkMlOEYlRTYlQjQlOUUlRTclOUElODQlRTUlODglQTklRTclOTQlQTglRTQlQjglOEUlRTUlQUUlOUUlRTQlQkUlOEIlRTUlODglODYlRTYlOUUlOTAuaHRtbA==">参考</span></p>
 
-          <div class="title">
-              <a href="/2023/04/23/hello-world/" itemprop="url">
-                <span itemprop="name">Hello World</span>
-              </a>
-          </div>
-        </article>
   </div>
 
-  
-  <nav class="pagination">
-    <div class="inner">
-    <a class="extend prev" rel="prev" href="/archives/2023/04/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2023/04/">1</a><span class="page-number current">2</span>
-    </div>
-  </nav>
+   <footer>
 
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-06-29 12:27:01" itemprop="dateModified" datetime="2023-06-29T12:27:01+08:00">2023-06-29</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/06/29/CRLF/" title="CRLF学习">https://hq185187.github.io/2023/06/29/CRLF/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;25.jpg" title="XSS初学习2">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> XSS</span>
+  <h3>XSS初学习2</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
 
 
         </div>
         <div id="sidebar">
           
+
 <div class="inner">
 
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">1.</span> <span class="toc-text"> 例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%BE%E5%8A%9F%E8%83%BD%E5%BC%BA%E5%A4%A7%E7%9A%84crlf%E6%B3%A8%E5%85%A5%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text"> 一款功能强大的 CRLF 注入扫描工具</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -265,7 +315,6 @@
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/archives/2023/04/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
@@ -274,6 +323,7 @@
     <li class="percent"></li>
   </ul>
 </div>
+
 
         </div>
         <div class="dimmer"></div>
@@ -290,18 +340,10 @@
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
+    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
   </li>
 
       
@@ -318,10 +360,9 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
   </li>
 
       
@@ -330,17 +371,26 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
+    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
+</div>
+
+    <span><a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" title="XSS初学习2">XSS初学习2</a></span>
   </li>
 
       
@@ -359,17 +409,7 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/29/CRLF/" title="CRLF学习">CRLF学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
   </li>
 
       
@@ -378,7 +418,16 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
+    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/23/NSS%20Round13/" title="NSS Round 13">NSS Round 13</a></span>
   </li>
 
   </ul>
@@ -421,7 +470,7 @@
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: 'archives/2023/04/page/2/',
+    path: '2023/06/29/CRLF/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"
