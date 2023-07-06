@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
         </ul>
       </div>
     </header>
@@ -119,6 +119,61 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" itemprop="url" title="Mysql主从复制"><img data-src="/assets/22.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-21 11:09:09">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-21T11:09:09+08:00">2023-06-21</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" itemprop="url" title="Mysql主从复制">Mysql主从复制</a></h3>
+    <div class="excerpt">
+        # 原理
+简单说就是主服务器上执行的语句，从服务器也执行了相同的语句，主服务器的操作在从服务器上产生了相同的效果
+过程：
+
+master（主数据库）将用户对数据库的更新操作以二进制格式保存进 BinaryLog 日志文件中
+slave (从数据库) 的 I/O 进程读取主数据库的二进制日志文件
+slave 将接收到的日志内容添加到 relay-kog，从数据库的 SQL 进程检测新的日志内容解析并执行
+
+# 配置
+master：192.168.81.122(kali)
+slave：192.168.81.113(ubuntu)
+# Master 配置：
+命令行进入 MySQL:
+mysql -u...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/sql/" itemprop="url" title="SQL注入"><i class="ic i-flag"></i>SQL注入</a>
+      </span>
+    </div>
+    <a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" itemprop="url" title="Mysql主从复制" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -562,46 +617,6 @@ IND
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/05/02/ssti-labs/" itemprop="url" title="SSTI-Labs"><img data-src="/assets/12.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-05-02 12:25:19">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-05-02T12:25:19+08:00">2023-05-02</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>9.9k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>9 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/05/02/ssti-labs/" itemprop="url" title="SSTI-Labs">SSTI-Labs</a></h3>
-    <div class="excerpt">
-        # ssti-labs
-# 1.
-payload1:(用常规方法找 shell 类)
-(1) 先用脚本找包含 builtins...
-    </div>
-    <a href="/2023/05/02/ssti-labs/" itemprop="url" title="SSTI-Labs" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -637,7 +652,7 @@ payload1:(用常规方法找 shell 类)
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">34</span>
+        <span class="count">35</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -722,15 +737,6 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
   </li>
 
@@ -738,28 +744,19 @@ payload1:(用常规方法找 shell 类)
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
 </div>
 
-    <span><a href="/2023/06/27/XSS%E5%AD%A6%E4%B9%A02/" title="XSS初学习2">XSS初学习2</a></span>
+    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
   </li>
 
       
@@ -777,7 +774,45 @@ payload1:(用常规方法找 shell 类)
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
+    <span><a href="/2023/05/02/SSTI/" title="SSTI总结">SSTI总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" title="XXE注入">XXE注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="原生类反序列化学习">原生类反序列化学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/" title="时间盲注">时间盲注</a></span>
   </li>
 
       
@@ -787,25 +822,6 @@ payload1:(用常规方法找 shell 类)
 </div>
 
     <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
-</div>
-
-    <span><a href="/2023/04/26/nessctf/" title="NSSCTF1">NSSCTF1</a></span>
   </li>
 
   </ul>
@@ -830,13 +846,13 @@ payload1:(用常规方法找 shell 类)
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">170k 字</span>
+    <span title="站点总字数">171k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:35</span>
+    <span title="站点阅读时长">2:36</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

