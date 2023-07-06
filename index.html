@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EdPaOkDJZVbLKt9.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/8Bsc2eZMCNpEiHn.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/VkSD2h7zoXPLAe3.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
         </ul>
       </div>
     </header>
@@ -172,6 +172,93 @@
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" itemprop="url" title="XXE注入"><img data-src="/assets/3.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-06 15:06:38">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-06T15:06:38+08:00">2023-07-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" itemprop="url" title="XXE注入">XXE注入</a></h3>
+    <div class="excerpt">
+        XML 基础可以看这里 XMl
+# 原理
+发生在应用程序解析 XML 输入时没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取，命令执行，内网端口扫描，攻击内网网站，发起 dos 攻击等。xxe 漏洞触发的点往往在可以上传 xml 文件的位置，没有对上传的 xml 文件进行过滤，导致可上传恶意 xml 文件
+simplexml_load_string () 是 PHP 的一个函数，
+php 文件：
+123456789&amp;lt;?php$data = file_get_contents(&amp;#x27;php://input&amp;#x27;);$xml =...
+    </div>
+    <a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" itemprop="url" title="XXE注入" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/06/XML%E5%9F%BA%E7%A1%80/" itemprop="url" title="XML基础知识"><img data-src="/assets/2.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-06 15:05:34">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-06T15:05:34+08:00">2023-07-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/06/XML%E5%9F%BA%E7%A1%80/" itemprop="url" title="XML基础知识">XML基础知识</a></h3>
+    <div class="excerpt">
+        # 简历
+XML 被用来传输和存储数据，焦点是数据的内容，HTML 被用来显示数据，焦点是数据的外观
+XML 标签没有被预定义，可以自定义标签
+XML 不会做任何事情
+XML 可以把数据从 HTML 中分离：当需要在 HTML 中显示动态数据时，将数据存储在独立的 XML，再通过几行 JavaScript 代码就可以读取一个外部 XML 文件，更新网页的数据内容
+# 结构
+XML 文档是一种树结构，它从根部开始，扩展到树叶
+eg。
+12345678910111213&amp;lt;?xml version=&amp;quot;1.0&amp;quot;...
+    </div>
+    <a href="/2023/07/06/XML%E5%9F%BA%E7%A1%80/" itemprop="url" title="XML基础知识" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -549,101 +636,6 @@ mysql -u...
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习"><img data-src="/assets/21.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-06-08 23:01:57">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-06-08T23:01:57+08:00">2023-06-08</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>4.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>4 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习">原生类反序列化学习</a></h3>
-    <div class="excerpt">
-        当有反序列化点但是找不到反序列化类时，可以考虑用一些原生类
-# 一。目录遍历类
-# 1.DirectoryIterator
-这个类会创建一个指定目录的迭代器当遇到 echo 输出时会触发 Directorylterator 中的 __toString() 方法，输出指定目录里面经过排序之后的第一个文件名。
-可以结合 glob 协议使用
-# 2.FilesystemIterator
-该类继承于 Directorylterator ，所以在用法上基本也是一样的。
-# 3.GlobIterator
-通过类名也不难看出，这是个自带 glob 协议的类，所以调用时就不必再加上 glob:// 了
-#...
-    </div>
-    <a href="/2023/06/08/%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" title="原生类反序列化学习" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/06/04/nssctf3/" itemprop="url" title="NSSCTF3"><img data-src="/assets/6.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-06-04 11:29:05">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-06-04T11:29:05+08:00">2023-06-04</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>23k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>21 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/06/04/nssctf3/" itemprop="url" title="NSSCTF3">NSSCTF3</a></h3>
-    <div class="excerpt">
-        # 31.[鹤城杯 2021] Middle magic
-考点:
-
-绕过 preg_mathch 函数
-sha1 弱类型比较
-php json 绕过
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253&amp;lt;?phphighlight_file(__FILE__);include &amp;quot;./flag.php&amp;quot;;include...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/NSSCTF/" itemprop="url" title="NSSCTF精选"><i class="ic i-flag"></i>NSSCTF精选</a>
-      </span>
-    </div>
-    <a href="/2023/06/04/nssctf3/" itemprop="url" title="NSSCTF3" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -679,7 +671,7 @@ php json 绕过
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">32</span>
+        <span class="count">34</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -762,19 +754,9 @@ php json 绕过
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/07/01/session%E5%AE%89%E5%85%A8/" title="session安全">session安全</a></span>
+    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
   </li>
 
       
@@ -791,58 +773,9 @@ php json 绕过
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
-</div>
-
-    <span><a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" title="XSS初学习1">XSS初学习1</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="php反序列化漏洞学习">php反序列化漏洞学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/06/29/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/" title="宽字节注入学习">宽字节注入学习</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/04/29/sql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%95%E8%BF%87/" title="SQL注入绕过">SQL注入绕过</a></span>
+    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
   </li>
 
       
@@ -852,6 +785,62 @@ php json 绕过
 </div>
 
     <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/10/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="原型链污染">原型链污染</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
+</div>
+
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
+</div>
+
+    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
   </li>
 
   </ul>
@@ -876,13 +865,13 @@ php json 绕过
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">163k 字</span>
+    <span title="站点总字数">170k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:28</span>
+    <span title="站点阅读时长">2:35</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
