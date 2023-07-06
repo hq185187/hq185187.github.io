@@ -12,7 +12,7 @@
             <title>XXE注入</title>
             <link>https://hq185187.github.io/2023/07/06/xxe%E6%B3%A8%E5%85%A5/</link>
             <pubDate>Thu, 06 Jul 2023 15:06:38 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;XML 基础可以看这里&lt;a href=&#34;https://hq185187.github.io/2023/07/06/XML%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/&#34;&gt; XMl&lt;/a&gt;&lt;/p&gt;
+            <description><![CDATA[ &lt;p&gt;XML 基础可以看这里&lt;a href=&#34;https://hq185187.github.io/2023/07/06/XML%E5%9F%BA%E7%A1%80/&#34;&gt; XMl&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;原理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原理&#34;&gt;#&lt;/a&gt; 原理&lt;/h3&gt;
 &lt;p&gt;发生在应用程序解析 XML 输入时没有禁止&lt;mark&gt;外部实体的加载&lt;/mark&gt;，导致可加载恶意外部文件，造成文件读取，命令执行，内网端口扫描，攻击内网网站，发起 dos 攻击等。xxe 漏洞触发的点往往在可以上传 xml 文件的位置，没有对上传的 xml 文件进行过滤，导致可上传恶意 xml 文件&lt;/p&gt;
 &lt;p&gt;simplexml_load_string () 是 PHP 的一个函数，&lt;br&gt;
