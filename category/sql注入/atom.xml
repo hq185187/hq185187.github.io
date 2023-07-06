@@ -6,7 +6,7 @@
     <updated>2023-07-06T08:43:36.682Z</updated>
     <entry>
         <id>https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/</id>
-        <title>时间盲注</title>
+        <title>慢日志注入</title>
         <link rel="alternate" href="https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/"/>
         <content type="html">&lt;p&gt;先本地连接 MySQL:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mysql.exe -u root -p&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输入密码&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
