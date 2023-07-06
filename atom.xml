@@ -8,7 +8,24 @@
         <id>https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/</id>
         <title>慢日志注入</title>
         <link rel="alternate" href="https://hq185187.github.io/2023/07/06/%E6%85%A2%E6%97%A5%E5%BF%97%E6%B3%A8%E5%85%A5/"/>
-        <content type="html">&lt;p&gt;先本地连接 MySQL:&lt;/p&gt;
+        <content type="html">&lt;h4 id=&#34;1-load_file读取函数&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-load_file读取函数&#34;&gt;#&lt;/a&gt; 1 load_file (): 读取函数&lt;/h4&gt;
+&lt;p&gt;MySQL：5.0.96&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/07/06/Ok7pmWcXfoEA2TI.png&#34; alt=&#34;屏幕截图 2023-07-06 203810.png&#34;&gt;&lt;br&gt;
+%27 是引号&lt;/p&gt;
+&lt;h4 id=&#34;2文件写入&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2文件写入&#34;&gt;#&lt;/a&gt; 2. 文件写入&lt;/h4&gt;
+&lt;p&gt;into outfile: 能写入多行，按格式输出&lt;br&gt;
+ into dumpfile: 只能写入一行，没有输出格式&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/07/06/bnKqk5r8yRWMumN.png&#34; alt=&#34;屏幕截图 2023-07-06 205301.png&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;https://s2.loli.net/2023/07/06/vIy8rDcaG9U5nwg.png&#34; alt=&#34;屏幕截图 2023-07-06 205603.png&#34;&gt;&lt;br&gt;
+ 通过对比也可以看出两种方式的区别&lt;br&gt;
+ dumpfile 没有输出格式，只能输出一行（这里没有体现）&lt;/p&gt;
+&lt;p&gt;6.34 版本以后，secure_file_priv&lt;br&gt;
+ 的值为 NULL, 并且无法用 SQL 语句对其修改&lt;br&gt;
+ secure_file_priv 参数是用来限制 LOAD DATA,SELECT…INTO OUTFILE 语句和 LOAD_FILE () 函数等等&lt;br&gt;
+当它的值为空时，表示不限制 MySQL 的导入 / 导出&lt;br&gt;
+当它的值为 null 时，表示不允许 MySQL 导入导出&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;show variables like &amp;#x27;%secure_file_priv%&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;先本地连接 MySQL:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mysql.exe -u root -p&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输入密码&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;当查询语句的时间超过系统默认的时间时，该语句会被记入慢查询日志。一般都是通过 long_query_time 选项设置，以秒为单位。查看默认的时间：&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;show global variables like &amp;#x27;%long_query_time%&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
