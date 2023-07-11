@@ -92,11 +92,11 @@
       <div id="imgs" class="pjax">
         <ul>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/vnNKEzfpqAhm5aH.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EdPaOkDJZVbLKt9.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/1t6Tg5lRBYXjubn.webp"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/BZE9tSe8bRuVmq4.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/8Bsc2eZMCNpEiHn.webp"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/IuwZ78QAf1D3sao.webp"></li>
           <li class="item" data-background-image="https://s2.loli.net/2023/06/06/951AHbfr3jklYQI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/EeKAC2L5ohd6Yxq.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/qHo5a8BEJNwUthD.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/06/06/Jo7vtPduAl1MSQX.png"></li>
         </ul>
       </div>
     </header>
@@ -172,6 +172,57 @@
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/11/Greek%20Challenge2022/" itemprop="url" title="Greek Challenge2022"><img data-src="/assets/1.webp"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-11 22:46:30">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-11T22:46:30+08:00">2023-07-11</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>19k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>17 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/11/Greek%20Challenge2022/" itemprop="url" title="Greek Challenge2022">Greek Challenge2022</a></h3>
+    <div class="excerpt">
+        花了好多天时间把去年的极客题目复现了一遍，虽然大部分题目的 docker 环境出了问题，但还是以各种方法本地调试复现一下，也学到了很多东西
+收获:
+
+postgresql 数据库查询，单引号的过滤以及系统函数 pg_read_file 和 pg_ls_dir
+__halt_compiler(); 中断编译器执行
+disable_function 的绕过
+一些提权方法
+php 弱类型绕过 (16 进制和科学计数法)
+php 伪随机数漏洞
+CSRF 学习
+
+# 1.babysql
+单引号被过滤，g=2 和 g=3-1 返回结果相同，是数字型
+11 order by 3--+
+11 order by...
+    </div>
+    <a href="/2023/07/11/Greek%20Challenge2022/" itemprop="url" title="Greek Challenge2022" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -588,53 +639,6 @@ admin 已经被注册
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" itemprop="url" title="反弹shell学习"><img data-src="/assets/1.avif"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-06-21 21:44:24">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-06-21T21:44:24+08:00">2023-06-21</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3.9k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>4 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" itemprop="url" title="反弹shell学习">反弹shell学习</a></h3>
-    <div class="excerpt">
-        # 什么是反弹 shell
-reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到该控制端端口，并将祺命令行的输入输出转到控制端
-# 什么时候用？
-通常用于被控端防火墙受限，权限不足，端口被占用等情形
-假设我们攻击了一台机器，打开了该机器的一个端口，我们可以用自己的机器去连接目标机器，这种叫正向连接，远程桌面，web 服务，ssh，telnet 等等
-但是以下情况：
-
-客户机中了你的马，但是在局域网内
-它的 ip 会动态改变，不能持续控制
-防火墙限制，对方只能发送请求，不能接收请求
-此时只能反弹...
-    </div>
-    <a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" itemprop="url" title="反弹shell学习" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -670,7 +674,7 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">35</span>
+        <span class="count">36</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -755,33 +759,6 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/04/28/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="命令执行漏洞及绕过方法">命令执行漏洞及绕过方法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/14/LitCTF2023/" title="LitCTF2023">LitCTF2023</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
     <span><a href="/2023/04/23/hello-world/" title="Hello World">Hello World</a></span>
   </li>
 
@@ -791,7 +768,7 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/29/CRLF/" title="CRLF学习">CRLF学习</a></span>
+    <span><a href="/2023/04/27/upload-labs%E9%9D%B6%E5%9C%BA/" title="upload-labs靶场">upload-labs靶场</a></span>
   </li>
 
       
@@ -800,7 +777,44 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/21/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="反弹shell学习">反弹shell学习</a></span>
+    <span><a href="/2023/07/06/xxe%E6%B3%A8%E5%85%A5/" title="XXE注入">XXE注入</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/30/md5/" title="MD5绕过总结">MD5绕过总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/30/SSRF/" title="SSRF绕过">SSRF绕过</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/XSS/" title="分类于 XSS">XSS</a>
+</div>
+
+    <span><a href="/2023/06/26/XSS%E5%AD%A6%E4%B9%A0/" title="XSS初学习1">XSS初学习1</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/unserialize-labs/" title="Unserialize-labs">Unserialize-labs</a></span>
   </li>
 
       
@@ -810,7 +824,7 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <a href="/categories/NSSCTF/" title="分类于 NSSCTF精选">NSSCTF精选</a>
 </div>
 
-    <span><a href="/2023/06/04/nssctf3/" title="NSSCTF3">NSSCTF3</a></span>
+    <span><a href="/2023/05/12/nssctf2/" title="NSSCTF2">NSSCTF2</a></span>
   </li>
 
       
@@ -819,17 +833,7 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含及伪协议的使用">文件包含及伪协议的使用</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/sql/" title="分类于 SQL注入">SQL注入</a>
-</div>
-
-    <span><a href="/2023/05/07/sql%E6%B3%A8%E5%85%A5%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8/" title="时间盲注">时间盲注</a></span>
+    <span><a href="/2023/04/27/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式">正则表达式</a></span>
   </li>
 
       
@@ -838,7 +842,7 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/12/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="沙箱逃逸初学习">沙箱逃逸初学习</a></span>
+    <span><a href="/2023/05/02/ssti-labs/" title="SSTI-Labs">SSTI-Labs</a></span>
   </li>
 
   </ul>
@@ -863,13 +867,13 @@ reverse shell, 就是控制端监听在某 TCP/UDP 端口，被控端请求到�
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">163k 字</span>
+    <span title="站点总字数">182k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:28</span>
+    <span title="站点阅读时长">2:45</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
